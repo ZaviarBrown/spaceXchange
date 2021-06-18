@@ -1,15 +1,14 @@
 // Use linked list and algorithm to check the value of previous coin flip
     // Previous flip influences next
-// ```
-// if prev flip == curr flip
 
-t 
-f
-t
-f
-f
-trend 
-// ```
+    /* 
+        if prev flip == curr flip:
+                                    .25                      .25                   
+            const choices [trend for 3 iterations, trend for 5 iterations, opposite trend for 3, opp trend for 5]
+
+
+*/
+
 
 const prices = {
     a: 1,
@@ -21,24 +20,33 @@ const prices = {
     g: 7000000,
 }
 
+const vol = {
+    a: 0.001,
+    b: 0.01,
+    c: 0.05,
+    d: 0.02,
+    e: 0.9,
+    f: 0.00001,
+    g: 0.09,
+}
+
 const coinFlip = () => {
     flip = Math.floor(Math.random() * 10)
     return flip > 4 ? true : false
 }
 
-const algo = (obj) => {
+const algo = (obj, obj2) => {
     let num
     for (let key in obj) {
-        num = (Math.random() * .01)
+        num = (Math.random() * obj2[key])
         newNum = obj[key] * num
         flip = coinFlip()
         obj[key] = (flip ? newNum + obj[key] : obj[key] - newNum)
-
     }
     console.log(prices)
 }
 
-setInterval(() => algo(prices), 1000)
+setInterval(() => algo(prices, vol), 1000)
 
 
 
