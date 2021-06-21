@@ -14,8 +14,8 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     cash_balance = db.Column(db.Decimal, nullable=False)
 
-    assets = db.relationship("Asset", back_populates="users")
-    transactions = db.relationship("Transaction", back_populates="users")
+    assets = db.relationship("Asset", back_populates="user")
+    transactions = db.relationship("Transaction", back_populates="user")
 
     @property
     def password(self):

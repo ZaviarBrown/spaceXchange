@@ -11,7 +11,7 @@ class Transaction(db.Model):
     shares = db.Column(db.Integer, nullable=False)
     price_paid = db.Column(db.Decimal, nullable=False)
 
-    users = db.relationship("User", back_populates="transactions")
+    user = db.relationship("User", back_populates="transactions")
     planets = db.relationship("Planet", back_populates="transactions")
 
     def to_dict(self):

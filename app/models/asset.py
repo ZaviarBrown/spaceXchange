@@ -10,7 +10,7 @@ class Asset(db.Model):
         "planets.id"), nullable=False)
     shares = db.Column(db.Integer, nullable=False)
 
-    users = db.relationship("User", back_populates="assets")
+    user = db.relationship("User", back_populates="assets")
     planets = db.relationship("Planet", back_populates="assets")
 
     def to_dict(self):
