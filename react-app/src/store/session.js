@@ -78,6 +78,7 @@ export const signUp = (username, email, password) => async dispatch => {
       return
   }
   dispatch(setUser(data))
+  // return {}
 }
 
 
