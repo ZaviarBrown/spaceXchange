@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./store/session";
-import Planet from './components/Planet/Planet'
+import Planet from './components/Planet_Description/planetDescription'
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -16,7 +16,7 @@ function App() {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(authenticate());
       setLoaded(true);
     })();
@@ -31,7 +31,7 @@ function App() {
       <NavBar />
       <Switch>
         <Route path='/planet/:planetId' exact={true}>
-          <Planet/>
+          <Planet />
         </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
@@ -40,7 +40,7 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/users" exact={true}>
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />

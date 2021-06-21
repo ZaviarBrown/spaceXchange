@@ -2,8 +2,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
+import styles from './Buy.module.css'
 
-function Buy({ planetId }) {
+
+export default function Buy({ planetId }) {
     const dispatch = useDispatch()
     // const assets = useSelector(state => state.assets)
     // need logic to handle refresh... maybe useParams to
@@ -34,4 +36,3 @@ function Buy({ planetId }) {
     )
 }
 
-export default Buy

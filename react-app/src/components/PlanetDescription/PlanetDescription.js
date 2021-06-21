@@ -1,7 +1,8 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOnePlanet } from '../../store/planet';
+
 
 function Planet() {
   const planet = useSelector((state) => state.planet.planet);
