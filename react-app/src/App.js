@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./store/session";
+import Planet from './components/Planet/Planet'
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -29,6 +30,9 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Switch>
+        <Route path='/planet/:planetId' exact={true}>
+          <Planet/>
+        </Route>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
