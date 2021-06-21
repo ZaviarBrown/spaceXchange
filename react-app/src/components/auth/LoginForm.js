@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
 
 const LoginForm = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
