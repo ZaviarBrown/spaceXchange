@@ -9,20 +9,20 @@ transaction_routes = Blueprint("transactions", __name__)
 @login_required
 def transactions():
     transactions = Transaction.query.all().filter(
-        Transaction.user_id == current_user.id
+        Transaction.userId == current_user.id
     )
-    return {"transactions": [transaction.to_dict() for trans in transactions]}
+    return {"transactions": [trans.to_dict() for trans in transactions]}
 
 
 @transaction_routes.route("/", methods=["POST"])
 @login_required
 def new_transaction(new_trans):
     transaction = Transaction(
-        user_id=current_user.id,
-        planet_id=new_trans["plantedId"],
+        userId=current_user.id,
+        planetId=new_trans["planetId"],
         shares=new_trans["shares"],
         price_paid=new_trans["price_paid"],
     )
     db.session.add(transaction)
     db.session.commit()
-    return {"transactions": [transaction.to_dict() for trans in transactions]}
+    return 

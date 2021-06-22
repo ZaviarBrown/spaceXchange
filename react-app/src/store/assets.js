@@ -47,7 +47,7 @@ export const getAllAssets = async () => (dispatch) => {
 
 export const editOneAsset = async (id, number) => (dispatch) => {
   let body = JSON.stringify({ id, number });
-  let data = await fetch('/api/assets/:id', {
+  let data = await fetch('/api/assets/', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
