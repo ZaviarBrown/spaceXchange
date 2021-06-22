@@ -13,7 +13,6 @@ def seed_users():
     )
 
     db.session.add(demo)
-
     db.session.commit()
 
 

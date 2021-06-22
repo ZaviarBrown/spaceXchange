@@ -1,0 +1,54 @@
+.portfolio__container {
+    display: grid;
+    height: 100%;
+    border: 1px solid blue;
+    grid-template-columns: 5fr 2fr;
+    grid-template-rows: auto;
+    grid-template-areas: "left right";
+    text-align: center;
+}
+
+.portfolio__left {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    grid-area: left;
+    border: 1px solid red;
+    height: 100%;
+}
+
+.portfolio__right {
+    display: flex;
+    /* position: relative; */
+    margin: 20px;
+    grid-area: right;
+    border: 1px solid red;
+    height: 78vh;
+    left: 560px;
+}
+
+.portfolio__chart__container {
+    border: 1px solid yellow;
+    height: 345px;
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.chart__control {
+    border: 1px solid yellow;
+    height: 50px;
+    margin: 2px;
+}
+
+.buyingpower__container {
+    border: 1px solid yellow;
+    height: 65px;
+    margin: 2px;
+}
+
+.news__container {
+    border: 1px solid pink;
+    height: 175px;
+    margin: 2px;
+}

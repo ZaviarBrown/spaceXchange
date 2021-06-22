@@ -1,0 +1,7 @@
+.chart__container {
+    display: flex;
+    border: 1px solid red;
+    height: 340px;
+    justify-content: center;
+    align-items: center;
+}

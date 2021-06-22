@@ -5,14 +5,14 @@ from flask_login import UserMixin
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(40), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    cash_balance = db.Column(db.Numeric, nullable=False)
+    cash_balance = db.Column(db.Numeric(asdecimal=False), nullable=False)
 
     assets = db.relationship("Asset", back_populates="user")
     transactions = db.relationship("Transaction", back_populates="user")
@@ -34,5 +34,5 @@ class User(db.Model, UserMixin):
             "username": self.username,
             "email": self.email,
             "full_name": self.full_name,
-            "cash_balance": self.cash_balance
+            "cash_balance": self.cash_balance,
         }

@@ -18,7 +18,9 @@ const initialState = {};
 export default function planet(state = initialState, action) {
   switch (action.type) {
     case GET_PLANET:
-      return { planet: action.payload };
+      let newState = { ...state }
+      newState[action.payload] = action.payload
+      return newState
     default:
       return state;
   }

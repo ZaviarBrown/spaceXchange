@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import User from "./components/Users/User";
 import { authenticate } from "./store/session";
 import Planet from './components/PlanetDescription/PlanetDescription'
+import Portfolio from './components/Portfolio/Portfolio'
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -38,11 +39,11 @@ function App() {
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/" exact={true}>
+          <Portfolio />
+        </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <User />
-        </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} >
-          <h1>My Home Page</h1>
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>
