@@ -9,7 +9,7 @@ class Transaction(db.Model):
     planetId = db.Column(db.Integer, db.ForeignKey(
         "planets.id"), nullable=False)
     shares = db.Column(db.Integer, nullable=False)
-    price_paid = db.Column(db.Numeric, nullable=False)
+    price_paid = db.Column(db.Numeric(asdecimal=False), nullable=False)
 
     user = db.relationship("User", back_populates="transactions")
     planets = db.relationship("Planet", back_populates="transactions")

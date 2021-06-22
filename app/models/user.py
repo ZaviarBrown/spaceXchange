@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     full_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
-    cash_balance = db.Column(db.Numeric, nullable=False)
+    cash_balance = db.Column(db.Numeric(asdecimal=False), nullable=False)
 
     assets = db.relationship("Asset", back_populates="user")
     transactions = db.relationship("Transaction", back_populates="user")
