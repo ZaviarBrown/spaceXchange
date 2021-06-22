@@ -2,10 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import session from "./session"
 import planet from "./planet";
+import assets from "./assets";
+import transactions from "./transactions";
 
 const rootReducer = combineReducers({
     session,
-    planet
+    planet,
+    assets,
+    transactions,
 });
 
 
