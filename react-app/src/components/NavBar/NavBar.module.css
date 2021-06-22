@@ -1,0 +1,23 @@
+.navContainer {
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-areas: "a b c";
+  /* display: flex;
+  flex-direction: row;
+  justify-content: flex-end; */
+}
+
+.navContainer a {
+  text-decoration: none;
+}
+
+.link a {
+  text-decoration: none;
+}
+
+.navC {
+  grid-area: c;
+  display: flex;
+  justify-content: space-evenly;
+}
