@@ -54,7 +54,7 @@ export const createATransaction = (transaction) => (dispatch) => {
 
 // initial state
 
-initialState = {}
+let initialState = {}
 
 // reducer
 
