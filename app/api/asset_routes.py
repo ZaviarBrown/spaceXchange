@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from flask.globals import request
 from flask_login import login_required, current_user
 from app.models import db, Asset, transaction
 
@@ -27,13 +28,17 @@ def new_asset(asset):
 
 @asset_routes.route("/", methods=["PATCH"])
 @login_required
-def edit_asset(data):
-  id,number = data
-  asset = Asset.query.all().filter(
+def edit_asset():
+  print("HELLLLLOOOO", request)
+  # id,number = request
+  id = 1
+  number = 1
+  asset = Asset.query.filter(
     Asset.id == id and Asset.userId == current_user.id
-  )
+  ).first()
   #we might need conditions?
-  asset["shares"] += number
+  print("Is this the asset?", asset)
+  # asset["shares"] = asset["shares"] + number
 
   db.session.commit()
   return jsonify(asset)

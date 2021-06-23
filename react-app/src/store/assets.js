@@ -56,10 +56,11 @@ export const editOneAsset = (id, number) => async (dispatch) => {
     body: body,
   });
   data = await data.json();
+  console.log("HEREHEREHERE", data)
   if (data.errors) {
     return;
   }
-  dispatch(editAsset(data));
+  dispatch(editAsset(data, number));
 };
 
 export const createOneAsset = (asset) => async (dispatch) => {

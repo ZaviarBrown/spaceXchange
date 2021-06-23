@@ -13,6 +13,9 @@ class Asset(db.Model):
     user = db.relationship("User", back_populates="assets")
     planets = db.relationship("Planet", back_populates="assets")
 
+    def __repr__(self):
+        return f'id{self.id}, shares{self.shares}'
+
     def to_dict(self):
         return {
             "id": self.id,

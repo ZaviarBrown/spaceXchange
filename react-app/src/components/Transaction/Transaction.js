@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllAssets } from '../../store/assets';
+import { editOneAsset, getAllAssets } from '../../store/assets';
 
 import styles from './Transaction.module.css';
 
@@ -18,14 +18,28 @@ export default function Transaction({ planetId }) {
     let number;
     let found = asset.find((el) => el['planetId'] === +planetId);
 
-    if (orderType === 'sell') {
-      if (amount > found.shares) {
-        window.alert("You don't own that many shares.");
-        return;
-      }
-      number = amount * -1;
+    if (found) {
+      if (orderType === 'sell') {
+        if (amount === found.shares) {
+          //delete
+          return 
+        }
+        if (amount > found.shares) {
+          window.alert("You don't own that many shares.");
+          return;
+        }
+        number = amount * -1;
+      } 
+      dispatch(editOneAsset(found.id, number))
+      //updating a share they own
     } else {
-      number = amount;
+      //they don't own this asset
+      if (orderType === 'buy') {
+        window.alert("You don't own this coin.");
+        return;
+      } else {
+        //dispatch create
+      }
     }
 
     //maybe push history("/")??
