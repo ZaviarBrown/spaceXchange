@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getListItems } from '../../store/ownedList';
 import styles from './OwnedList.module.css';
 
-export default function OwnedList() {
+export default function OwnedList({asset}) {
   const dispatch = useDispatch();
 
   const assets = useSelector(state => state.ownedList);
@@ -15,11 +15,12 @@ export default function OwnedList() {
 
   const { id, planetId, shares } = assets
 
-  console.log(assets)
-  console.log(userId)
+  // console.log(assets)
+  // console.log(Object.values(assets))
+  
   return (
     <div>
-      <h1>Hi</h1>
+      <h1>{asset.planetName}</h1>
     </div>
   );
 }
