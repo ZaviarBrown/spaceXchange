@@ -18,9 +18,9 @@ const editAsset = (assetId, newShares) => ({
   payload: { assetId, newShares },
 });
 
-const createAsset = (asset) => ({
+const createAsset = (id, planetId, userId, amount) => ({
   type: CREATE_ASSET,
-  payload: asset,
+  payload: { id, planetId, userId, amount }
 });
 
 const deleteAsset = (id) => ({
@@ -62,8 +62,8 @@ export const editOneAsset = (id, number) => async (dispatch) => {
   dispatch(editAsset(assetId, newShares));
 };
 
-export const createOneAsset = (asset) => async (dispatch) => {
-  let body = JSON.stringify(asset);
+export const createOneAsset = (amount, planetId) => async (dispatch) => {
+  let body = JSON.stringify({ amount, planetId });
   let data = await fetch('/api/assets/', {
     method: 'POST',
     headers: {
@@ -76,12 +76,15 @@ export const createOneAsset = (asset) => async (dispatch) => {
   if (data.errors) {
     return;
   }
-  dispatch(createAsset(data));
+  let id = data['id']
+  let userId = data['userId']
+
+  dispatch(createAsset(id, planetId, userId, amount));
 };
 
 export const deleteOneAsset = (id) => async (dispatch) => {
   let body = JSON.stringify(id);
-  let data = await fetch('/api/assets/:id', {
+  let data = await fetch('/api/assets/', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -122,7 +125,7 @@ export default function reducer(state = initialState, action) {
     }
     case DELETE_ASSET: {
       const newState = { ...state };
-      delete newState[action.payload.id];
+      delete newState[action.payload];
       return newState;
     }
     default:

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { editOneAsset, getAllAssets } from '../../store/assets';
+import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 
 import styles from './Transaction.module.css';
 
@@ -8,9 +8,13 @@ export default function Transaction({ planetId }) {
   const dispatch = useDispatch();
   const assets = useSelector(state => state.assets);
   const userId = useSelector(state => state.session.user.id);
+  // we need to integrate looking at the users balance and adding up the price
+  const userCash = useSelector(state => state.session.user.cash_balance)
 
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
+  // for use with updating prices to use for purchase validation
+  const [currentPrices, setCurrentPrices] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,13 +23,13 @@ export default function Transaction({ planetId }) {
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
     if (found) {
       if (orderType === 'sell') { //! ORDER TYPE SELL
-        if (amount === found.shares) {
+        if (amount == found.shares) {
+          dispatch(deleteOneAsset(found.id))
           //! dispatch delete
           //!delete because they are selling all their shares
           return
         }
-        if (amount > found.shares) {
-          //they don't own this asset
+        else if (amount > found.shares) {
           window.alert("You don't own that many shares.")
           return
         }
@@ -33,11 +37,25 @@ export default function Transaction({ planetId }) {
         number = amount * -1
         dispatch(editOneAsset(found.id, number))
 
-      } else if (orderType === 'buy') {  //!THIS MEANS ORDER TYPE IS BUY
-        //!BUY LOGIC GOES HERE
+      } else if (orderType === 'buy') {
+        number = amount * 1
+        // if (cash balance is enough) //!THIS MEANS ORDER TYPE IS BUY
+        dispatch(editOneAsset(found.id, number))
       }
+
+
     } else { //! IF FOUND IS set to NULL---------
-      // we will have to create the asset
+      if (orderType === 'buy') {
+        // new asset needs to be created
+        number = amount * 1
+        dispatch(createOneAsset(number, +planetId))
+        dispatch(getAllAssets())
+      } else {
+        if (orderType === 'sell') {
+          alert("You don't have any to sell")
+          return
+        }
+      }
       return
     }
 
