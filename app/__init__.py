@@ -11,6 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.planet_routes import planet_routes
 from .api.transaction_routes import transaction_routes
 from .api.asset_routes import asset_routes
+from .api.owned_list_routes import owned_list_routes
 
 
 from .seeds import seed_commands
@@ -38,6 +39,7 @@ app.register_blueprint(auth_routes, url_prefix="/api/auth")
 app.register_blueprint(planet_routes, url_prefix="/api/planet")
 app.register_blueprint(transaction_routes, url_prefix="/api/transactions")
 app.register_blueprint(asset_routes, url_prefix="/api/assets")
+app.register_blueprint(owned_list_routes, url_prefix="/api/owned_list")
 db.init_app(app)
 Migrate(app, db)
 

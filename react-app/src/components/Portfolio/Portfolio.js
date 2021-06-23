@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 import Chart from '../Chart/Chart'
 import styles from './Portfolio.module.css'
+import OwnedList from '../OwnedList/OwnedList'
 
 
 export default function Portfolio() {
@@ -25,6 +26,7 @@ export default function Portfolio() {
             </div>
 
             <div className={styles.portfolio__right}>
+                <OwnedList></OwnedList>
                 Right
                 <div>
                     List

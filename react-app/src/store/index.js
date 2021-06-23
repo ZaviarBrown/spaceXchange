@@ -4,12 +4,14 @@ import session from "./session"
 import planet from "./planet";
 import assets from "./assets";
 import transactions from "./transactions";
+import ownedList from "./ownedList"
 
 const rootReducer = combineReducers({
     session,
     planet,
     assets,
     transactions,
+    ownedList
 });
 
 
