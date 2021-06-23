@@ -1,0 +1,20 @@
+.signupPageContainer {
+  display: flex;
+}
+
+.signupImgContainer, 
+.signupFormContainer {
+  display: flex;
+  width: 50%;
+  height: 100vh;
+}
+
+.signupImgContainer img {
+  width: 100%;
+}
+
+.signupFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
