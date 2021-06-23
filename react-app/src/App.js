@@ -7,8 +7,9 @@ import NavBar from "./components/NavBar/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import User from "./components/Users/User";
 import { authenticate } from "./store/session";
-import Planet from './components/PlanetDescription/PlanetDescription'
-import Portfolio from './components/Portfolio/Portfolio'
+import Planet from './components/PlanetDescription/PlanetDescription';
+import Portfolio from './components/Portfolio/Portfolio';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -28,24 +29,36 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route path='/planet/:planetId' exact={true}>
-          <Planet />
-        </Route>
-        <Route path="/login" exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path="/sign-up" exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path="/" exact={true}>
-          <Portfolio />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true}>
-          <User />
-        </ProtectedRoute>
-      </Switch>
+      <Route render={({location}) => (
+        <TransitionGroup>
+          <CSSTransition 
+            timeout={1000}
+            classNames="fade"
+            key={location.key}
+          >
+            <Switch location={location}>
+              <Route path="/login" exact={true}>
+                <LoginForm />
+              </Route>
+              <Route path="/sign-up" exact={true}>
+                <SignUpForm />
+              </Route>
+              <ProtectedRoute path="/" exact={true}>
+                <NavBar />  
+                <Portfolio />
+              </ProtectedRoute>
+              <Route path='/planet/:planetId' exact={true}>
+                <NavBar />  
+                <Planet />
+              </Route>
+              <ProtectedRoute path="/users/:userId" exact={true}>
+                <NavBar />  
+                <User />
+              </ProtectedRoute>
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
+      )} />
     </BrowserRouter>
   );
 }
