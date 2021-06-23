@@ -11,9 +11,9 @@ const getTransactions = (transactions) => ({
     payload: transactions
 })
 
-const createTransaction = (newTransaction) => ({
+const createTransaction = (id, planetId, price_paid, shares) => ({
     type: CREATE_TRANSACTION,
-    payload: newTransaction
+    payload: { id, planetId, price_paid, shares }
 })
 
 const deleteTransaction = (id) => ({
@@ -24,7 +24,7 @@ const deleteTransaction = (id) => ({
 
 // thunks
 
-export const getAllTransactions = (transactions) => async (dispatch) => {
+export const getAllTransactions = () => async (dispatch) => {
     const response = await fetch('/api/transactions/', {
         headers: {
             'Content-Type': 'application/json'
@@ -36,8 +36,8 @@ export const getAllTransactions = (transactions) => async (dispatch) => {
     }
     dispatch(getTransactions(data))
 }
-export const createATransaction = (transaction) => async (dispatch) => {
-    let newTransaction = JSON.stringify(transaction);
+export const createATransaction = (transPrice, planetId, number) => async (dispatch) => {
+    let newTransaction = JSON.stringify({ transPrice, planetId, number });
     const response = await fetch('/api/transactions/', {
         method: "POST",
         headers: {
@@ -49,7 +49,9 @@ export const createATransaction = (transaction) => async (dispatch) => {
     if (data.errors) {
         return;
     }
-    dispatch(getTransactions(data))
+    console.log("trans data\n\n\n", data)
+    let id = data['transactions'].id;
+    dispatch(createTransaction(id, planetId, transPrice, number))
 }
 
 // initial state
@@ -63,7 +65,7 @@ export default function reducer(state = initialState, action) {
         //written for object for now
         case GET_TRANSACTIONS: {
             const newState = { ...state }
-            let transArr = Array.from(action.payload)
+            let transArr = action.payload['transactions']
             transArr.forEach((trans) => {
                 newState[trans.id] = trans
             })
@@ -72,7 +74,7 @@ export default function reducer(state = initialState, action) {
 
         case CREATE_TRANSACTION: {
             const newState = { ...state }
-            newState[action.payload] = action.payload
+            newState[action.payload.id] = action.payload
             return newState
         }
 

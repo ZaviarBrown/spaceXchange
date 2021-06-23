@@ -17,11 +17,16 @@ def assets():
 @asset_routes.route("/", methods=["POST"])
 @login_required
 def new_asset():
+    totalPrice = request.json["totalPrice"]
     amount = request.json["amount"]
     planetId = request.json["planetId"]
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    current_user.cash_balance = current_user.cash_balance + float(totalPrice)
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
     created = Asset(userId=current_user.id, planetId=planetId, shares=amount)
     db.session.add(created)
     db.session.commit()
+
     assetId = created.id
     userId = created.userId
     return {"id": assetId, "userId": userId}
@@ -30,8 +35,11 @@ def new_asset():
 @asset_routes.route("/", methods=["PATCH"])
 @login_required
 def edit_asset():
-    #! this is how you access the request IF IT IS JSON
+    totalPrice = request.json["totalPrice"]
     id = request.json["id"]
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    current_user.cash_balance = current_user.cash_balance + float(totalPrice)
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
     number = request.json["number"]
     asset = Asset.query.filter(
         Asset.id == id and Asset.userId == current_user.id
@@ -45,7 +53,11 @@ def edit_asset():
 @asset_routes.route("/", methods=["DELETE"])
 @login_required
 def delete_asset():
-    id = request.json
+    totalPrice = request.json["totalPrice"]
+    id = request.json["id"]
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    current_user.cash_balance = current_user.cash_balance + float(totalPrice)
+    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
     asset = Asset.query.filter(
         Asset.id == id and Asset.userId == current_user.id
     ).first()
