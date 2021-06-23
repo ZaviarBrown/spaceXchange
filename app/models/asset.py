@@ -19,5 +19,6 @@ class Asset(db.Model):
             "id": self.id,
             "userId": self.userId,
             "planetId": self.planetId,
+            "planetName": self.planetName,
             "shares": self.shares
         }
