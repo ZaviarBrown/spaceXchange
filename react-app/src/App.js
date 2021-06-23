@@ -9,6 +9,7 @@ import User from "./components/Users/User";
 import { authenticate } from "./store/session";
 import Planet from './components/PlanetDescription/PlanetDescription';
 import Portfolio from './components/Portfolio/Portfolio';
+import Article from "./components/articles/Article";
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function App() {
