@@ -19,14 +19,17 @@ export default function Transaction({ planetId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let assetPrice = 5 //! place holder for the price we grab from algorithm
+    let assetPrice = 5.3545234 //! place holder for the price we grab from algorithm
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
     if (found) {
       if (orderType === 'sell') { //! ORDER TYPE SELL
         if (amount * 1 === found.shares) {
-          dispatch(deleteOneAsset(found.id))
+          //! factoring in total price to deal with user cash
+          let totalPrice = amount * 1 * assetPrice
+          number = amount * 1
+          dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(getAllAssets())
           //! dispatch delete
           //! delete because they are selling all their shares
@@ -37,15 +40,18 @@ export default function Transaction({ planetId }) {
           return
         }
         //! converting to a negative number pre dispatch
+        let totalPrice = amount * 1 * assetPrice
         number = amount * -1
-        dispatch(editOneAsset(found.id, number))
+        dispatch(editOneAsset(found.id, number, totalPrice))
         dispatch(getAllAssets())
 
       } else if (orderType === 'buy') {
+        let totalPrice = amount * -1 * assetPrice
+        console.log(totalPrice);
         number = amount * 1
         let transPrice = number * assetPrice
         //! if (cash balance is enough) //! THIS MEANS ORDER TYPE IS BUY
-        dispatch(editOneAsset(found.id, number))
+        dispatch(editOneAsset(found.id, number, totalPrice))
         dispatch(createATransaction(transPrice, +planetId, number))
         dispatch(getAllAssets())
       }
@@ -53,9 +59,10 @@ export default function Transaction({ planetId }) {
 
     } else { //! IF FOUND IS set to NULL---------
       if (orderType === 'buy') {
+        let totalPrice = amount * -1 * assetPrice
         number = amount * 1
         let transPrice = number * assetPrice
-        dispatch(createOneAsset(number, +planetId))
+        dispatch(createOneAsset(number, +planetId, totalPrice))
         dispatch(createATransaction(transPrice, +planetId, number))
         dispatch(getAllAssets())
       } else {

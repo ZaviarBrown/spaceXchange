@@ -44,8 +44,8 @@ export const getAllAssets = () => async (dispatch) => {
   dispatch(getAssets(data.assets));
 };
 
-export const editOneAsset = (id, number) => async (dispatch) => {
-  let body = JSON.stringify({ id, number });
+export const editOneAsset = (id, number, totalPrice) => async (dispatch) => {
+  let body = JSON.stringify({ id, number, totalPrice });
   let data = await fetch('/api/assets/', {
     method: 'PATCH',
     headers: {
@@ -62,8 +62,8 @@ export const editOneAsset = (id, number) => async (dispatch) => {
   dispatch(editAsset(assetId, newShares));
 };
 
-export const createOneAsset = (amount, planetId) => async (dispatch) => {
-  let body = JSON.stringify({ amount, planetId });
+export const createOneAsset = (amount, planetId, totalPrice) => async (dispatch) => {
+  let body = JSON.stringify({ amount, planetId, totalPrice });
   let data = await fetch('/api/assets/', {
     method: 'POST',
     headers: {
@@ -82,8 +82,8 @@ export const createOneAsset = (amount, planetId) => async (dispatch) => {
   dispatch(createAsset(id, planetId, userId, amount));
 };
 
-export const deleteOneAsset = (id) => async (dispatch) => {
-  let body = JSON.stringify(id);
+export const deleteOneAsset = (id, totalPrice) => async (dispatch) => {
+  let body = JSON.stringify({ id, totalPrice });
   let data = await fetch('/api/assets/', {
     method: 'DELETE',
     headers: {
