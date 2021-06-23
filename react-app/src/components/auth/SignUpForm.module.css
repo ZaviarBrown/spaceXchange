@@ -1,0 +1,20 @@
+.loginPageContainer {
+  display: flex;
+}
+
+.loginImgContainer, 
+.loginFormContainer {
+  display: flex;
+  width: 50%;
+  height: 100vh;
+}
+
+.loginImgContainer img {
+  width: 100%;
+}
+
+.loginFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
