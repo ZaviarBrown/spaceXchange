@@ -13,14 +13,14 @@ const getAssets = (assets) => ({
   payload: assets,
 });
 
-const editAsset = (id, number) => ({
+const editAsset = (assetId, newShares) => ({
   type: EDIT_ASSET,
-  payload: { id, number },
+  payload: { assetId, newShares },
 });
 
-const createAsset = (asset) => ({
+const createAsset = (id, planetId, userId, amount) => ({
   type: CREATE_ASSET,
-  payload: asset,
+  payload: { id, planetId, userId, amount }
 });
 
 const deleteAsset = (id) => ({
@@ -30,24 +30,23 @@ const deleteAsset = (id) => ({
 
 // thunks
 
-export const getAllAssets = async () => (dispatch) => {
+export const getAllAssets = () => async (dispatch) => {
   let data = await fetch('/api/assets/', {
     headers: {
       'Content-Type': 'application/json',
     },
   });
-
+  //! We may have to key into the return of assets GET route
   data = await data.json();
-
   if (data.errors) {
     return;
   }
-  dispatch(getAssets(data));
+  dispatch(getAssets(data.assets));
 };
 
-export const editOneAsset = async (id, number) => (dispatch) => {
+export const editOneAsset = (id, number) => async (dispatch) => {
   let body = JSON.stringify({ id, number });
-  let data = await fetch('/api/assets/:id', {
+  let data = await fetch('/api/assets/', {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
@@ -58,11 +57,13 @@ export const editOneAsset = async (id, number) => (dispatch) => {
   if (data.errors) {
     return;
   }
-  dispatch(editAsset(data));
+  let newShares = data.shares
+  let assetId = data.id
+  dispatch(editAsset(assetId, newShares));
 };
 
-export const createOneAsset = async (asset) => (dispatch) => {
-  let body = JSON.stringify(asset);
+export const createOneAsset = (amount, planetId) => async (dispatch) => {
+  let body = JSON.stringify({ amount, planetId });
   let data = await fetch('/api/assets/', {
     method: 'POST',
     headers: {
@@ -71,15 +72,19 @@ export const createOneAsset = async (asset) => (dispatch) => {
     body: body,
   });
   data = await data.json();
+  //! need to confirm that return is proper in asset routes line 26
   if (data.errors) {
     return;
   }
-  dispatch(createAsset(data));
+  let id = data['id']
+  let userId = data['userId']
+
+  dispatch(createAsset(id, planetId, userId, amount));
 };
 
-export const deleteOneAsset = async (id) => (dispatch) => {
+export const deleteOneAsset = (id) => async (dispatch) => {
   let body = JSON.stringify(id);
-  let data = await fetch('/api/assets/:id', {
+  let data = await fetch('/api/assets/', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -103,34 +108,27 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case GET_ASSETS: {
       const newState = { ...state };
-      let assetArr = Array.from(action.payload)
-      assetArr.forEach((asset)=>{
-        newState[asset.id] = asset
-      })
-      return newState
+      action.payload.forEach((asset) => {
+        newState[asset.id] = asset;
+      });
+      return newState;
     }
     case EDIT_ASSET: {
-      const newState = {...state};
-      if (action.payload.number > 0) {
-        newState[action.payload.id][shares] += action.payload.number
-      }
-      if (action.payload.number < 0) {
-        newState[action.payload.id][shares] -= action.payload.number
-      }
-      return newState
+      const newState = { ...state };
+      newState[action.payload.assetId].shares = action.payload.newShares;
+      return newState;
     }
     case CREATE_ASSET: {
-      const newState = {...state}
-      newState[action.payload.id] = action.payload
-      return newState
+      const newState = { ...state };
+      newState[action.payload.id] = action.payload;
+      return newState;
     }
     case DELETE_ASSET: {
-      const newState = {...state}
-      delete newState[action.payload.id]
-      return newState
+      const newState = { ...state };
+      delete newState[action.payload];
+      return newState;
     }
     default:
       return state;
   }
-
 }
