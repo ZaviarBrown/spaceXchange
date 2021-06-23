@@ -24,7 +24,7 @@ const deleteTransaction = (id) => ({
 
 // thunks
 
-export const getAllTransactions = (transactions) => (dispatch) => {
+export const getAllTransactions = (transactions) => async (dispatch) => {
     const response = await fetch('/api/transactions/', {
         headers: {
             'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ export const getAllTransactions = (transactions) => (dispatch) => {
     }
     dispatch(getTransactions(data))
 }
-export const createATransaction = (transaction) => (dispatch) => {
+export const createATransaction = (transaction) => async (dispatch) => {
     let newTransaction = JSON.stringify(transaction);
     const response = await fetch('/api/transactions/', {
         method: "POST",

@@ -2,7 +2,7 @@ from .db import db
 
 
 class Asset(db.Model):
-    __tablename__ = 'assets'
+    __tablename__ = "assets"
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
@@ -13,6 +13,9 @@ class Asset(db.Model):
 
     user = db.relationship("User", back_populates="assets")
     planets = db.relationship("Planet", back_populates="assets")
+
+    def __repr__(self):
+        return f"id{self.id}, shares{self.shares}"
 
     def to_dict(self):
         return {
