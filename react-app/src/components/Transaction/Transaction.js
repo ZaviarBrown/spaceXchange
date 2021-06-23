@@ -6,40 +6,39 @@ import styles from './Transaction.module.css';
 
 export default function Transaction({ planetId }) {
   const dispatch = useDispatch();
-  const assets = useSelector((state) => state.assets);
-  const userId = useSelector((state) => state.session.user.id);
+  const assets = useSelector(state => state.assets);
+  const userId = useSelector(state => state.session.user.id);
 
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let asset = Object.values(assets);
-    let number;
-    let found = asset.find((el) => el['planetId'] === +planetId);
-
+    let asset = Object.values(assets)
+    let number
+    let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
     if (found) {
-      if (orderType === 'sell') {
+      if (orderType === 'sell') { //! ORDER TYPE SELL
         if (amount === found.shares) {
-          //delete
-          return 
+          //! dispatch delete
+          //!delete because they are selling all their shares
+          return
         }
         if (amount > found.shares) {
-          window.alert("You don't own that many shares.");
-          return;
+          //they don't own this asset
+          window.alert("You don't own that many shares.")
+          return
         }
-        number = amount * -1;
-      } 
-      dispatch(editOneAsset(found.id, number))
-      //updating a share they own
-    } else {
-      //they don't own this asset
-      if (orderType === 'buy') {
-        window.alert("You don't own this coin.");
-        return;
-      } else {
-        //dispatch create
+        //! converting to a negative number pre dispatch
+        number = amount * -1
+        dispatch(editOneAsset(found.id, number))
+
+      } else if (orderType === 'buy') {  //!THIS MEANS ORDER TYPE IS BUY
+        //!BUY LOGIC GOES HERE
       }
+    } else { //! IF FOUND IS set to NULL---------
+      // we will have to create the asset
+      return
     }
 
     //maybe push history("/")??
@@ -51,7 +50,7 @@ export default function Transaction({ planetId }) {
 
   //! create conditional rendering also using ternaries and state to
   //! handle either BUY or SELL
-  let ownedAssets;
+  // let ownedAssets;
 
   // if (!ownedAssets) {
   //     return null

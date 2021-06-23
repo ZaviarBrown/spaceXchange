@@ -13,9 +13,9 @@ const getAssets = (assets) => ({
   payload: assets,
 });
 
-const editAsset = (id, number) => ({
+const editAsset = (assetId, newShares) => ({
   type: EDIT_ASSET,
-  payload: { id, number },
+  payload: { assetId, newShares },
 });
 
 const createAsset = (asset) => ({
@@ -38,8 +38,6 @@ export const getAllAssets = () => async (dispatch) => {
   });
   //! We may have to key into the return of assets GET route
   data = await data.json();
-  console.log(data);
-
   if (data.errors) {
     return;
   }
@@ -56,11 +54,12 @@ export const editOneAsset = (id, number) => async (dispatch) => {
     body: body,
   });
   data = await data.json();
-  console.log("HEREHEREHERE", data)
   if (data.errors) {
     return;
   }
-  dispatch(editAsset(data, number));
+  let newShares = data.shares
+  let assetId = data.id
+  dispatch(editAsset(assetId, newShares));
 };
 
 export const createOneAsset = (asset) => async (dispatch) => {
@@ -113,12 +112,7 @@ export default function reducer(state = initialState, action) {
     }
     case EDIT_ASSET: {
       const newState = { ...state };
-      if (action.payload.number > 0) {
-        newState[action.payload.id]['shares'] += action.payload.number;
-      }
-      if (action.payload.number < 0) {
-        newState[action.payload.id]['shares'] -= action.payload.number;
-      }
+      newState[action.payload.assetId].shares = action.payload.newShares;
       return newState;
     }
     case CREATE_ASSET: {
