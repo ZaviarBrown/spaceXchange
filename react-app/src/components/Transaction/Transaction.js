@@ -23,8 +23,9 @@ export default function Transaction({ planetId }) {
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
     if (found) {
       if (orderType === 'sell') { //! ORDER TYPE SELL
-        if (amount == found.shares) {
+        if (amount * 1 === found.shares) {
           dispatch(deleteOneAsset(found.id))
+          dispatch(getAllAssets())
           //! dispatch delete
           //!delete because they are selling all their shares
           return
@@ -36,11 +37,13 @@ export default function Transaction({ planetId }) {
         //! converting to a negative number pre dispatch
         number = amount * -1
         dispatch(editOneAsset(found.id, number))
+        dispatch(getAllAssets())
 
       } else if (orderType === 'buy') {
         number = amount * 1
         // if (cash balance is enough) //!THIS MEANS ORDER TYPE IS BUY
         dispatch(editOneAsset(found.id, number))
+        dispatch(getAllAssets())
       }
 
 
@@ -64,7 +67,7 @@ export default function Transaction({ planetId }) {
 
   useEffect(() => {
     dispatch(getAllAssets());
-  }, []);
+  }, [dispatch]);
 
   //! create conditional rendering also using ternaries and state to
   //! handle either BUY or SELL
