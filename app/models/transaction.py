@@ -6,7 +6,9 @@ class Transaction(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    planetId = db.Column(db.Integer, db.ForeignKey("planets.id"), nullable=False)
+    planetId = db.Column(db.Integer, db.ForeignKey(
+        "planets.id"), nullable=False)
+    orderType = db.Column(db.String(4), nullable=False)
     shares = db.Column(db.Integer, nullable=False)
     price_paid = db.Column(db.Numeric(asdecimal=False), nullable=False)
 
@@ -18,6 +20,7 @@ class Transaction(db.Model):
             "id": self.id,
             "userId": self.userId,
             "planetId": self.planetId,
+            "orderType": self.orderType,
             "shares": self.shares,
             "price_paid": self.price_paid,
         }
