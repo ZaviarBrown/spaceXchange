@@ -7,20 +7,18 @@ export default function OwnedList({asset}) {
   const dispatch = useDispatch();
 
   const assets = useSelector(state => state.ownedList);
-  const userId = useSelector(state => state.session.user.id);
+  
 
   useEffect(() =>{
     dispatch(getListItems())
   }, [])
-
-  const { id, planetId, shares } = assets
 
   // console.log(assets)
   // console.log(Object.values(assets))
   
   return (
     <div>
-      <h1>{asset.planetName}</h1>
+      <div>{asset.planetName}</div>
     </div>
   );
 }
