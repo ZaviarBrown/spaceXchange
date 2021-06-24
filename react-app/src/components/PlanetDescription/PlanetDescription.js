@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
+import Chart from '../Chart/Chart';
 
 import Transaction from '../Transaction/Transaction';
 
@@ -33,7 +34,8 @@ function Planet() {
   return (
     <>
       <div>
-        <h1>{planet[planet]?.name}</h1>
+      <Chart />
+      <h1>{planet[planet]?.name}</h1>
         <div>{planet[planet]?.description}</div>
         <div>{planet[planet]?.labor_force}</div>
         <div>{planet[planet]?.price}</div>
