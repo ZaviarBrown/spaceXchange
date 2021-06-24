@@ -1,5 +1,19 @@
+.articleWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .article {
-  border: 2px solid white;
+  border: 1px solid white;
   width: 50vw;
-  height: 75px;
+  height: 100%;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.article a {
+  text-decoration: none;
+  color: aliceblue;
 }

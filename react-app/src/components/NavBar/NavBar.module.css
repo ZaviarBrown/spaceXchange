@@ -1,15 +1,24 @@
 .navContainer {
   display: grid;
+  background-color: #0C4271;
+  height: 75px;
   grid-template-rows: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-template-areas: "a b c";
-  /* display: flex;
-  flex-direction: row;
-  justify-content: flex-end; */
+  color: #E7E6E1;
+  font-weight: bold;
 }
 
 .navContainer a {
+  display: flex;
+  justify-content: center;
+  align-content: center;
   text-decoration: none;
+  color: #E7E6E1;
+}
+
+.navContainer a:hover {
+  color: white;
 }
 
 .link a {
@@ -19,5 +28,7 @@
 .navC {
   grid-area: c;
   display: flex;
+  flex-wrap: wrap;
+  align-content: center;
   justify-content: space-evenly;
 }

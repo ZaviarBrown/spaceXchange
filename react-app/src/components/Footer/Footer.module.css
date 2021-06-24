@@ -1,0 +1,9 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 50px;
+}
