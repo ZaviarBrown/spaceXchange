@@ -112,11 +112,14 @@ export default function Transaction({ planetId}) {
         action=""
         onSubmit={(e) => handleSubmit(e)}
       >
-        <input
+        <div className={styles.shares}>
+        <label>Shares:</label>
+        <input className={styles.shareInput}
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
+        </div>
         <div className={styles.transactionButtons}>
           <button onClick={() => setOrderType('buy')}>Buy</button>
           <button onClick={() => setOrderType('sell')}>Sell</button>
