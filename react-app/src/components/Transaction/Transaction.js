@@ -13,16 +13,18 @@ import {
 
 import styles from './Transaction.module.css';
 
-export default function Transaction({ planetId }) {
+export default function Transaction({ planetId}) {
   const dispatch = useDispatch();
   const assets = useSelector((state) => state.assets);
   const userId = useSelector((state) => state.session.user.id);
-  // we need to integrate looking at the users balance and adding up the price
+  let planet = useSelector((state) => state.planet);
+  planet= planet[planet]
+  
   const userCash = useSelector((state) => state.session.user.cash_balance);
 
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
-  // for use with updating prices to use for purchase validation
+  
   const [currentPrices, setCurrentPrices] = useState({});
 
   const handleSubmit = (e) => {
@@ -89,19 +91,27 @@ export default function Transaction({ planetId }) {
     //maybe push history("/")??
   };
 
+  
+  console.log('MY PLANET ID', planetId);
+
   useEffect(() => {
     dispatch(getAllAssets());
     dispatch(getAllTransactions());
   }, [amount]);
 
   return (
+    <>
     <div className={styles.transaction__container}>
+      <div className={styles.orderContainer}>
+        <div className={styles.order}>
+        Buy {planet?.name}
+          </div>
+      </div>
       <form
         className={styles.transactionForm}
         action=""
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div>Buy Test</div>
         <input
           type="number"
           value={amount}
@@ -113,5 +123,6 @@ export default function Transaction({ planetId }) {
         </div>
       </form>
     </div>
+    </>
   );
 }
