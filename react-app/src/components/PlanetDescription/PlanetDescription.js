@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
+import Chart from '../Chart/Chart';
+
+import styles from './PlanetDescription.module.css';
 
 import Transaction from '../Transaction/Transaction';
 
 function Planet() {
   const planet = useSelector((state) => state.planet);
-  // const { planet } = planetO
+
   const dispatch = useDispatch();
   const { planetId } = useParams();
-  // console.log("HELLO", planet[planet]?.description)
-  // console.log(planet)
 
   const [articles, setArticles] = useState([]);
 
@@ -32,30 +33,40 @@ function Planet() {
   if (!planet) return null;
   return (
     <>
-      <div>
-        <h1>{planet[planet]?.name}</h1>
-        <div>{planet[planet]?.description}</div>
-        <div>{planet[planet]?.labor_force}</div>
-        <div>{planet[planet]?.price}</div>
-      </div>
-      <div>
-        <Article articles={articles} />
-      </div>
-      <div>
-        <Transaction planetId={planetId} />
+      <div className={styles.pageContainer}>
+        <div className={styles.pageLeft}>
+          <div className={styles.planetContainer}>
+            <div className={styles.nameContainer}>
+              <h1>{planet[planet]?.name}</h1>
+            </div>
+            <div className={styles.chartContainer}>
+              <Chart></Chart>
+            </div>
+            <div className={styles.underline}>
+              <h2>About</h2>
+            </div>
+            <p>{planet[planet]?.description}</p>
+            <div>
+              <section className={styles.underline}>
+                <header>
+                  <h2>Key Statistics</h2>
+                </header>
+              </section>
+              <div>Labor Force: {planet[planet]?.labor_force}</div>
+            </div>
+            <div>Price: {planet[planet]?.price}</div>
+          </div>
+          {/* <div className={styles.articleComponentContainer}> */}
+          <Article articles={articles} />
+          {/* </div> */}
+        </div>
+        <div className={styles.pageRight}>
+          <div>
+            <Transaction planetId={planetId} />
+          </div>
+        </div>
       </div>
     </>
-    // if (!planet) return null
-    //   return (
-    //     <div>
-    //       <h1>{planet[planet]?.name}</h1>
-    //       <div>{planet[planet]?.description}</div>
-    //       <div>{planet[planet]?.labor_force}</div>
-    //       <div>{planet[planet]?.price}</div>
-    //       <div>
-    //         <Transaction planetId={planetId}/>
-    //       </div>
-    //     </div>
   );
 }
 

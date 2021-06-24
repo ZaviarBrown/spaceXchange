@@ -49,6 +49,6 @@
 
 .news__container {
     border: 1px solid pink;
-    height: 175px;
+    overflow: hidden;
     margin: 2px;
 }

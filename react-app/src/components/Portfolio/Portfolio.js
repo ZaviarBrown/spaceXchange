@@ -26,7 +26,7 @@ export default function Portfolio() {
     getArticles();
   }, []);
 
-  console.log('OWNED ASSETS', ownedAssets);
+  // console.log('OWNED ASSETS', ownedAssets);
 
   return (
     <div className={styles.portfolio__container}>

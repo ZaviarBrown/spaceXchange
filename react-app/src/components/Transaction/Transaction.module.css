@@ -1,3 +1,26 @@
 .transaction__container {
-    border: 1px solid red
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    height: 175px;
+    margin-top: 200px;
+    width: 250px;
+    position: fixed;
+    background-color: #E7E6E1;
+}
+
+.transactionForm {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    padding: 13px 10px 25px 10px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transactionButtons{
+
 }

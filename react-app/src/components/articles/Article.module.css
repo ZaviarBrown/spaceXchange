@@ -1,5 +1,30 @@
 .article {
-  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(169, 173, 220);
   width: 50vw;
   height: 75px;
+  margin: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: rgb(122, 146, 159);
+}
+
+.articleWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* margin: 5px; */
+}
+
+.articleContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-left: 125px; */
 }

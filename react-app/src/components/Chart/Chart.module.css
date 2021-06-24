@@ -1,7 +1,15 @@
 .chart__container {
     display: flex;
-    border: 1px solid red;
     height: 340px;
+    width: 800px;
+    /* margin-left: 125px; */
     justify-content: center;
     align-items: center;
+    background-color: #E7E6E1;
+}
+
+.underline {
+    height: 1px;
+    border: 3px solid;
+    border-color: #E7E6E1;
 }
