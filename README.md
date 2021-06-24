@@ -18,6 +18,7 @@ This is the backend for the Flask React project.
 
 3. Create a **.env** file based on the example with proper settings for your
    development environment
+
 4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
 
 5. Get into your pipenv, migrate your database, seed your database, and run your flask app
@@ -57,8 +58,11 @@ This is the backend for the Flask React project.
 ## Deploy to Heroku
 
 1. Create a new project on Heroku
+
 2. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
+
 3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
+
 4. Run
 
    ```bash
@@ -73,6 +77,7 @@ This is the backend for the Flask React project.
 
 6. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
    This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
+   
 7. Push your docker container to heroku from the root directory of your project.
    This will build the dockerfile and push the image to your heroku container registry
 

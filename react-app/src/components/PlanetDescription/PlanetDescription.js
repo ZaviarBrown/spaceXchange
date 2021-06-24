@@ -42,7 +42,7 @@ function Planet() {
         <Article articles={articles} />
       </div>
       <div>
-        <Transaction planetId={planetId} />
+        <Transaction planetId={planetId} planetName={planet[planet]?.name} ticker={planet[planet]?.ticker} />
       </div>
     </>
     // if (!planet) return null

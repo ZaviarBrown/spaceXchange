@@ -2,93 +2,107 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
-
 import styles from './Transaction.module.css';
 
-export default function Transaction({ planetId }) {
+export default function Transaction({ planetId, planetName, ticker }) {
   const dispatch = useDispatch();
   const assets = useSelector(state => state.assets);
   const userId = useSelector(state => state.session.user.id);
-  // we need to integrate looking at the users balance and adding up the price
   const userCash = useSelector(state => state.session.user.cash_balance)
-
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
-  // for use with updating prices to use for purchase validation
-  const [currentPrices, setCurrentPrices] = useState({})
+  const [prices, setPrices] = useState({})
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let assetPrice = 5.3545234 //! place holder for the price we grab from algorithm
+    // price is pulled from PRICES STATE OBJECT updated from raspberry route
+    let assetPrice = prices[planetName.toLowerCase()].price
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
-    if (found) {
-      if (orderType === 'sell') { //! ORDER TYPE SELL
-        if (amount * 1 === found.shares) {
-          //! factoring in total price to deal with user cash
+    if (found) { // already OWN this ASSET -------------------------------------
+      if (orderType === 'sell') { // SELL && FOUND -----------------------------
+
+        if (amount * 1 === found.shares) { // SELL ALL ----------------------
           let totalPrice = amount * 1 * assetPrice
-          number = amount * 1
+          number = amount * 1 // normalize
+          let transPrice = number * assetPrice // price for trans records
           dispatch(deleteOneAsset(found.id, totalPrice))
+          dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
-          //! dispatch delete
-          //! delete because they are selling all their shares
-          return
         }
-        else if (amount > found.shares) {
+        else if (amount > found.shares) { // X SELL more than OWNED X ----------
           window.alert("You don't own that many shares.")
-          return
+          setAmount('')
+          return // kill
         }
-        //! converting to a negative number pre dispatch
-        let totalPrice = amount * 1 * assetPrice
-        number = amount * -1
+        let totalPrice = amount * 1 * assetPrice // price of shares
+        number = amount * -1 // normalize
+        let transPrice = number * -1 * assetPrice // price for trans records
         dispatch(editOneAsset(found.id, number, totalPrice))
+        dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
         dispatch(getAllAssets())
 
-      } else if (orderType === 'buy') {
-        let totalPrice = amount * -1 * assetPrice
-        console.log(totalPrice);
-        number = amount * 1
-        let transPrice = number * assetPrice
-        //! if (cash balance is enough) //! THIS MEANS ORDER TYPE IS BUY
-        dispatch(editOneAsset(found.id, number, totalPrice))
-        dispatch(createATransaction(transPrice, +planetId, number))
-        dispatch(getAllAssets())
+      } else if (orderType === 'buy') { // BUY && FOUND ------------------------
+        let totalPrice = amount * assetPrice
+        number = amount * 1 // normalize
+        let transPrice = number * assetPrice // price for trans records
+        if (userCash >= transPrice) { // checking for enough cash
+          dispatch(editOneAsset(found.id, number, totalPrice))
+          dispatch(createATransaction(transPrice, +planetId, number, orderType))
+          dispatch(getAllAssets())
+        } else { // X NOT ENOUGH CASH X
+          alert("You don't have the buying power")
+          setAmount('')
+          return // kill
+        }
       }
 
-
-    } else { //! IF FOUND IS set to NULL---------
-      if (orderType === 'buy') {
+    } else {
+      if (orderType === 'buy') { // BUY && NOT FOUND ---------------------------
         let totalPrice = amount * -1 * assetPrice
-        number = amount * 1
-        let transPrice = number * assetPrice
-        dispatch(createOneAsset(number, +planetId, totalPrice))
-        dispatch(createATransaction(transPrice, +planetId, number))
-        dispatch(getAllAssets())
+        number = amount * 1 // normalize number to send
+        let transPrice = number * assetPrice // price for trans records
+        if (userCash >= transPrice) { // checking for enough cash
+          // createOneAsset requires planet information to create from model
+          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker))
+          dispatch(createATransaction(transPrice, +planetId, number, orderType))
+          dispatch(getAllAssets())
+        } else { // X NOT ENOUGH CASH X
+          alert("You don't have the buying power")
+          setAmount('')
+          return // kill
+        }
+
       } else {
-        if (orderType === 'sell') {
+        if (orderType === 'sell') { // X SELL && NOT FOUND X -------------------
           alert("You don't have any to sell")
-          return
+          setAmount('')
+          return // kill
         }
       }
       return
     }
-
-    //maybe push history("/")??
+    //maybe push history("/")???????????
+    setAmount('')
   };
 
+  // raspberry route
+  const getPrices = async () => {
+    const interval = setInterval(async () => {
+      const data = await fetch('/api/raspberry/')
+      const result = await data.json()
+      return setPrices(result) // updating prices on interval >>
+    }, 2000)
+  };
+
+  // on initial load
   useEffect(() => {
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-  }, [amount]);
+    getPrices() // fetch request >> raspberry route >> raspberry pi
+  }, []);
 
-  //! create conditional rendering also using ternaries and state to
-  //! handle either BUY or SELL
-  // let ownedAssets;
-
-  // if (!ownedAssets) {
-  //     return null
-  // }
   return (
     <div className={styles.transaction__container}>
       <form action="" onSubmit={(e) => handleSubmit(e)}>
