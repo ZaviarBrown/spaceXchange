@@ -52,13 +52,14 @@ function Planet() {
                   <h2>Key Statistics</h2>
                 </header>
               </section>
-              <div>Labor Force: {planet[planet]?.labor_force}</div>
             </div>
-            <div>Price: {planet[planet]?.price}</div>
+            <div className={styles.statistics}>
+              <p>Labor Force: {planet[planet]?.labor_force}</p>
+              <p>Price: {planet[planet]?.price}</p>
+            </div>
           </div>
-          {/* <div className={styles.articleComponentContainer}> */}
+
           <Article articles={articles} />
-          {/* </div> */}
         </div>
         <div className={styles.pageRight}>
           <div>

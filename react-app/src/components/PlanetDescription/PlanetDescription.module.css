@@ -60,12 +60,18 @@ body {
   margin-bottom: 10px;
 }
 
-h2 {
-  font-family: var(--rh__type-palette__displayM__stack);
+h1, h2 {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 325;
 }
 
 p {
   font-size: 15px;
   font-weight: 400;
   font-family: 'DM Sans', sans-serif;
+}
+
+.statistics {
+  display: flex;
+  justify-content: space-around;
 }
