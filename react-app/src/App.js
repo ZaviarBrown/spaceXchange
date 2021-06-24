@@ -11,7 +11,6 @@ import Planet from './components/PlanetDescription/PlanetDescription';
 import Portfolio from './components/Portfolio/Portfolio';
 import Splash from "./components/Splash/Splash";
 import Footer from "./components/Footer/Footer";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -31,40 +30,30 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Route render={({location}) => (
-        <TransitionGroup>
-          <CSSTransition 
-            timeout={1000}
-            classNames="fade"
-            key={location.key}
-          >
-            <Switch location={location}>
-              <Route path="/" exact={true}>
-                <Splash />
-                <Footer />
-              </Route>
-              <ProtectedRoute path="/" exact={true}>
-                <NavBar />  
-                <Portfolio />
-              </ProtectedRoute>
-              <Route path="/login" exact={true}>
-                <LoginForm />
-              </Route>
-              <Route path="/sign-up" exact={true}>
-                <SignUpForm />
-              </Route>
-              <Route path='/planet/:planetId' exact={true}>
-                <NavBar />  
-                <Planet />
-              </Route>
-              <ProtectedRoute path="/users/:userId" exact={true}>
-                <NavBar />  
-                <User />
-              </ProtectedRoute>
-            </Switch>
-          </CSSTransition>
-        </TransitionGroup>
-      )} />
+      <Switch>
+        <Route path="/" exact={true}>
+          <Splash />
+          <Footer />
+        </Route>
+        <ProtectedRoute path="/" exact={true}>
+          <NavBar />  
+          <Portfolio />
+        </ProtectedRoute>
+        <Route path="/login" exact={true}>
+          <LoginForm />
+        </Route>
+        <Route path="/sign-up" exact={true}>
+          <SignUpForm />
+        </Route>
+        <Route path='/planet/:planetId' exact={true}>
+          <NavBar />  
+          <Planet />
+        </Route>
+        <ProtectedRoute path="/users/:userId" exact={true}>
+          <NavBar />  
+          <User />
+        </ProtectedRoute>
+      </Switch>
     </BrowserRouter>
   );
 }

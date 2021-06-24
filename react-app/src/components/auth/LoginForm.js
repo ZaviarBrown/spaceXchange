@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import { init } from "ityped";
 import styles from './LoginForm.module.css';
 
 const LoginForm = () => {
@@ -31,12 +32,28 @@ const LoginForm = () => {
     return <Redirect to="/" />;
   }
 
+  // typing animation
+  function animatedTyping() {
+    let componentDidMount() {
+      const myElement = document.querySelector("#myElement");
+      init(myElement, {
+        showCursor: false,
+        strings: ["Best Reactjs Blog", "Blogreact is God", "Blogreact is Awesome"]
+      });
+    }
+    let render() {
+      return <div id="myElement"></div>;
+    }
+  }
+
   return (
     <div className={styles.signupPageContainer}>
       <div className={styles.signupImgContainer}>
         <img src='https://art-oboi.by/assets/images/by_users/Kids/fotolia_87367454_subscription_monthly_xxl.jpg' />
       </div>
       <div className={styles.signupFormContainer}>
+        <Hello />
+        <h1 id='loginText'>welcome to spaceXchange</h1>
         <form onSubmit={onLogin}>
           <div>
             {errors.map((error) => (
