@@ -12,7 +12,7 @@ def article():
     site = requests.get("https://www.benzinga.com/news")
     soup = BeautifulSoup(site.content, "html5lib")
     news = soup.find_all("div", class_="listing-long-image")
-    news2 = soup.find_all('div', class_="listing-long-content")
+    news2 = soup.find_all("div", class_="listing-long-content")
 
     # source (is static)
 
@@ -25,13 +25,12 @@ def article():
     # img
     # news[2].img['src']
 
-    # time 
+    # time
     # splitDate = news2[2].find("span", class_="date").text.split()
     # f"{splitDate[1]} {splitDate[2]} {splitDate[0]} {splitDate[3]}"
 
     # article
     # news2[2].p.text.strip()
-
 
     articles = {}
     article = {}
@@ -40,25 +39,24 @@ def article():
     seenArticles = []
     while len(articles) < 5:
         article_num = random.randint(1, 10)
-        print(seenArticles)
-        print(article_num)
-
         splitDate = news2[article_num].find("span", class_="date").text.split()
-        newArticle = 'article' + (f"{x}")
+        newArticle = "article" + (f"{x}")
 
         if article_num not in seenArticles:
             seenArticles.append(article_num)
             newArticle = {}
-            newArticle['source']=['Benzinga']
-            newArticle['title']=[news[article_num].a.text]
-            newArticle['link']=[url + news[article_num].a.get('href')]
-            newArticle['img']=[news[article_num].img['src']]
-            newArticle['date']=[f"{splitDate[1]} {splitDate[2]} {splitDate[0]} {splitDate[3]}"]
-            newArticle['article']=[news2[article_num].p.text.strip()]
+            newArticle["source"] = ["Benzinga"]
+            newArticle["title"] = [news[article_num].a.text]
+            newArticle["link"] = [url + news[article_num].a.get("href")]
+            newArticle["img"] = [news[article_num].img["src"]]
+            newArticle["date"] = [
+                f"{splitDate[1]} {splitDate[2]} {splitDate[0]} {splitDate[3]}"
+            ]
+            newArticle["article"] = [news2[article_num].p.text.strip()]
 
             articles[x] = newArticle
             x += 1
         else:
             continue
-    
+
     return articles
