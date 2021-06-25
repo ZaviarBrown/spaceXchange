@@ -31,11 +31,13 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
         }
+
         else if (amount > found.shares) { // X SELL more than OWNED X ----------
           window.alert("You don't own that many shares.")
           setAmount('')
           return // kill
         }
+
         let totalPrice = amount * 1 * assetPrice // price of shares
         number = amount * -1 // normalize
         let transPrice = number * -1 * assetPrice // price for trans records
@@ -47,10 +49,12 @@ export default function Transaction({ planetId, planetName, ticker }) {
         let totalPrice = amount * assetPrice
         number = amount * 1 // normalize
         let transPrice = number * assetPrice // price for trans records
+
         if (userCash >= transPrice) { // checking for enough cash
           dispatch(editOneAsset(found.id, number, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
           setAmount('')
@@ -63,11 +67,13 @@ export default function Transaction({ planetId, planetName, ticker }) {
         let totalPrice = amount * -1 * assetPrice
         number = amount * 1 // normalize number to send
         let transPrice = number * assetPrice // price for trans records
+
         if (userCash >= transPrice) { // checking for enough cash
           // createOneAsset requires planet information to create from model
           dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
           setAmount('')
