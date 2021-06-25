@@ -31,10 +31,7 @@ export default function Planet() {
   console.log(articles)
 
   if (!planet) return null
-<<<<<<< HEAD
-=======
   if (articles.length === 0) return null
->>>>>>> fixingNews
 
   return (
     <>
