@@ -37,12 +37,12 @@ export default function Portfolio() {
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
-        <div className={styles.chart__control}>Chart controls</div>
-        <div className={styles.buyingpower__container}>buying power</div>
-        <div className={styles.news__container}> <Article articles={articles} /></div>
-        {/* <div className={styles.news__container}>News placeholder</div>
+        <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>buying power:
           {cash_balance}</div>
+        <div className={styles.news__container}> <Article articles={articles} /></div>
+        {/* <div className={styles.news__container}>News placeholder</div>
+       
         <div className={styles.news__container}>News placeholder</div>
         <div className={styles.news__container}>News placeholder</div>
         <div className={styles.news__container}>News placeholder</div> */}
