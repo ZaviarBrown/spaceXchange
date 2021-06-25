@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
 import RecordDisplay from '../RecordDisplay/RecordDisplay'
+import Chart from '../Chart/Chart';
+
 import Transaction from '../Transaction/Transaction';
 
 function Planet() {
@@ -33,6 +35,7 @@ function Planet() {
   return (
     <>
       <div>
+        <Chart />
         <h1>{planet[planet]?.name}</h1>
         <div>{planet[planet]?.description}</div>
         <div>{planet[planet]?.labor_force}</div>

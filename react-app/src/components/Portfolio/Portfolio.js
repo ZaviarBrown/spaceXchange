@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import Chart from '../Chart/Chart';
 import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
@@ -7,10 +8,10 @@ import { getListItems } from '../../store/ownedList';
 
 export default function Portfolio() {
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getListItems())
-  }, [])
+    dispatch(getListItems());
+  }, []);
 
   console.log('OWNED ASSETS', ownedAssets);
 
@@ -31,13 +32,15 @@ export default function Portfolio() {
         <div className={styles.news__container}>News placeholder</div>
       </div>
       <div className={styles.portfolio__right}>
-        {ownedAssets && (<div>
-          {ownedAssets.map((asset) => (
-            <OwnedList asset={asset} key={asset.id} />
-          ))}
-        </div>
+        {ownedAssets && (
+          <div>
+            {ownedAssets.map((asset) => (
+              <NavLink to={`/planet/${asset.id}`}>
+                <OwnedList asset={asset} key={asset.id} />
+              </NavLink>
+            ))}
+          </div>
         )}
-
         Right
         <div>List</div>
       </div>
