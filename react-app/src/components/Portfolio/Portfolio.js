@@ -41,12 +41,11 @@ export default function Portfolio() {
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>buying power:
           {F(cash_balance)}</div>
-        <div className={styles.news__container}> <Article articles={articles} /></div>
-        {/* <div className={styles.news__container}>News placeholder</div>
-       
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div> */}
+        <div className={styles.news__container}>
+        {Object.values(articles).map((article) => (
+            <Article article={article} />
+          ))}
+        </div>
       </div>
       <div className={styles.portfolio__right}>
         {ownedAssets && (
