@@ -1,3 +1,10 @@
+.projectTitle {
+  display: flex;
+  color: antiquewhite;
+  justify-content: center;
+  margin: 20px;
+}
+
 .mainContent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

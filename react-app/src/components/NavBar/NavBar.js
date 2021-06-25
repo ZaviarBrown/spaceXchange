@@ -10,12 +10,19 @@ const NavBar = () => {
 
     if (sessionUser) {
         setLinks = (
-            <div className={styles.navC}>
-                <LogoutButton />
-                <NavLink to="/" exact={true} activeClassName="active">
-                    Dashboard
-                </NavLink>
-            </div>
+            <>
+                <div className={styles.navA}>
+                    <NavLink to="/dashboard" exact={true} activeClassName="active">
+                        spaceXchange
+                    </NavLink>
+                </div>
+                <div className={styles.navC}>
+                    <NavLink to="/dashboard" exact={true} activeClassName="active">
+                        Dashboard
+                    </NavLink>
+                    <LogoutButton />
+                </div>
+            </>
         )
     } else {
         setLinks = (

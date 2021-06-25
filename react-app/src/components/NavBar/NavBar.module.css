@@ -7,6 +7,7 @@
   grid-template-areas: "a b c";
   color: #E7E6E1;
   font-weight: bold;
+  font-size: 20px;
 }
 
 .navContainer a {
@@ -23,6 +24,16 @@
 
 .link a {
   text-decoration: none;
+}
+
+.navA {
+  grid-area: a;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  margin-left: 30px;
+  font-size: 30px;
 }
 
 .navC {

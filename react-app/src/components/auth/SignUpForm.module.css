@@ -1,20 +1,53 @@
-.loginPageContainer {
+.signupPageContainer {
   display: flex;
 }
 
-.loginImgContainer, 
-.loginFormContainer {
+.signupImgContainer, 
+.signupFormContainer {
   display: flex;
+  flex-direction: column;
   width: 50%;
   height: 100vh;
 }
 
-.loginImgContainer img {
+.signupImgContainer img {
   width: 100%;
+  height: 100vh;
 }
 
-.loginFormContainer {
+.signupFormContainer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.signupFormContainer label {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.signupFormContainer input {
+  width: 100%;
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.signupButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.signupButtons button {
+  background-color: rgba(230, 229, 227, 0.9);
+  padding: 10px 70px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 5px 10px 5px;
+  border-radius: 50px;
+}
+
+.signupButtons button:hover {
+  background-color: rgba(230, 229, 227, 1);
 }

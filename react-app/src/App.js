@@ -35,16 +35,16 @@ function App() {
           <Splash />
           <Footer />
         </Route>
-        <ProtectedRoute path="/" exact={true}>
-          <NavBar />  
-          <Portfolio />
-        </ProtectedRoute>
         <Route path="/login" exact={true}>
           <LoginForm />
         </Route>
         <Route path="/sign-up" exact={true}>
           <SignUpForm />
         </Route>
+        <ProtectedRoute path="/dashboard" exact={true}>
+          <NavBar />  
+          <Portfolio />
+        </ProtectedRoute>
         <Route path='/planet/:planetId' exact={true}>
           <NavBar />  
           <Planet />

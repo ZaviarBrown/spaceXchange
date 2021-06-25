@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
+import galaxySky from "../../assets/galaxySkyLeft.png"
 import Typewriter from 'typewriter-effect';
 import styles from './LoginForm.module.css';
 
@@ -29,16 +30,22 @@ const LoginForm = () => {
   };
 
   if (user) {
-    return <Redirect to="/" />;
+    return <Redirect to="/dashboard" />;
+  }
+
+  const demoLogin = () => {
+    setEmail('demo@aa.io');
+    setPassword('password');
+    login(email, password);
   }
 
   return (
-    <div className={styles.signupPageContainer}>
-      <div className={styles.signupImgContainer}>
-        <img src='https://art-oboi.by/assets/images/by_users/Kids/fotolia_87367454_subscription_monthly_xxl.jpg' />
+    <div className={styles.loginPageContainer}>
+      <div className={styles.loginImgContainer}>
+        <img src={galaxySky} />
       </div>
-      <div className={styles.signupFormContainer}>
-        <h1 id='loginText'>
+      <div className={styles.loginFormContainer}>
+        <h1 id={styles.loginText}>
         <Typewriter className="workTitle"
             onInit={(typewriter) => {
                 typewriter.typeString('Hello!')
@@ -75,7 +82,10 @@ const LoginForm = () => {
               value={password}
               onChange={updatePassword}
             />
-            <button type="submit">Login</button>
+            <div className={styles.loginButtons}>
+              <button type="submit">Login</button>
+              <button onClick={demoLogin}>Demo</button>
+            </div>
           </div>
         </form>
       </div>

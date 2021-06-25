@@ -1,21 +1,56 @@
-.signupPageContainer {
+.loginPageContainer {
   display: flex;
 }
 
-.signupImgContainer, 
-.signupFormContainer {
+.loginImgContainer, 
+.loginFormContainer {
   display: flex;
   width: 50%;
   height: 100vh;
 }
 
-.signupImgContainer img {
+.loginImgContainer img {
   width: 100%;
 }
 
-.signupFormContainer {
+.loginFormContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#loginText {
+  margin: 50px;
+}
+
+.loginFormContainer label {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.loginFormContainer input {
+  width: 100%;
+  margin: 10px 0 10px 0;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.loginButtons {
+  display: flex;
+  justify-content: center;
+}
+
+.loginButtons button {
+  background-color: rgba(230, 229, 227, 0.9);
+  padding: 10px 70px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 5px 10px 5px;
+  border-radius: 50px;
+}
+
+.loginButtons button:hover {
+  background-color: rgba(230, 229, 227, 1);
 }
