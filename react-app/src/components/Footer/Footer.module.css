@@ -1,0 +1,12 @@
+.mainContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  overflow: hidden;
+  height: 50px;
+  margin-top: 95px;
+}

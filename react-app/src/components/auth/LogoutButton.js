@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
 
@@ -9,7 +10,13 @@ const LogoutButton = () => {
   };
 
                 
-  return <span onClick={onLogout}> Logout </span>;
+  return (
+    <div onClick={onLogout}>
+      <NavLink to="/" exact={true} activeClassName="active">
+          Logout
+      </NavLink>
+    </div>
+    )
 };
 
 export default LogoutButton;

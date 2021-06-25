@@ -19,7 +19,7 @@ export default function planet(state = initialState, action) {
   switch (action.type) {
     case GET_PLANET:
       let newState = { ...state }
-      newState[action.payload] = action.payload
+      newState[action.payload.id] = action.payload
       return newState
     default:
       return state;

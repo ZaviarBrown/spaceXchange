@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import galaxySky from "../../assets/galaxySkyRight.png"
 import styles from './SignUpForm.module.css';
 
 const SignUpForm = () => {
@@ -40,8 +41,11 @@ const SignUpForm = () => {
   }
 
   return (
-    <div className={styles.loginPageContainer}>
-      <div className={styles.loginFormContainer}>
+    <div className={styles.signupPageContainer}>
+      <div className={styles.signupFormContainer}>
+        <div>
+          <h2>Make Your Money Move</h2>
+        </div>
         <form onSubmit={onSignUp}>
           <div>
             <label>User Name</label>
@@ -80,11 +84,16 @@ const SignUpForm = () => {
               required={true}
             ></input>
           </div>
+          <div className={styles.signupButtons}>
           <button type="submit">Sign Up</button>
+          </div>
         </form>
+        <div>
+          <p>Already have an account?  Please click here!</p>
+        </div>
       </div>
-      <div className={styles.loginImgContainer}>
-        <img src='https://wallpapercave.com/wp/wp5221328.jpg' />
+      <div className={styles.signupImgContainer}>
+        <img src={galaxySky} />
       </div>
     </div>
   );

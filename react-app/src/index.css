@@ -1,9 +1,14 @@
 /* TODO Add site wide styles */
+* {
+    margin: 0;
+    padding: 0;
+}
+
 
 html {
     border-top: 1px solid black;
     height: 100vh;
-    background-color: #343b51;
+    background-color: #0C4271;
 }
 
 .page {

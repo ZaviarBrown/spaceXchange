@@ -18,9 +18,9 @@ const editAsset = (assetId, newShares) => ({
   payload: { assetId, newShares },
 });
 
-const createAsset = (id, planetId, userId, amount) => ({
+const createAsset = (id, planetId, planetName, amount, userId, ticker) => ({
   type: CREATE_ASSET,
-  payload: { id, planetId, userId, amount }
+  payload: { id, planetId, userId, amount, planetName, ticker }
 });
 
 const deleteAsset = (id) => ({
@@ -62,8 +62,8 @@ export const editOneAsset = (id, number, totalPrice) => async (dispatch) => {
   dispatch(editAsset(assetId, newShares));
 };
 
-export const createOneAsset = (amount, planetId, totalPrice) => async (dispatch) => {
-  let body = JSON.stringify({ amount, planetId, totalPrice });
+export const createOneAsset = (amount, planetId, totalPrice, planetName, ticker) => async (dispatch) => {
+  let body = JSON.stringify({ amount, planetId, totalPrice, planetName, ticker });
   let data = await fetch('/api/assets/', {
     method: 'POST',
     headers: {
@@ -79,7 +79,7 @@ export const createOneAsset = (amount, planetId, totalPrice) => async (dispatch)
   let id = data['id']
   let userId = data['userId']
 
-  dispatch(createAsset(id, planetId, userId, amount));
+  dispatch(createAsset(id, planetId, userId, amount, planetName, ticker));
 };
 
 export const deleteOneAsset = (id, totalPrice) => async (dispatch) => {

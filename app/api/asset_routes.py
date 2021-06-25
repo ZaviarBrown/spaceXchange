@@ -20,13 +20,18 @@ def new_asset():
     totalPrice = request.json["totalPrice"]
     amount = request.json["amount"]
     planetId = request.json["planetId"]
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    planetName = request.json["planetName"]
+    ticker = request.json["ticker"]
     current_user.cash_balance = current_user.cash_balance + float(totalPrice)
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
-    created = Asset(userId=current_user.id, planetId=planetId, shares=amount)
+    created = Asset(
+        userId=current_user.id,
+        planetId=planetId,
+        shares=amount,
+        planetName=planetName,
+        ticker=ticker,
+    )
     db.session.add(created)
     db.session.commit()
-
     assetId = created.id
     userId = created.userId
     return {"id": assetId, "userId": userId}
@@ -36,10 +41,11 @@ def new_asset():
 @login_required
 def edit_asset():
     totalPrice = request.json["totalPrice"]
+    print(totalPrice)
     id = request.json["id"]
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    print(current_user.cash_balance)
     current_user.cash_balance = current_user.cash_balance + float(totalPrice)
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
+    print(current_user.cash_balance)
     number = request.json["number"]
     asset = Asset.query.filter(
         Asset.id == id and Asset.userId == current_user.id
@@ -55,9 +61,7 @@ def edit_asset():
 def delete_asset():
     totalPrice = request.json["totalPrice"]
     id = request.json["id"]
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
     current_user.cash_balance = current_user.cash_balance + float(totalPrice)
-    print("\n\n\n\n\n", current_user.cash_balance, "\n\n\n")
     asset = Asset.query.filter(
         Asset.id == id and Asset.userId == current_user.id
     ).first()

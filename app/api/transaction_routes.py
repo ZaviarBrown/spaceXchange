@@ -21,6 +21,7 @@ def new_transaction():
         planetId=new_trans["planetId"],
         shares=new_trans["number"],
         price_paid=new_trans["transPrice"],
+        orderType=new_trans["orderType"],
     )
     db.session.add(transaction)
     db.session.commit()

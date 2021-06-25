@@ -11,9 +11,9 @@ const getTransactions = (transactions) => ({
     payload: transactions
 })
 
-const createTransaction = (id, planetId, price_paid, shares) => ({
+const createTransaction = (id, orderType, planetId, price_paid, shares) => ({
     type: CREATE_TRANSACTION,
-    payload: { id, planetId, price_paid, shares }
+    payload: { id, orderType, planetId, price_paid, shares }
 })
 
 const deleteTransaction = (id) => ({
@@ -36,8 +36,8 @@ export const getAllTransactions = () => async (dispatch) => {
     }
     dispatch(getTransactions(data))
 }
-export const createATransaction = (transPrice, planetId, number) => async (dispatch) => {
-    let newTransaction = JSON.stringify({ transPrice, planetId, number });
+export const createATransaction = (transPrice, planetId, number, orderType) => async (dispatch) => {
+    let newTransaction = JSON.stringify({ transPrice, planetId, number, orderType });
     const response = await fetch('/api/transactions/', {
         method: "POST",
         headers: {
@@ -49,9 +49,9 @@ export const createATransaction = (transPrice, planetId, number) => async (dispa
     if (data.errors) {
         return;
     }
-    console.log("trans data\n\n\n", data)
     let id = data['transactions'].id;
-    dispatch(createTransaction(id, planetId, transPrice, number))
+    // id, orderType, planetId, price_paid, shares
+    dispatch(createTransaction(id, orderType, planetId, transPrice, number))
 }
 
 // initial state
@@ -62,7 +62,7 @@ let initialState = {}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        //written for object for now
+
         case GET_TRANSACTIONS: {
             const newState = { ...state }
             let transArr = action.payload['transactions']
