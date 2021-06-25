@@ -5,9 +5,6 @@ import { useChart } from '../../context/ChartContext'
 import F, { F2 } from '../../utils/formatter'
 
 const Chart = () => {
-
-
-
     let hour1 = 3600
     let hours24 = 86399
     let week = 604799
@@ -27,12 +24,6 @@ const Chart = () => {
     const [graphData, setGraphData] = useState([]) // from returned mockdata
     // refactored to use context
     const { start, stop, type, time, setStart, setStop, setType, setTime } = useChart()
-    // pre context
-    // const [start, setStart] = useState(yesterday)
-    // const [stop, setStop] = useState(today)
-    // const [type, setType] = useState('litecoin')
-    // const [time, setTime] = useState('day') //day, week, 6month, year
-
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
     }
@@ -42,7 +33,7 @@ const Chart = () => {
         .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({ name: months[counter], price: F2(data[num][1]) }) && counter++;
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1]) }) && counter++;
                 }
             }
             else if (timeInterval === "6months") {
@@ -65,7 +56,7 @@ const Chart = () => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num])[1] })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num][1]) })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
@@ -87,9 +78,6 @@ const Chart = () => {
             }
         })
         .then(() => {
-            // just checking...
-            console.log('MOCKDATA\n\n\n\n\n', mockData)
-            // after data is fetched... this is passed to DATA
             setGraphData(mockData)
         })
 
@@ -107,13 +95,13 @@ const Chart = () => {
                     bottom: 0,
                 }}
             >
-                <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} />
+                {/* <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} /> */}
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
                 <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
                 <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
                 <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
                 {/* <Legend /> */}
-                {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
+                <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" />
             </LineChart>
         </ResponsiveContainer >
 
@@ -158,18 +146,18 @@ const Chart = () => {
                 <button onClick={() => {
                     setGraphData('')
                     setType("litecoin")
-                    setStart(yesterday)
+                    setStart(lastYear)
                     setStop(today)
-                    setTime("day")
+                    setTime("6months")
                     apiCall(type, start, stop, time)
                 }} >6month </button>
 
                 <button onClick={() => {
                     setGraphData('')
                     setType("litecoin")
-                    setStart(yesterday)
+                    setStart(lastWeek)
                     setStop(today)
-                    setTime("day")
+                    setTime("week")
                     apiCall(type, start, stop, time)
                 }} >1week </button>
 
