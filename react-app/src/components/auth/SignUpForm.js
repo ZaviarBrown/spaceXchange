@@ -43,6 +43,9 @@ const SignUpForm = () => {
   return (
     <div className={styles.signupPageContainer}>
       <div className={styles.signupFormContainer}>
+        <div>
+          <h2>Make Your Money Move</h2>
+        </div>
         <form onSubmit={onSignUp}>
           <div>
             <label>User Name</label>
