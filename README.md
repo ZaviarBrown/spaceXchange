@@ -85,11 +85,16 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
    ```bash
    heroku container:push web -a {NAME_OF_HEROKU_APP}
    ```
+   REAL STEP 7 (M1 Mac)
+   docker buildx build --platform linux/amd64 -t spacexchange .
+   docker tag spacexchange registry.heroku.com/spacexchange/web
+   docker push registry.heroku.com/spacexchange/web
+
 
 8. Release your docker container to heroku
 
    ```bash
-   heroku container:release web -a {NAME_OF_HEROKU_APP}
+   heroku container:release web -a spacexchange
    ```
 
 9. set up your database:
