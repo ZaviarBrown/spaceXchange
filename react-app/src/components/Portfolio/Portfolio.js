@@ -36,11 +36,6 @@ export default function Portfolio() {
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
-<<<<<<< HEAD
-        <div className={styles.buyingpower__container}>Buying Power</div>
-        <div className={styles.news__container}>
-          <Article articles={articles} />
-=======
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>buying power:
           {F(cash_balance)}</div>
@@ -48,7 +43,6 @@ export default function Portfolio() {
         {Object.values(articles).map((article) => (
             <Article article={article} />
           ))}
->>>>>>> main
         </div>
       </div>
       <div className={styles.portfolio__right}>
