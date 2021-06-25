@@ -27,8 +27,6 @@ export default function Portfolio() {
     getArticles();
   }, []);
 
-  // console.log('OWNED ASSETS', ownedAssets);
-
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
@@ -36,8 +34,7 @@ export default function Portfolio() {
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
-        <div className={styles.chart__control}>Chart controls</div>
-        <div className={styles.buyingpower__container}>buying power</div>
+        <div className={styles.buyingpower__container}>Buying Power</div>
         <div className={styles.news__container}>
           <Article articles={articles} />
         </div>
