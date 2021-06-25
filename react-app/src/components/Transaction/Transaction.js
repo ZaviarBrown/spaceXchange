@@ -95,18 +95,19 @@ export default function Transaction({ planetId, planetName, ticker }) {
 
   // raspberry route
   const getPrices = async () => {
-    const interval = setInterval(async () => {
-      const data = await fetch('/api/raspberry/')
-      const result = await data.json()
-      return setPrices(result) // updating prices on interval >>
-    }, 2000)
-  };
+    const data = await fetch('/api/raspberry/')
+    const result = await data.json()
+    return setPrices(result)
+  }
 
   // on initial load
   useEffect(() => {
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-    getPrices() // fetch request >> raspberry route >> raspberry pi
+
+    const interval = setInterval(getPrices, 2000)
+    return () => clearInterval(interval)
+
   }, []);
 
   return (
