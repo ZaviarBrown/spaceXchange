@@ -66,6 +66,123 @@ def seed_planets():
         crypto="klay-token",
     )
 
+     = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
+    = Planet(
+        name="",
+        price=,
+        ticker="",
+        description="",
+        labor_force=,
+        crypto="",
+    )
+
     db.session.add(mercury)
     db.session.add(venus)
     db.session.add(mars)

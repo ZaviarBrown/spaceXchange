@@ -1,7 +1,14 @@
 Possible features
 
-    * "Sell all" button on a particular asset
+    * Assets page
     * Transactions page
-    * The Onion Financial stories scraped by python, displayed on our site
-    * Host our own API
-    * New database with 10 entires per asset, overwrite as algo generates data
+    * Stories scraped by python, displayed on our site - DONE
+    * Host our own API - DONE
+    * Fractional shares
+    * Live updating chart with Plotly.js
+
+BUGS THAT NEED TO BE FIXED
+
+    - Signup fucking doesn't work
+    - Buying power only updates on refresh
+    - Need to give new users cash balance
