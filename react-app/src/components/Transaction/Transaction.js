@@ -120,6 +120,10 @@ export default function Transaction({ planetId}) {
           onChange={(e) => setAmount(e.target.value)}
         />
         </div>
+        <div className={styles.priceContainer}>
+          <div className={styles.price}>Market Price:</div>
+          <div className={styles.price}> {planet?.price}</div>
+        </div>
         <div className={styles.transactionButtons}>
           <button onClick={() => setOrderType('buy')}>Buy</button>
           <button onClick={() => setOrderType('sell')}>Sell</button>
