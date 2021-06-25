@@ -16,22 +16,22 @@ export default function Planet() {
   planet = planet[planetId]
   const [articles, setArticles] = useState([])
 
-  useEffect(() => {
-    dispatch(getOnePlanet(planetId))
-  }, [dispatch])
-
   const getArticles = async () => {
-    const data = await fetch('/api/article')
+    const data = await fetch('/api/article/')
     const result = await data.json()
     return setArticles(result)
   };
-
+  
   useEffect(() => {
+    dispatch(getOnePlanet(planetId));
     getArticles();
-  }, []);
+  }, [dispatch])
+
+  console.log(articles)
 
   if (!planet) return null
-  
+  if (articles.length === 0) return null
+
   return (
     <>
       <div className={styles.pageContainer}>
@@ -59,8 +59,9 @@ export default function Planet() {
               <p>Price: {planet.price}</p>
             </div>
           </div>
-
-          <Article articles={articles} />
+          {Object.values(articles).map((article) => (
+            <Article article={article} />
+          ))}
         </div>
         <div className={styles.pageRight}>
           <div>
@@ -71,4 +72,3 @@ export default function Planet() {
         </>
   );
 }
-
