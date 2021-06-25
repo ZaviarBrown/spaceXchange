@@ -1,7 +1,7 @@
 .pageContainer {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: '. left . right .';
+  grid-template-areas: '. left right right right';
 }
 
 body {
@@ -21,7 +21,8 @@ body {
 .pageRight {
   display: flex;
   grid-area: right;
-  align-items: flex-start;
+  /* background-color: red; */
+  /* align-items: flex-start; */
 }
 
 .nameContainer {
@@ -38,7 +39,6 @@ body {
   min-height: 600px;
   max-height: 800px;
   margin-bottom: 20px;
-
 }
 /* 
 .articlesContainer {

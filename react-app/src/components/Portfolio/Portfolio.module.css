@@ -21,7 +21,6 @@
 .portfolio__right {
   display: flex;
   flex-direction: column;
-  /* justify-content:space-around; */
   margin: 55px 150px 20px 100px;
   grid-area: right;
   border: 1px solid white;
@@ -33,7 +32,6 @@
   border-radius: 4px;
   box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345);
   box-sizing: border-box;
-  /* position: fixed; */
 }
 
 .listTitle {
