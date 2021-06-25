@@ -6,6 +6,7 @@ import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
 import Article from '../articles/Article';
+import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
   const cash_balance = useSelector(state => state.session.user.cash_balance)
@@ -39,7 +40,7 @@ export default function Portfolio() {
         </div>
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>buying power:
-          {cash_balance}</div>
+          {F(cash_balance)}</div>
         <div className={styles.news__container}> <Article articles={articles} /></div>
         {/* <div className={styles.news__container}>News placeholder</div>
        

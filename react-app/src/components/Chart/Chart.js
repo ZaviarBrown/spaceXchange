@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Chart.module.css'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-
+import F, { F2 } from '../../utils/formatter'
 
 const Chart = () => {
 
@@ -80,7 +80,7 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F2(data[num][1]) }) && counter++
                 }
             }
         })
@@ -105,12 +105,12 @@ const Chart = () => {
                     bottom: 0,
                 }}
             >
-                <Line type="monotone" dataKey={"price"} stroke="#8884d8" activeDot={{ r: 2 }} />
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={"name"} />
-                <YAxis />
+                <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} />
+                {/* <CartesianGrid strokeDasharray="2 2" /> */}
+                <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
+                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
                 <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-                <Legend />
+                {/* <Legend /> */}
                 {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
             </LineChart>
         </ResponsiveContainer >
@@ -135,13 +135,15 @@ const Chart = () => {
     if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
+
             {draw}
-            <div className={styles.chart__controller}>
+            {/* <div className={styles.chart__controller}>
                 <span>year </span>
                 <span>6month </span>
                 <span>1week </span>
                 <span>day </span>
-                CONTROLS</div>
+                CONTROLS</div> */}
+
         </>
     );
 }

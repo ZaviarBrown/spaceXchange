@@ -5,6 +5,7 @@ import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
 import RecordDisplay from '../RecordDisplay/RecordDisplay'
 import Chart from '../Chart/Chart';
+import F from '../../utils/formatter'
 import styles from './PlanetDescription.module.css'
 
 import Transaction from '../Transaction/Transaction';
@@ -31,7 +32,7 @@ export default function Planet() {
   }, []);
 
   if (!planet) return null
-  
+
   return (
     <>
       <div className={styles.pageContainer}>
@@ -64,11 +65,11 @@ export default function Planet() {
         </div>
         <div className={styles.pageRight}>
           <div>
-          <Transaction planetId={planetId} planetName={planet.name} ticker={planet.ticker} />
+            <Transaction planetId={planetId} planetName={planet.name} ticker={planet.ticker} />
           </div>
         </div>
-        </div>
-        </>
+      </div>
+    </>
   );
 }
 
