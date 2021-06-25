@@ -6,57 +6,80 @@ import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
 import Article from '../articles/Article';
-import F, { F2 } from '../../utils/formatter'
+import F, { F2 } from '../../utils/formatter';
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
-  console.log("OWNED", ownedAssets)
+  const [prices, setPrices] = useState({})
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListItems());
-  }, []);
 
+  // console.log("OWNED", ownedAssets)
+
+  console.log('PRICES', prices)
+
+    // raspberry route
+    const getPrices = async () => {
+      const data = await fetch('/api/raspberry/')
+      const result = await data.json()
+      return setPrices(result)
+    }
+
+  
   const [articles, setArticles] = useState([]);
-
+  
   const getArticles = async () => {
     const data = await fetch('/api/article');
     const result = await data.json();
     return setArticles(result);
   };
-
-  useEffect(() => {
-    getArticles();
-  }, []);
+  
+  
+    useEffect(() => {
+      dispatch(getListItems());
+      getArticles();
+      const interval = setInterval(getPrices, 2000)
+      // clearing interval on componentWillUnmount
+      return () => clearInterval(interval)
+    }, []);
+  // useEffect(() => {
+  //   getArticles();
+  // }, []);
 
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-        Left
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
         <div className={styles.chart__control}></div>
-        <div className={styles.buyingpower__container}>buying power:
-          {F(cash_balance)}</div>
+        <div className={styles.buyingpower__container}>
+          <div className={styles.statsContainer}>
+            Stats
+            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Account Value: </div>
+          </div>
+        </div>
         <div className={styles.news__container}>
-        {Object.values(articles).map((article) => (
+          {Object.values(articles).map((article) => (
             <Article article={article} />
           ))}
         </div>
       </div>
       <div className={styles.portfolio__right}>
-      <div className={styles.listTitle}><h2>Owned</h2></div>
-      <div className={styles.listContainer}>
-        {ownedAssets && (
-          <div>
-            {ownedAssets.map((asset) => (
-              <NavLink to={`/planet/${asset.id}`}>
-                <OwnedList asset={asset} key={asset.id} />
-              </NavLink>
-            ))}
-          </div>
-        )}
+        <div className={styles.listTitle}>
+          <h2>Owned</h2>
+        </div>
+        <div className={styles.listContainer}>
+          {ownedAssets && (
+            <div>
+              {ownedAssets.map((asset) => (
+                <NavLink to={`/planet/${asset.id}`}>
+                  <OwnedList asset={asset} key={asset.id} />
+                </NavLink>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>

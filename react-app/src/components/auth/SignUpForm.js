@@ -43,7 +43,7 @@ const SignUpForm = () => {
   return (
     <div className={styles.signupPageContainer}>
       <div className={styles.signupFormContainer}>
-        <div>
+        <div className={styles.signUpFormTitle}>
           <h2>Make Your Money Move</h2>
         </div>
         <form onSubmit={onSignUp}>
