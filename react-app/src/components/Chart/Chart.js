@@ -99,7 +99,7 @@ const Chart = () => {
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
                 <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
                 <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
-                <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
+                <Tooltip wrapperStyle={{ width: 118, backgroundColor: '#ccc' }} />
                 {/* <Legend /> */}
                 {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
             </LineChart>
