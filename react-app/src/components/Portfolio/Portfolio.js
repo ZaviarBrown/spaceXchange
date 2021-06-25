@@ -14,10 +14,6 @@ export default function Portfolio() {
   const [prices, setPrices] = useState({})
   const dispatch = useDispatch();
 
-  // console.log("OWNED", ownedAssets)
-
-  console.log('PRICES', prices)
-
     // raspberry route
     const getPrices = async () => {
       const data = await fetch('/api/raspberry/')
@@ -25,7 +21,6 @@ export default function Portfolio() {
       return setPrices(result)
     }
 
-  
   const [articles, setArticles] = useState([]);
   
   const getArticles = async () => {
@@ -42,9 +37,6 @@ export default function Portfolio() {
       // clearing interval on componentWillUnmount
       return () => clearInterval(interval)
     }, []);
-  // useEffect(() => {
-  //   getArticles();
-  // }, []);
 
   return (
     <div className={styles.portfolio__container}>
