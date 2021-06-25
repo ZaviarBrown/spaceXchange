@@ -11,11 +11,6 @@ const NavBar = () => {
     if (sessionUser) {
         setLinks = (
             <>
-                <div className={styles.navA}>
-                    <NavLink to="/dashboard" exact={true} activeClassName="active">
-                        spaceXchange
-                    </NavLink>
-                </div>
                 <div className={styles.navC}>
                     <NavLink to="/dashboard" exact={true} activeClassName="active">
                         Dashboard
@@ -37,6 +32,11 @@ const NavBar = () => {
 
     return (
         <div className={styles.navContainer}>
+            <div className={styles.navA}>
+                    <NavLink to="/dashboard" exact={true} activeClassName="active">
+                        spaceXchange
+                    </NavLink>
+                </div>
             {setLinks}
         </div>
     );
