@@ -6,8 +6,7 @@ class Asset(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     userId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    planetId = db.Column(db.Integer, db.ForeignKey(
-        "planets.id"), nullable=False)
+    planetId = db.Column(db.Integer, db.ForeignKey("planets.id"), nullable=False)
     planetName = db.Column(db.String(50), nullable=False)
     ticker = db.Column(db.String(10), nullable=False)
     shares = db.Column(db.Integer, nullable=False)
