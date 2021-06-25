@@ -46,7 +46,7 @@ def article():
             seenArticles.append(article_num)
             newArticle = {}
             newArticle["source"] = ["Benzinga"]
-            newArticle["title"] = [news[article_num].a.text]
+            newArticle["title"] = [news2[article_num].a.text]
             newArticle["link"] = [url + news[article_num].a.get("href")]
             newArticle["img"] = [news[article_num].img["src"]]
             newArticle["date"] = [
