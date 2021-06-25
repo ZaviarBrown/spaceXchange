@@ -23,13 +23,13 @@ const Chart = () => {
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
 
+    const [graphInterval, setGraphInterval] = useState("day") //day, week, 6month, year
     const [graphName, setGraphName] = useState([]) //weekdays, months, hour
     const [graphData, setGraphData] = useState([]) // from returned mockdata
-    const [graphInterval, setGraphInterval] = useState("day") //day, week, 6month, year
     const [start, setStart] = useState(yesterday)
     const [stop, setStop] = useState(today)
     const [type, setType] = useState('litecoin')
-    const [time, setTime] = useState('day')
+    const [time, setTime] = useState('day') //day, week, 6month, year
 
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
@@ -123,6 +123,40 @@ const Chart = () => {
         apiCall(type, start, stop, time)
     }
 
+    const changeInterval = (changedInterval) => {
+        switch (changedInterval) {
+            case "year":
+                setType("litecoin")
+                setStart(lastYear)
+                setStop(today)
+                setTime("year")
+            // apiCall(type, start, stop, time)
+
+            case "6month": {
+                setType("litecoin")
+                setStart(lastYear)
+                setStop(today)
+                setTime("6month")
+                // apiCall(type, start, stop, time)
+            }
+            case "week": {
+                setType("litecoin")
+                setStart(lastWeek)
+                setStop(today)
+                setTime("week")
+                // apiCall(type, start, stop, time)
+            }
+            case "day": {
+                setType("litecoin")
+                setStart(yesterday)
+                setStop(today)
+                setTime("day")
+                // apiCall(type, start, stop, time)
+            }
+            default:
+                return
+        }
+    }
 
     useEffect(() => {
         setGraphData('')
@@ -130,19 +164,24 @@ const Chart = () => {
         // that will be invoked off click listener
         // other wise every rerender will default it back after change
         apiCall(type, start, stop, time)
-    }, [])
+    }, [time, stop, start, type])
+
+    // useEffect(() => {
+    //     setGraphData('')
+    //     constructGraph(type, start, stop, time)
+    // }, [time])
 
     if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
 
             {draw}
-            {/* <div className={styles.chart__controller}>
-                <span>year </span>
-                <span>6month </span>
-                <span>1week </span>
-                <span>day </span>
-                CONTROLS</div> */}
+            <div className={styles.chart__controller}>
+                <button onClick={() => changeInterval('year')}>year </button>
+                <button onClick={() => changeInterval('6month')}>6month </button>
+                <button onClick={() => changeInterval('week')}>1week </button>
+                <button onClick={() => changeInterval('day')}>day </button>
+                CONTROLS</div>
 
         </>
     );

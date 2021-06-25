@@ -40,23 +40,23 @@ export default function Portfolio() {
         <div className={styles.buyingpower__container}>buying power:
           {F(cash_balance)}</div>
         <div className={styles.news__container}>
-        {Object.values(articles).map((article) => (
+          {Object.values(articles).map((article) => (
             <Article article={article} />
           ))}
         </div>
       </div>
       <div className={styles.portfolio__right}>
-      <div className={styles.listTitle}><h2>Owned</h2></div>
-      <div className={styles.listContainer}>
-        {ownedAssets && (
-          <div>
-            {ownedAssets.map((asset) => (
-              <NavLink to={`/planet/${asset.id}`}>
-                <OwnedList asset={asset} key={asset.id} />
-              </NavLink>
-            ))}
-          </div>
-        )}
+        <div className={styles.listTitle}><h2>Owned</h2></div>
+        <div className={styles.listContainer}>
+          {ownedAssets && (
+            <div>
+              {ownedAssets.map((asset) => (
+                <NavLink to={`/planet/${asset.id}`}>
+                  <OwnedList asset={asset} key={asset.id} />
+                </NavLink>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
