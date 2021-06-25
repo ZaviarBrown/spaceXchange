@@ -1,54 +1,77 @@
 .portfolio__container {
-    display: grid;
-    height: 100%;
-    border: 1px solid blue;
-    grid-template-columns: 5fr 2fr;
-    grid-template-rows: auto;
-    grid-template-areas: "left right";
-    text-align: center;
+  display: grid;
+  height: 100%;
+  border: 1px solid blue;
+  grid-template-columns: 5fr 2fr;
+  grid-template-rows: auto;
+  grid-template-areas: 'left right';
+  text-align: center;
 }
 
 .portfolio__left {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    grid-area: left;
-    border: 1px solid red;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 240px;
+  grid-area: left;
+  border: 1px solid red;
+  height: 100%;
 }
 
 .portfolio__right {
-    display: flex;
-    /* position: relative; */
-    margin: 20px;
-    grid-area: right;
-    border: 1px solid red;
-    height: 78vh;
-    left: 560px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content:space-around; */
+  margin: 20px 20px 20px 150px;
+  grid-area: right;
+  border: 1px solid white;
+  height: 60vh;
+  left: 560px;
+  background-color: #e7e6e1f0;
+  color: #343b51;
+  width: 165px;
+  border-radius: 4px;
+  box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345);
+  box-sizing: border-box;
+}
+
+.listTitle {
+  margin: 10px 0 10px 0;
+}
+
+.listContainer {
+  display: flex;
+  /* height: 1000px; */
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #343b51;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
 }
 
 .portfolio__chart__container {
-    border: 1px solid yellow;
-    height: 345px;
-    margin-top: 16px;
-    margin-left: 10px;
-    margin-right: 10px;
+  border: 1px solid yellow;
+  height: 345px;
+  margin-top: 16px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .chart__control {
-    border: 1px solid yellow;
-    height: 50px;
-    margin: 2px;
+  border: 1px solid yellow;
+  height: 50px;
+  margin: 2px;
 }
 
 .buyingpower__container {
-    border: 1px solid yellow;
-    height: 65px;
-    margin: 2px;
+  border: 1px solid yellow;
+  height: 65px;
+  margin: 2px;
 }
 
 .news__container {
-    border: 1px solid pink;
-    overflow: hidden;
-    margin: 2px;
+  border: 1px solid pink;
+  overflow: hidden;
+  margin: 2px;
 }

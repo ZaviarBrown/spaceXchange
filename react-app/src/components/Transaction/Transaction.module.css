@@ -3,7 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid;
   height: 175px;
   margin-top: 170px;
   width: 300px;
@@ -11,7 +10,7 @@
   background-color: #e7e6e1f0;
   border: 1px solid white;
   border-radius: 4px;
-  box-shadow: 1.3px 1.3px white 0.6;
+  box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345) ;
   box-sizing: border-box;
 }
 
@@ -39,7 +38,6 @@
   font-weight: 800;
   font-family: 'DM Sans', sans-serif;
   color: #343b51;
-  /* margin-right: 9px; */
 }
 
 .order {

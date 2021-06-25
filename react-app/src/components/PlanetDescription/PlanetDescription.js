@@ -56,7 +56,6 @@ export default function Planet() {
             </div>
             <div className={styles.statistics}>
               <p>Labor Force: {planet.labor_force}</p>
-              <p>Price: {planet.price}</p>
             </div>
           </div>
 

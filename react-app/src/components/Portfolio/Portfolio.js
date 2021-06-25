@@ -8,7 +8,7 @@ import { getListItems } from '../../store/ownedList';
 import Article from '../articles/Article';
 
 export default function Portfolio() {
-  const cash_balance = useSelector(state => state.session.user.cash_balance)
+  const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,15 +39,13 @@ export default function Portfolio() {
         </div>
         <div className={styles.chart__control}>Chart controls</div>
         <div className={styles.buyingpower__container}>buying power</div>
-        <div className={styles.news__container}> <Article articles={articles} /></div>
-        {/* <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.buyingpower__container}>buying power:
-          {cash_balance}</div>
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div> */}
+        <div className={styles.news__container}>
+          <Article articles={articles} />
+        </div>
       </div>
       <div className={styles.portfolio__right}>
+      <div className={styles.listTitle}><h2>Owned</h2></div>
+      <div className={styles.listContainer}>
         {ownedAssets && (
           <div>
             {ownedAssets.map((asset) => (
@@ -57,8 +55,7 @@ export default function Portfolio() {
             ))}
           </div>
         )}
-        Right
-        <div>List</div>
+        </div>
       </div>
     </div>
   );
