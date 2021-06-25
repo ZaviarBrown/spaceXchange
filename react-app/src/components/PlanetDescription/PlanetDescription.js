@@ -3,33 +3,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
-
+import RecordDisplay from '../RecordDisplay/RecordDisplay'
 import Transaction from '../Transaction/Transaction';
 
 function Planet() {
-  const planet = useSelector((state) => state.planet);
+  const planet = useSelector((state) => state.planet)
   // const { planet } = planetO
-  const dispatch = useDispatch();
-  const { planetId } = useParams();
+  const dispatch = useDispatch()
+  const { planetId } = useParams()
   // console.log("HELLO", planet[planet]?.description)
   // console.log(planet)
 
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState([])
 
   useEffect(() => {
-    dispatch(getOnePlanet(planetId));
-  }, [dispatch]);
+    dispatch(getOnePlanet(planetId))
+  }, [dispatch])
 
   const getArticles = async () => {
-    const data = await fetch('/api/article');
-    const result = await data.json();
-    return setArticles(result);
+    const data = await fetch('/api/article')
+    const result = await data.json()
+    return setArticles(result)
   };
 
   useEffect(() => {
     getArticles();
   }, []);
-  if (!planet) return null;
+  if (!planet) return null
   return (
     <>
       <div>

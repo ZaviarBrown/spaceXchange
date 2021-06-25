@@ -8,7 +8,7 @@ import { getListItems } from '../../store/ownedList';
 export default function Portfolio() {
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const dispatch = useDispatch()
-  useEffect(() =>{
+  useEffect(() => {
     dispatch(getListItems())
   }, [])
 
@@ -31,13 +31,13 @@ export default function Portfolio() {
         <div className={styles.news__container}>News placeholder</div>
       </div>
       <div className={styles.portfolio__right}>
-          {ownedAssets && ( <div>
-          {ownedAssets.map((asset)=> (
-              <OwnedList asset={asset} key={asset.id}/>
+        {ownedAssets && (<div>
+          {ownedAssets.map((asset) => (
+            <OwnedList asset={asset} key={asset.id} />
           ))}
         </div>
-          )}
-       
+        )}
+
         Right
         <div>List</div>
       </div>
