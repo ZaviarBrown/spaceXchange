@@ -6,6 +6,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const Chart = () => {
     const [graphData, setGraphData] = useState([]);
     const [timeInterval, setTimeInterval] = useState("day")
+    let hour1 = 3600
     let hours24 = 86399
     let week = 604799
     let year = 31536600
@@ -17,9 +18,8 @@ const Chart = () => {
     let coin = "litecoin"
     let months = ["July", "Aug", "Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "June"]
     let arr = [];
-    // console.log(todaysDate)
+    let arrTime = [];
     let counter = 0;
-    let counter2 = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
     console.log(weekdays.toString().split(" ")[0])
     const apiUrl = (x, y, z) => {
@@ -38,7 +38,12 @@ const Chart = () => {
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
-                    num % 16 === 0 && mockData.push({name: months[counter] ,price: data[num][1]}) && counter++;
+                    if (num > 182) {
+                        num % 15 === 0 && mockData.push({name: months[counter] ,price: data[num][1]});
+                        if (mockData.length % 2 === 0 && num % 15 === 0) {
+                            counter+= 1;
+                            }
+                    }
                 }
             }
             else if (timeInterval === "week") {
@@ -56,10 +61,24 @@ const Chart = () => {
                     }
                 }
             }
+            else if (timeInterval === "day") {
+                let x = 22
+                let currTime;
+                while (x > -1) {
+                    let time = new Date((today - (hour1 * x)) * 1000);
+                    currTime = time.toString().split(" ")[4];
+                    currTime = currTime.slice(0, 5);
+                    arrTime.push(currTime);
+                    x -= 2;
+                }
+                for (let num in data) {
+                    num % 25 === 0 && mockData.push({name: arrTime[counter] ,price: data[num][1]}) && counter++;
+                }
+            }
         })
         .then( () => console.log(mockData))
     useEffect(() => {
-        apitest(coin, lastWeek, today, "week")
+        apitest(coin, yesterday, today, "day")
     }, [])
 
     return ( 
