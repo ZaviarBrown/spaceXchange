@@ -24,40 +24,40 @@ const Chart = () => {
     console.log(weekdays.toString().split(" ")[0])
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
-    } 
+    }
 
     const apitest = (coin, start, stop, timeInterval) => fetch(apiUrl(coin, start, stop, timeInterval))
-        .then( data => data.json())
-        .then( data => data.prices)
-        .then( data => {
+        .then(data => data.json())
+        .then(data => data.prices)
+        .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({name: months[counter] ,price: data[num][1]}) && counter++;
-                } 
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: data[num][1] }) && counter++;
+                }
             }
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({name: months[counter] ,price: data[num][1]});
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: data[num][1] });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
-                            counter+= 1;
-                            }
+                            counter += 1;
+                        }
                     }
                 }
             }
             else if (timeInterval === "week") {
                 let x = 1
-                while (arr.length < 7){
+                while (arr.length < 7) {
                     let weekdays = new Date((lastWeek + (hours24 * x)) * 1000);
                     let dayOfTheWeek = weekdays.toString().split(" ")[0]
                     arr.push(dayOfTheWeek)
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({name: arr[counter] , price: data[num][1]}) 
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: data[num][1] })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
-                        counter+= 1
+                        counter += 1
                     }
                 }
             }
@@ -72,34 +72,34 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({name: arrTime[counter] ,price: data[num][1]}) && counter++;
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++;
                 }
             }
         })
-        .then( () => console.log(mockData))
+        .then(() => console.log(mockData))
     useEffect(() => {
         apitest(coin, yesterday, today, "day")
     }, [])
 
-    return ( 
+    return (
         <ResponsiveContainer width="100%" aspect={3}>
-        <AreaChart
-            width={500}
-            height={400}
-            data={mockData}
-            margin={{
-            top: 10,
-            right: 30,
-            left: 0,
-            bottom: 0,
-            }}
-        >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
-        </AreaChart>
+            <AreaChart
+                width={500}
+                height={400}
+                data={mockData}
+                margin={{
+                    top: 10,
+                    right: 30,
+                    left: 0,
+                    bottom: 0,
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
+            </AreaChart>
         </ResponsiveContainer>
     );
 }
