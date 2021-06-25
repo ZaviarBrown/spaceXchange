@@ -9,6 +9,7 @@ export default function OwnedList({ asset }) {
     <div className={styles.listContainer}>
       <div className={styles.listItem}>
         <h2>{asset.ticker}</h2>
+        <h3>{asset.shares} shares</h3>
       </div>
     </div>
   );
