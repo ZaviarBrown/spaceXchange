@@ -17,6 +17,10 @@ export default function Transaction({ planetId, planetName, ticker }) {
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
     let assetPrice = prices[planetName.toLowerCase()].price
+    //! for testing
+    // let assetPrice = 6
+    console.log("asset price\n\n\n", assetPrice)
+    console.log('userCash\n\n\n', userCash)
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
@@ -46,7 +50,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(getAllAssets())
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
-        let totalPrice = amount * assetPrice
+        let totalPrice = amount * assetPrice * -1
         number = amount * 1 // normalize
         let transPrice = number * assetPrice // price for trans records
 
@@ -104,10 +108,10 @@ export default function Transaction({ planetId, planetName, ticker }) {
   useEffect(() => {
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-
+    // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000)
+    // clearing interval on componentWillUnmount
     return () => clearInterval(interval)
-
   }, []);
 
   return (
@@ -119,8 +123,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <button onClick={() => setOrderType('buy')}>Buy</button>
-        <button onClick={() => setOrderType('sell')}>Sell</button>
+        <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
+        <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
       </form>
     </div>
   );

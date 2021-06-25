@@ -8,14 +8,11 @@ import Chart from '../Chart/Chart';
 
 import Transaction from '../Transaction/Transaction';
 
-function Planet() {
-  const planet = useSelector((state) => state.planet)
-  // const { planet } = planetO
+export default function Planet() {
+  let planet = useSelector((state) => state.planet)
   const dispatch = useDispatch()
   const { planetId } = useParams()
-  // console.log("HELLO", planet[planet]?.description)
-  // console.log(planet)
-
+  planet = planet[planetId]
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
@@ -34,32 +31,20 @@ function Planet() {
   if (!planet) return null
   return (
     <>
+      <Chart />
       <div>
-        <Chart />
-        <h1>{planet[planet]?.name}</h1>
-        <div>{planet[planet]?.description}</div>
-        <div>{planet[planet]?.labor_force}</div>
-        <div>{planet[planet]?.price}</div>
+        <h1>{planet.name}</h1>
+        <div>{planet.description}</div>
+        <div>{planet.labor_force}</div>
+        <div>{planet.price}</div>
       </div>
       <div>
         <Article articles={articles} />
       </div>
       <div>
-        <Transaction planetId={planetId} planetName={planet[planet]?.name} ticker={planet[planet]?.ticker} />
+        <Transaction planetId={planetId} planetName={planet.name} ticker={planet[planet]?.ticker} />
       </div>
     </>
-    // if (!planet) return null
-    //   return (
-    //     <div>
-    //       <h1>{planet[planet]?.name}</h1>
-    //       <div>{planet[planet]?.description}</div>
-    //       <div>{planet[planet]?.labor_force}</div>
-    //       <div>{planet[planet]?.price}</div>
-    //       <div>
-    //         <Transaction planetId={planetId}/>
-    //       </div>
-    //     </div>
   );
 }
 
-export default Planet;

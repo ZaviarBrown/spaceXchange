@@ -7,6 +7,7 @@ import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
 
 export default function Portfolio() {
+  const cash_balance = useSelector(state => state.session.user.cash_balance)
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const dispatch = useDispatch();
   useEffect(() => {
@@ -24,7 +25,8 @@ export default function Portfolio() {
           <Chart />
         </div>
         <div className={styles.chart__control}>Chart controls</div>
-        <div className={styles.buyingpower__container}>buying power</div>
+        <div className={styles.buyingpower__container}>buying power:
+          {cash_balance}</div>
         <div className={styles.news__container}>News placeholder</div>
         <div className={styles.news__container}>News placeholder</div>
         <div className={styles.news__container}>News placeholder</div>

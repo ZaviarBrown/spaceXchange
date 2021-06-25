@@ -1,12 +1,12 @@
-from flask import Blueprint, jsonify
-from flask.globals import request
+from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import db, Asset
 
 owned_list_routes = Blueprint("owned_list", __name__)
 
+
 @owned_list_routes.route("/")
 @login_required
 def owned_list():
-  assets = Asset.query.filter(Asset.userId == current_user.id).all()
-  return {"assets": [asset.to_dict() for asset in assets]}
+    assets = Asset.query.filter(Asset.userId == current_user.id).all()
+    return {"assets": [asset.to_dict() for asset in assets]}

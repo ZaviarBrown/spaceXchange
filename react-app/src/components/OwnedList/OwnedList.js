@@ -3,19 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getListItems } from '../../store/ownedList';
 import styles from './OwnedList.module.css';
 
-export default function OwnedList({asset}) {
-  const dispatch = useDispatch();
-
+export default function OwnedList({ asset }) {
   const assets = useSelector(state => state.ownedList);
-  
-
-  useEffect(() =>{
-    dispatch(getListItems())
-  }, [])
-
-  // console.log(assets)
-  // console.log(Object.values(assets))
-  
   return (
     <div>
       <div>{asset.planetName}</div>

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Chart.module.css'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 
 
 const Chart = () => {
+    const [name, setName] = useState('');
+    const [dk, setDk] = useState('');
     const [graphData, setGraphData] = useState([]);
-    const [timeInterval, setTimeInterval] = useState("day")
+    const [timeInterval, setTimeInterval] = useState("day");
+    const [md, setMd] = useState([])
     let hour1 = 3600
     let hours24 = 86399
     let week = 604799
@@ -21,11 +24,9 @@ const Chart = () => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
-    console.log(weekdays.toString().split(" ")[0])
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
     }
-
     const apitest = (coin, start, stop, timeInterval) => fetch(apiUrl(coin, start, stop, timeInterval))
         .then(data => data.json())
         .then(data => data.prices)
@@ -72,21 +73,22 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++;
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++
                 }
             }
         })
-        .then(() => console.log(mockData))
-    useEffect(() => {
-        apitest(coin, yesterday, today, "day")
-    }, [])
+        .then(() => {
+            console.log(mockData)
+            setMd(mockData)
+        })
 
-    return (
-        <ResponsiveContainer width="100%" aspect={3}>
-            <AreaChart
+
+    const draw = (
+        <ResponsiveContainer width="100%" aspect={3} >
+            <LineChart
                 width={500}
                 height={400}
-                data={mockData}
+                data={md}
                 margin={{
                     top: 10,
                     right: 30,
@@ -94,14 +96,28 @@ const Chart = () => {
                     bottom: 0,
                 }}
             >
+                <Line type="monotone" dataKey={"price"} stroke="#8884d8" activeDot={{ r: 2 }} />
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey={"name"} />
                 <YAxis />
-                <Tooltip />
-                <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
-        </ResponsiveContainer>
+                <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
+                <Legend />
+                {/* <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" /> */}
+            </LineChart>
+        </ResponsiveContainer >
+    )
+
+    useEffect(() => {
+        setMd('')
+        apitest(coin, lastYear, today, "year")
+    }, [])
+
+    if (!md) return null
+    return (
+        <>
+            {draw}
+        </>
     );
 }
 
-export default Chart;
+export default Chart
