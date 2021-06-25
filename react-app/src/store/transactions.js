@@ -49,7 +49,6 @@ export const createATransaction = (transPrice, planetId, number, orderType) => a
     if (data.errors) {
         return;
     }
-    console.log("trans data\n\n\n", data)
     let id = data['transactions'].id;
     // id, orderType, planetId, price_paid, shares
     dispatch(createTransaction(id, orderType, planetId, transPrice, number))
@@ -63,7 +62,7 @@ let initialState = {}
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        //written for object for now
+
         case GET_TRANSACTIONS: {
             const newState = { ...state }
             let transArr = action.payload['transactions']

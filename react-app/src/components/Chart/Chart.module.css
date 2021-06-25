@@ -1,7 +1,9 @@
 .chart__container {
     display: flex;
-    border: 1px solid red;
     height: 340px;
+    width: 800px;
+    /* margin-left: 125px; */
     justify-content: center;
     align-items: center;
+    background-color: #E7E6E1;
 }

@@ -5,17 +5,15 @@ import { getOnePlanet } from '../../store/planet';
 import Article from '../articles/Article';
 import RecordDisplay from '../RecordDisplay/RecordDisplay'
 import Chart from '../Chart/Chart';
+import styles from './PlanetDescription.module.css'
 
 import Transaction from '../Transaction/Transaction';
 
-function Planet() {
-  const planet = useSelector((state) => state.planet)
-  // const { planet } = planetO
+export default function Planet() {
+  let planet = useSelector((state) => state.planet)
   const dispatch = useDispatch()
   const { planetId } = useParams()
-  // console.log("HELLO", planet[planet]?.description)
-  // console.log(planet)
-
+  planet = planet[planetId]
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
@@ -31,35 +29,46 @@ function Planet() {
   useEffect(() => {
     getArticles();
   }, []);
+
   if (!planet) return null
+  
   return (
     <>
-      <div>
-        <Chart />
-        <h1>{planet[planet]?.name}</h1>
-        <div>{planet[planet]?.description}</div>
-        <div>{planet[planet]?.labor_force}</div>
-        <div>{planet[planet]?.price}</div>
-      </div>
-      <div>
-        <Article articles={articles} />
-      </div>
-      <div>
-        <Transaction planetId={planetId} planetName={planet[planet]?.name} ticker={planet[planet]?.ticker} />
-      </div>
-    </>
-    // if (!planet) return null
-    //   return (
-    //     <div>
-    //       <h1>{planet[planet]?.name}</h1>
-    //       <div>{planet[planet]?.description}</div>
-    //       <div>{planet[planet]?.labor_force}</div>
-    //       <div>{planet[planet]?.price}</div>
-    //       <div>
-    //         <Transaction planetId={planetId}/>
-    //       </div>
-    //     </div>
+      <div className={styles.pageContainer}>
+        <div className={styles.pageLeft}>
+          <div className={styles.planetContainer}>
+            <div className={styles.nameContainer}>
+              <h1>{planet.name}</h1>
+            </div>
+            <div className={styles.chartContainer}>
+              <Chart></Chart>
+            </div>
+            <div className={styles.underline}>
+              <h2>About</h2>
+            </div>
+            <p>{planet.description}</p>
+            <div>
+              <section className={styles.underline}>
+                <header>
+                  <h2>Key Statistics</h2>
+                </header>
+              </section>
+            </div>
+            <div className={styles.statistics}>
+              <p>Labor Force: {planet.labor_force}</p>
+              <p>Price: {planet.price}</p>
+            </div>
+          </div>
+
+          <Article articles={articles} />
+        </div>
+        <div className={styles.pageRight}>
+          <div>
+          <Transaction planetId={planetId} planetName={planet.name} ticker={planet.ticker} />
+          </div>
+        </div>
+        </div>
+        </>
   );
 }
 
-export default Planet;

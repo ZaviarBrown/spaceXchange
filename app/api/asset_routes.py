@@ -41,8 +41,11 @@ def new_asset():
 @login_required
 def edit_asset():
     totalPrice = request.json["totalPrice"]
+    print(totalPrice)
     id = request.json["id"]
+    print(current_user.cash_balance)
     current_user.cash_balance = current_user.cash_balance + float(totalPrice)
+    print(current_user.cash_balance)
     number = request.json["number"]
     asset = Asset.query.filter(
         Asset.id == id and Asset.userId == current_user.id

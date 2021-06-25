@@ -13,10 +13,15 @@ export default function Transaction({ planetId, planetName, ticker }) {
   const [orderType, setOrderType] = useState('');
   const [prices, setPrices] = useState({})
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
     let assetPrice = prices[planetName.toLowerCase()].price
+    //! for testing
+    // let assetPrice = 6
+    console.log("asset price\n\n\n", assetPrice)
+    console.log('userCash\n\n\n', userCash)
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
@@ -46,7 +51,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(getAllAssets())
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
-        let totalPrice = amount * assetPrice
+        let totalPrice = amount * assetPrice * -1
         number = amount * 1 // normalize
         let transPrice = number * assetPrice // price for trans records
 
@@ -87,7 +92,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           return // kill
         }
       }
-      return
+      return;
     }
     //maybe push history("/")???????????
     setAmount('')
@@ -95,32 +100,53 @@ export default function Transaction({ planetId, planetName, ticker }) {
 
   // raspberry route
   const getPrices = async () => {
-    const interval = setInterval(async () => {
-      const data = await fetch('/api/raspberry/')
-      const result = await data.json()
-      return setPrices(result) // updating prices on interval >>
-    }, 2000)
-  };
+    const data = await fetch('/api/raspberry/')
+    const result = await data.json()
+    return setPrices(result)
+  }
 
   // on initial load
   useEffect(() => {
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-    getPrices() // fetch request >> raspberry route >> raspberry pi
+    // setting interval to hit raspberry route
+    const interval = setInterval(getPrices, 2000)
+    // clearing interval on componentWillUnmount
+    return () => clearInterval(interval)
   }, []);
 
   return (
+    <>
     <div className={styles.transaction__container}>
-      <form action="" onSubmit={(e) => handleSubmit(e)}>
-        Buy Test
-        <input
+      <div className={styles.orderContainer}>
+        <div className={styles.order}>
+        Buy {planetName}
+          </div>
+      </div>
+      <form
+        className={styles.transactionForm}
+        action=""
+        onSubmit={(e) => handleSubmit(e)}
+      >
+        <div className={styles.shares}>
+        <label>Shares:</label>
+        <input className={styles.shareInput}
           type="number"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <button onClick={() => setOrderType('buy')}>Buy</button>
-        <button onClick={() => setOrderType('sell')}>Sell</button>
+        </div>
+        <div className={styles.priceContainer}>
+          <div className={styles.price}>Market Price:</div>
+          <div className={styles.price}> {prices[planetName.toLowerCase()]?.price}</div>
+        </div>
+        <div className={styles.transactionButtons}>
+     
+        <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
+        <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
+        </div>
       </form>
     </div>
+    </>
   );
 }
