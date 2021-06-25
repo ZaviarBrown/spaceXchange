@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Chart.module.css'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-
+import F, { F2 } from '../../utils/formatter'
 
 const Chart = () => {
-    const [name, setName] = useState('');
-    const [dk, setDk] = useState('');
-    const [graphData, setGraphData] = useState([]);
-    const [timeInterval, setTimeInterval] = useState("day");
-    const [md, setMd] = useState([])
+
+
+
     let hour1 = 3600
     let hours24 = 86399
     let week = 604799
@@ -24,10 +22,19 @@ const Chart = () => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
+
+    const [graphName, setGraphName] = useState([]) //weekdays, months, hour
+    const [graphData, setGraphData] = useState([]) // from returned mockdata
+    const [graphInterval, setGraphInterval] = useState("day") //day, week, 6month, year
+    const [start, setStart] = useState(yesterday)
+    const [stop, setStop] = useState(today)
+    const [type, setType] = useState('litecoin')
+    const [time, setTime] = useState('day')
+
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
     }
-    const apitest = (coin, start, stop, timeInterval) => fetch(apiUrl(coin, start, stop, timeInterval))
+    const apiCall = (coin, start, stop, timeInterval) => fetch(apiUrl(coin, start, stop, timeInterval))
         .then(data => data.json())
         .then(data => data.prices)
         .then(data => {
@@ -73,13 +80,15 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F2(data[num][1]) }) && counter++
                 }
             }
         })
         .then(() => {
+            // just checking...
             console.log(mockData)
-            setMd(mockData)
+            // after data is fetched... this is passed to DATA
+            setGraphData(mockData)
         })
 
 
@@ -88,7 +97,7 @@ const Chart = () => {
             <LineChart
                 width={500}
                 height={400}
-                data={md}
+                data={graphData}
                 margin={{
                     top: 10,
                     right: 30,
@@ -96,26 +105,45 @@ const Chart = () => {
                     bottom: 0,
                 }}
             >
-                <Line type="monotone" dataKey={"price"} stroke="#8884d8" activeDot={{ r: 2 }} />
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey={"name"} />
-                <YAxis />
+                <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} />
+                {/* <CartesianGrid strokeDasharray="2 2" /> */}
+                <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
+                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
                 <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
-                <Legend />
-                {/* <Area type="monotone" dataKey="price" stroke="#8884d8" fill="#8884d8" /> */}
+                {/* <Legend /> */}
+                {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
             </LineChart>
         </ResponsiveContainer >
+
     )
 
+
+    const constructGraph = (type, start, stop, time) => {
+        //!     type, start, stop, time 
+        apiCall(type, start, stop, time)
+    }
+
+
     useEffect(() => {
-        setMd('')
-        apitest(coin, lastYear, today, "year")
+        setGraphData('')
+        // defaults will be passed in.. probably need to build caller function,
+        // that will be invoked off click listener
+        // other wise every rerender will default it back after change
+        apiCall(type, start, stop, time)
     }, [])
 
-    if (!md) return null
+    if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
+
             {draw}
+            {/* <div className={styles.chart__controller}>
+                <span>year </span>
+                <span>6month </span>
+                <span>1week </span>
+                <span>day </span>
+                CONTROLS</div> */}
+
         </>
     );
 }

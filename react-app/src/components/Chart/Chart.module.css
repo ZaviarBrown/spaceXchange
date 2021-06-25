@@ -1,5 +1,6 @@
 .chart__container {
     display: flex;
+    /* flex-direction: column; */
     height: 340px;
     width: 800px;
     /* margin-left: 125px; */
@@ -7,3 +8,5 @@
     align-items: center;
     background-color: #E7E6E1;
 }
+
+.chart__controller {}
