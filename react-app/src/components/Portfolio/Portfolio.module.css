@@ -1,7 +1,7 @@
 .portfolio__container {
   display: grid;
   height: 100%;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   grid-template-columns: 5fr 2fr;
   grid-template-rows: auto;
   grid-template-areas: 'left right';
@@ -11,9 +11,10 @@
 .portfolio__left {
   display: flex;
   flex-direction: column;
-  margin: 240px;
+  justify-content: space-between;
+  margin: 20px;
   grid-area: left;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height: 100%;
 }
 
@@ -21,7 +22,7 @@
   display: flex;
   flex-direction: column;
   /* justify-content:space-around; */
-  margin: 20px 20px 20px 150px;
+  margin: 55px 20px 20px 150px;
   grid-area: right;
   border: 1px solid white;
   height: 60vh;
@@ -32,6 +33,7 @@
   border-radius: 4px;
   box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345);
   box-sizing: border-box;
+  /* position: fixed; */
 }
 
 .listTitle {
@@ -51,27 +53,30 @@
 }
 
 .portfolio__chart__container {
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   height: 345px;
-  margin-top: 16px;
+  /* margin-top: 16px;
   margin-left: 10px;
-  margin-right: 10px;
+  margin-right: 10px; */
+  margin: 16px 20px 60px 20px;
 }
 
 .chart__control {
-  border: 1px solid yellow;
+  display: flex;
+  /* border: 1px solid yellow; */
   height: 50px;
-  margin: 2px;
+  margin: 20px;
 }
 
 .buyingpower__container {
-  border: 1px solid yellow;
+  display: flex;
+  /* border: 1px solid yellow; */
   height: 65px;
-  margin: 2px;
+  margin: 20px 20px 5px 20px;
 }
 
 .news__container {
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   overflow: hidden;
-  margin: 2px;
+  margin: 5px 5px 20px 5px;
 }

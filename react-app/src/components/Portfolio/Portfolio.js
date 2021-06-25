@@ -31,7 +31,6 @@ export default function Portfolio() {
 
   return (
     <div className={styles.portfolio__container}>
-      Portfolio test
       <div className={styles.portfolio__left}>
         Left
         <div className={styles.portfolio__chart__container}>
