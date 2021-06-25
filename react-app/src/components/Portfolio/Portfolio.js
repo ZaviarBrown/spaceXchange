@@ -5,7 +5,9 @@ import Chart from '../Chart/Chart';
 import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
+import { authenticate } from '../../store/session'
 import Article from '../articles/Article';
+
 import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
@@ -27,6 +29,7 @@ export default function Portfolio() {
 
   useEffect(() => {
     getArticles();
+    dispatch(authenticate())
   }, []);
 
   return (
