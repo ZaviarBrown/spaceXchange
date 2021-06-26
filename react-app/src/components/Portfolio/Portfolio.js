@@ -20,7 +20,6 @@ export default function Portfolio() {
     setAssets(ownedAssets)
   }, [assets]);
   const [prices, setPrices] = useState({})
-  const dispatch = useDispatch();
 
   // raspberry route
   const getPrices = async () => {
