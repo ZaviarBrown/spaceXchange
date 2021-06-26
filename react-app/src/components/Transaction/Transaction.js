@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
+import { getListItems } from '../../store/ownedList'
 import F from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
@@ -36,6 +37,9 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+          dispatch(getListItems())
+          setAmount('')
+          return
         }
 
         else if (amount > found.shares) { // X SELL more than OWNED X ----------
@@ -50,6 +54,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(editOneAsset(found.id, number, totalPrice))
         dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
         dispatch(getAllAssets())
+        dispatch(getListItems())
+        setAmount('')
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
         let totalPrice = amount * assetPrice * -1
@@ -60,6 +66,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(editOneAsset(found.id, number, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+          dispatch(getListItems())
+          setAmount('')
 
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
@@ -79,6 +87,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+          dispatch(getListItems())
+          setAmount('')
 
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
@@ -96,7 +106,6 @@ export default function Transaction({ planetId, planetName, ticker }) {
       return;
     }
     //maybe push history("/")???????????
-    setAmount('')
   };
 
   // raspberry route

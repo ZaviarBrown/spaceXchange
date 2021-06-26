@@ -13,11 +13,13 @@ import F, { F2 } from '../../utils/formatter'
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
+  const [assets, setAssets] = useState(ownedAssets)
   console.log("OWNED", ownedAssets)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getListItems());
-  }, []);
+    setAssets(ownedAssets)
+  }, [assets]);
 
   const [articles, setArticles] = useState([]);
 

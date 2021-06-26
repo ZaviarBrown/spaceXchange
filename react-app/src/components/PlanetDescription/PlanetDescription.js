@@ -22,7 +22,7 @@ export default function Planet() {
     const result = await data.json()
     return setArticles(result)
   };
-  
+
   useEffect(() => {
     dispatch(getOnePlanet(planetId));
     getArticles();
