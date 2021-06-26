@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './Article.module.css';
 
 export default function Article({ article }) {
+
   return (
     <>
       <div className={styles.articleContainer}>

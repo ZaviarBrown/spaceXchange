@@ -30,7 +30,6 @@ export default function Planet() {
 
   if (!planet) return null
   if (articles.length === 0) return null
-
   return (
     <>
       <div className={styles.pageContainer}>

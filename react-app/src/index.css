@@ -1,4 +1,5 @@
 /* TODO Add site wide styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -7,4 +8,5 @@
 html {
     height: 100vh;
     background-color: #0C4271;
+    /* background-color: #333 */
 }
