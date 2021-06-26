@@ -1,8 +1,7 @@
 .portfolio__container {
   display: grid;
   height: 100%;
-  /* border: 1px solid blue; */
-  grid-template-columns: 1fr 5fr 2fr 2fr;
+  grid-template-columns: 1fr 5fr 2fr 2fr 1fr;
   grid-template-rows: auto;
   grid-template-areas: '. left left right .';
   text-align: center;
@@ -14,44 +13,10 @@
   justify-content: space-between;
   margin: 20px;
   grid-area: left;
-  /* border: 1px solid red; */
   height: 100%;
 }
 
-.portfolio__right {
-  display: flex;
-  flex-direction: column;
-  margin: 55px 150px 20px 100px;
-  grid-area: right;
-  border: 1px solid white;
-  height: 45vh;
-  left: 560px;
-  background-color: #e7e6e1f0;
-  color: #343b51;
-  width: 18vh;
-  border-radius: 4px;
-  box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345);
-  box-sizing: border-box;
-}
-
-.listTitle {
-  margin: 10px 0 10px 0;
-}
-
-.listContainer {
-  display: flex;
-  /* height: 1000px; */
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  color: #343b51;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: 'DM Sans', sans-serif;
-}
-
 .portfolio__chart__container {
-  /* border: 1px solid yellow; */
   height: 345px;
   min-width: 600px;
   margin: 16px 20px 20px 20px;
@@ -59,20 +24,49 @@
 
 .chart__control {
   display: flex;
-  /* border: 1px solid yellow; */
   height: 50px;
   margin: 10px;
 }
 
 .buyingpower__container {
   display: flex;
-  /* border: 1px solid yellow; */
+  flex-direction: column;
   height: 65px;
   margin: 10px 10px 5px 10px;
+  padding: 20px;
+}
+
+.buyingPower {
+  margin: 10px;
 }
 
 .news__container {
-  /* border: 1px solid pink; */
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   margin: 5px 5px 20px 5px;
+  padding-left: 15px;
+}
+
+.portfolio__right {
+  display: flex;
+  flex-direction: column;
+  grid-area: right;
+  align-items: center;
+}
+
+.sidebarContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid white;
+  border-radius: 5px;
+  width: 250px;
+  position: relative;
+  top: 50px;
+  background-color: rgba(0, 30, 75, 0.75);
+  color: white;
+}
+
+.listTitle {
+  margin: 10px 0 10px 0;
 }

@@ -1,12 +1,40 @@
-.chart__container {
-    display: flex;
-    /* flex-direction: column; */
-    height: 340px;
-    width: 800px;
-    /* margin-left: 125px; */
-    justify-content: center;
-    align-items: center;
-    background-color: #E7E6E1;
+.chartControlWrapper {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas: 
+    'a b'
+    'a b'
+    'a b'
+    'a b'
+    'a b';
 }
 
-.chart__controller {}
+.chartWrapper {
+    grid-area: a;
+}
+
+.chart__controller {
+    display: flex;
+    grid-area: b;
+    flex-direction: column;
+    margin: 20px;
+    font-weight: bold;
+    justify-content: space-between;
+}
+
+.chart__controller button {
+    color: white;
+    font-weight: bold;
+    margin: 5px 0;
+    background-color: rgb(12, 66, 113);
+    width: 75px;
+    padding: 10px 0;
+    border: 1px solid rgb(218, 220, 218);
+    border-radius: 5px;
+}
+
+.chart__controller button:hover {
+    background-color: rgb(8, 45, 77);
+    width: 75px;
+}

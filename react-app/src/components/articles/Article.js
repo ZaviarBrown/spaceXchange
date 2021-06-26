@@ -3,8 +3,6 @@ import styles from './Article.module.css';
 
 export default function Article({ article }) {
 
-  console.log(article)
-
   return (
     <>
       <div className={styles.articleContainer}>

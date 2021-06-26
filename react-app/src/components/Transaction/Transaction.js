@@ -12,7 +12,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
   const userCash = useSelector(state => state.session.user.cash_balance)
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
-  const [prices, setPrices] = useState({})
+  const [prices, setPrices] = useState({});
 
 
   const handleSubmit = (e) => {

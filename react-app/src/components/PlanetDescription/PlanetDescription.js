@@ -12,9 +12,9 @@ import Transaction from '../Transaction/Transaction';
 
 export default function Planet() {
   let planet = useSelector((state) => state.planet)
+  planet = planet[planetId]
   const dispatch = useDispatch()
   const { planetId } = useParams()
-  planet = planet[planetId]
   const [articles, setArticles] = useState([])
 
   const getArticles = async () => {
