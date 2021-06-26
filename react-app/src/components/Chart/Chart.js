@@ -9,10 +9,10 @@ const Chart = () => {
     const [graphData, setGraphData] = useState([]);
     const [timeInterval, setTimeInterval] = useState("day");
     const [md, setMd] = useState([])
-    let hour1 = 3600
-    let hours24 = 86399
-    let week = 604799
-    let year = 31536600
+    const hour1 = 3600
+    const hours24 = 86399
+    const week = 604799
+    const year = 31536600
     let today = Date.now() / 1000
     let yesterday = today - hours24
     let lastWeek = today - week
@@ -24,6 +24,29 @@ const Chart = () => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
+    const multi = {
+        "dodgecoin": 1,
+        "theta-fuel": 1,
+        "leo-token": 1,
+        "0x": 1,
+        "cardano": 1,
+        "algorand": 1,
+        "klay-token": 1,
+        "kusama": 565,
+        "wrapped-bitcoin": 691,
+        "huobi-btc": 13,
+        "yearn-finance": 81,
+        "maker": 9,
+        "ethereum": 7,
+        "staked-ether": 317,
+        "bitcoin-cash": 37,
+        "binancecoin": 10,
+        "compound-coin": 14,
+        "monero": 994,
+        "aave": 207,
+        "bitcoin": 1379
+    }
+
     const apiUrl = (x, y, z) => {
         return `https://api.coingecko.com/api/v3/coins/${x}/market_chart/range?vs_currency=usd&from=${y}&to=${z}`
     }
@@ -33,14 +56,14 @@ const Chart = () => {
         .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({ name: months[counter], price: data[num][1] }) && counter++;
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: data[num][1] * multi.coin }) && counter++;
                 }
             }
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({ name: months[counter], price: data[num][1] });
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: data[num][1] * multi.coin });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
                             counter += 1;
                         }
@@ -56,7 +79,7 @@ const Chart = () => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: data[num][1] })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: data[num][1] * multi.coin })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
@@ -73,7 +96,7 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] * multi.coin }) && counter++
                 }
             }
         })

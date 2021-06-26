@@ -5,8 +5,10 @@ Possible features
     * Fractional shares
     * Live updating chart with Plotly.js
     * "Get a job button" give you a random amount of money at increment
-    * Stories scraped by python, displayed on our site - DONE
-    * Host our own API - DONE
+    * Color code transactions buy/sell
+    * Color code planets by star system or "wealth class"
+    * Store prices to object, multiply by that amount
+
 
 BUGS THAT NEED TO BE FIXED
 

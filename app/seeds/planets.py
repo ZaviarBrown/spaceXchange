@@ -9,8 +9,8 @@ def seed_planets():
         ticker="MCRY",
         description="The closest planet to our sun and the smallest planet in our Solar System. Due to the abundance of iron ore, Mercury has primarily turned into a material mining planet.",
         labor_force=5120178,
-        planet_leader="",
-        top_export="",
+        planet_leader="Brian Shores",
+        top_export="Iron",
         crypto="dogecoin",
     )
 
@@ -20,8 +20,8 @@ def seed_planets():
         ticker="VNUS",
         description="With a surface temperature of 462°C (864°F), Venus holds the title of hottest planet in our Solar System. Since these are uninhabitable conditions for humans, the planet is completely run by AI machines.",
         labor_force=0,
-        planet_leader="",
-        top_export="",
+        planet_leader="XEV-99823",
+        top_export="Heat Fuel Cells",
         crypto="theta-fuel",
     )
 
@@ -31,8 +31,8 @@ def seed_planets():
         ticker="MARS",
         description="The red planet. First planet to be colonized by Earth. After generations of incredible developmental progress, Mars has a thriving economy and has earned a reputation of 'Earth 2.0'.",
         labor_force=1520231881,
-        planet_leader="",
-        top_export="",
+        planet_leader="Elon Musk MARK III",
+        top_export="Teleport Technology",
         crypto="leo-token",
     )
 
@@ -41,9 +41,9 @@ def seed_planets():
         price=0.622474,
         ticker="JPTR",
         description="At 317 times the mass of Earth, Jupiter reigns supreme as the most massive planet in our Solar System. Due to being a gas giant with incredibly violent storms, Jupiter's inhabitants actually live scattered across its 79 moons.",
-        labor_force=5000000,
-        planet_leader="",
-        top_export="",
+        labor_force=59558461,
+        planet_leader="Henry Brewer",
+        top_export="Lightning Bottles",
         crypto="0x",
     )
 
@@ -52,9 +52,9 @@ def seed_planets():
         price=1.29,
         ticker="STRN",
         description="Saturn's rings are its most recognizable feature, and have become a tourist attraction for space travelers. However, since Saturn is a gas giant, the space hotels are all located on Saturn's 82 moons",
-        labor_force=5000000,
-        planet_leader="",
-        top_export="",
+        labor_force=19883405,
+        planet_leader="Zach Yu",
+        top_export="Stephen Choung",
         crypto="cardano",
     )
 
@@ -63,9 +63,9 @@ def seed_planets():
         price=0.807278,
         ticker="URNS",
         description="Despite being a gas giant, Uranus is the coldest planet in our Solar System and has been dubbed an ice giant. The Uranus workforce is mostly located on the 27 moons that orbit it.",
-        labor_force=5000000,
-        planet_leader="",
-        top_export="",
+        labor_force=45255025,
+        planet_leader="Oliver Klozeoff",
+        top_export="Quantum Fluids",
         crypto="algorand",
     )
 
@@ -74,153 +74,153 @@ def seed_planets():
         price=0.986541,
         ticker="NPTN",
         description="The last planet in the Solar System and the last planet to be colonized, it shares the gas giant/ice giant label with Uranus. However, having an Earth-sized solid core allows for living beings to inhabit this planet to harvest its precious elements.",
-        labor_force=5000000,
-        planet_leader="",
-        top_export="",
+        labor_force=72928756,
+        planet_leader="Juliet Shafto",
+        top_export="Juice",
         crypto="klay-token",
     )
 
     amerind = Planet(
         name="Amerind",
         price=,
-        ticker="",
+        ticker="AMRND",
         description="Amerind was an inhabited planet said to be half a galaxy away from Earth, which was nonetheless discovered in the 23rd century to contain settlements of pre-industrial Humans, the Amerind inhabitants.",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        labor_force=75391524,
+        planet_leader="Sheri Jonson",
+        top_export="Canoes",
+        crypto="kusama",
     )
 
-    = Planet(
-        name="",
+    benzar = Planet(
+        name="Benzar",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="BNZAR",
+        description="Benzar was the homeworld of the Benzite civilization, and a significant member of the United Federation of Planets. In 2256, during the Federation-Klingon War, the USS Discovery successfully broke a Klingon supply line at this planet.",
+        labor_force=73783527180,
+        planet_leader="Erica Perry",
+        top_export="Holographic Technology",
+        crypto="wrapped-bitcoin",
     )
 
-    = Planet(
-        name="",
+    caldonia = Planet(
+        name="Caldonia",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="CLDNA",
+        description="Caldonia was an inhabited planet. The planet had rich deposits of trillium 323. This was the homeworld for the Caldonians, a warp-capable humanoid species.",
+        labor_force=2087424222,
+        planet_leader="Melissa Tennison",
+        top_export="Caldonian Finger Traps",
+        crypto="huobi-btc",
     )
 
-    = Planet(
-        name="",
+    denobula = Planet(
+        name="Denobula",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="DNBLA",
+        description="Denobula was an inhabited planet in the Denobula Triaxa system. This system was located in the Beta Quadrant. It was the homeworld of the Denobulans, a warp-capable humanoid species, as well as of the Denobulan lemur.",
+        labor_force=27895450687,
+        planet_leader="Albert Ceja",
+        top_export="Petroleum",
+        crypto="yearn-finance",
     )
 
-    = Planet(
-        name="",
+    eridani = Planet(
+        name="Eridani",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="ERDNI",
+        description="Eridani was a planet with at least seven moons. On Michael Burnham's tenth birthday, in 2236, her foster mother Amanda Grayson traveled with her on a shuttle to this planet's system.",
+        labor_force=1184630676,
+        planet_leader="Angela Hawkins",
+        top_export="Uranium",
+        crypto="maker",
     )
 
-    = Planet(
-        name="",
+    fahleena = Planet(
+        name="Fahleena",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="FHLNA",
+        description="Along with Mariah IV and Ultima Thule, Fahleena was a stop on a route formerly taken by Valerian traders supplying weapons-grade dolamide to the Cardassians.",
+        labor_force=27944040707,
+        planet_leader="William Drake",
+        top_export="Dolamide",
+        crypto="ethereum",
     )
 
-    = Planet(
-        name="",
+    gelrak = Planet(
+        name="Gelrak",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="GLRAK",
+        description="Gelrak V was an inhabited planet, and the homeworld of the Gelrakians. In 2380, Commander Jack Ransom and Ensign Beckett Mariner of the USS Cerritos went on an away mission to Gelrak V.",
+        labor_force=82951398800,
+        planet_leader="Dennis Myers",
+        top_export="GL Crystals",
+        crypto="staked-ether",
     )
 
-    = Planet(
-        name="",
+    himaa = Planet(
+        name="Himaa",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="HIMAA",
+        description="Himaa was an inhabited planet. It had a single sun and at least four moons. The planet hosted a variety of native lifeforms, including a bird, a predatory insect, a winged insect, a fish, and a mobile aquatic plant with healing properties.",
+        labor_force=2087424222,
+        planet_leader="Lando Cantlistenin",
+        top_export="Mercantile",
+        crypto="bitcoin-cash",
     )
 
-    = Planet(
-        name="",
+    indri = Planet(
+        name="Indri",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="INDRI",
+        description="Indri was the L-class eighth planet in the Indri system, in the Beta Quadrant. Indri was one of the planets seeded with part of a genetic program by the ancient humanoids 4.5 billion years ago.",
+        labor_force=4304595618,
+        planet_leader="Hannibale Leptur",
+        top_export="Lab-grown Human Meat",
+        crypto="binancecoin",
     )
 
-    = Planet(
-        name="",
+    jouret = Planet(
+        name="Jouret",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="JORET",
+        description="Jouret IV was the fourth planet in the Jouret system of the Beta Quadrant. In 2366, it was an inhabited planet. Founded over a century before, the New Providence colony was one of the Federation's outermost colonies.",
+        labor_force=9624912463,
+        planet_leader="Jayden Smith",
+        top_export="Jouret Seed",
+        crypto="compound-coin",
     )
 
-    = Planet(
-        name="",
+    kesprytt = Planet(
+        name="Kesprytt",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="KSPYT",
+        description="Kesprytt was the inhabited third planet of its star system, and was the homeworld of the Kesprytt. The planet was divided into two large nation-states controlled by the Kes and the Prytt Alliance.",
+        labor_force=6178536346,
+        planet_leader="Kanye West",
+        top_export="Lucky Charms",
+        crypto="monero",
     )
 
-    = Planet(
-        name="",
+    ledonia = Planet(
+        name="Ledonia",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="LDNIA",
+        description="Ledonia was the third planet in its star system. This planet was home to an exotic plant. Ledonian soil contained a benevolent mycorrhizal fungus that helped the native plants retain water.",
+        labor_force=3170462898,
+        planet_leader="Joe Rogan",
+        top_export="Ledonian mycorrhizal fungus",
+        crypto="aave",
     )
 
-    = Planet(
-        name="",
+    maranga = Planet(
+        name="Maranga",
         price=,
-        ticker="",
-        description="",
-        labor_force=,
-        planet_leader="",
-        top_export="",
-        crypto="",
+        ticker="MRNGA",
+        description="In 2370, the USS Enterprise-D visited Maranga IV to attend the Kot'baval Festival. While on the surface, Worf was attacked by forces loyal to the House of Duras. The attack was actually arranged by a future version of Alexander.",
+        labor_force=63262770768,
+        planet_leader="X AE A-12",
+        top_export="Anime",
+        crypto="bitcoin",
     )
 
     db.session.add(mercury)
@@ -231,18 +231,18 @@ def seed_planets():
     db.session.add(uranus)
     db.session.add(neptune)
     db.session.add(amerind)
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
-    db.session.add()
+    db.session.add(benzar)
+    db.session.add(caldonia)
+    db.session.add(denobula)
+    db.session.add(eridani)
+    db.session.add(fahleena)
+    db.session.add(gelrak)
+    db.session.add(himaa)
+    db.session.add(indri)
+    db.session.add(jouret)
+    db.session.add(kesprytt)
+    db.session.add(ledonia)
+    db.session.add(maranga)
 
     db.session.commit()
 
