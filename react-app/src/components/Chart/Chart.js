@@ -33,8 +33,8 @@ const Chart = () => {
         "algorand": 1,
         "klay-token": 1,
         "kusama": 565,
-        "wrapped-bitcoin": 691,
-        "huobi-btc": 13,
+        "wrapped-bitcoin": 13,
+        "huobi-btc": 16,
         "yearn-finance": 81,
         "maker": 9,
         "ethereum": 7,
@@ -44,7 +44,7 @@ const Chart = () => {
         "compound-coin": 14,
         "monero": 994,
         "aave": 207,
-        "bitcoin": 1379
+        "bitcoin": 2674
     }
 
     const apiUrl = (x, y, z) => {
