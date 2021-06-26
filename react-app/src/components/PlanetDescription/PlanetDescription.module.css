@@ -1,12 +1,11 @@
 .pageContainer {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: '. left right right right';
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-areas: '. left left left left right right right';
 }
 
 body {
   color: #e7e6e1;
-  /* background-color: #E7E6E1; */
 }
 
 .pageLeft {
@@ -21,8 +20,6 @@ body {
 .pageRight {
   display: flex;
   grid-area: right;
-  /* background-color: red; */
-  /* align-items: flex-start; */
 }
 
 .nameContainer {

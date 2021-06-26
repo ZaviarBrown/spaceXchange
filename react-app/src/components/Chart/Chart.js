@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Chart.module.css'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
-import F, { F2 } from '../../utils/formatter'
+import { useChart } from '../../context/ChartContext'
+import F, { F2, F3 } from '../../utils/formatter'
 
 const Chart = () => {
     const hour1 = 3600
@@ -59,14 +60,14 @@ const Chart = () => {
         .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({ name: months[counter], price: data[num][1] * multi.coin }) && counter++;
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1] * multi.coin) }) && counter++;
                 }
             }
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({ name: months[counter], price: data[num][1] * multi.coin });
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: F2(data[num][1] * multi.coin) });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
                             counter += 1;
                         }
@@ -82,7 +83,7 @@ const Chart = () => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: data[num][1] * multi.coin })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num][1] * multi.coin) })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
@@ -99,14 +100,11 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F2(data[num][1] * multi.coin) }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F3(data[num][1] * multi.coin) }) && counter++
                 }
             }
         })
         .then(() => {
-            // just checking...
-            console.log(mockData)
-            // after data is fetched... this is passed to DATA
             setGraphData(mockData)
         })
 
@@ -128,7 +126,7 @@ const Chart = () => {
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
                 <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
                 <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
-                <Tooltip wrapperStyle={{ width: 100, backgroundColor: '#ccc' }} />
+                <Tooltip wrapperStyle={{ maxWidth: 130, backgroundColor: '#ccc', color: "black" }} />
                 {/* <Legend /> */}
                 {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
             </LineChart>
@@ -136,33 +134,60 @@ const Chart = () => {
 
     )
 
-
-    const constructGraph = (type, start, stop, time) => {
-        //!     type, start, stop, time 
-        apiCall(type, start, stop, time)
-    }
-
-
     useEffect(() => {
         setGraphData('')
         // defaults will be passed in.. probably need to build caller function,
         // that will be invoked off click listener
         // other wise every rerender will default it back after change
         apiCall(type, start, stop, time)
-    }, [])
+
+    }, [start])
 
     if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
+            <div className={styles.chartControlWrapper}>
+                <div className={styles.chartWrapper}>
+                    {draw}
+                </div>
+                <div className={styles.chart__controller}>
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastYear)
+                        setStop(today)
+                        setTime("year")
+                        apiCall(type, start, stop, time)
+                    }}>year </button>
 
-            {draw}
-            {/* <div className={styles.chart__controller}>
-                <span>year </span>
-                <span>6month </span>
-                <span>1week </span>
-                <span>day </span>
-                CONTROLS</div> */}
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastYear)
+                        setStop(today)
+                        setTime("6months")
+                        apiCall(type, start, stop, time)
+                    }} >6 months </button>
 
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastWeek)
+                        setStop(today)
+                        setTime("week")
+                        apiCall(type, start, stop, time)
+                    }} >1 week </button>
+
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(yesterday)
+                        setStop(today)
+                        setTime("day")
+                        apiCall(type, start, stop, time)
+                    }}>24hr </button>
+                </div>
+            </div>
         </>
     );
 }

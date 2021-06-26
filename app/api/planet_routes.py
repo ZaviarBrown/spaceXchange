@@ -8,3 +8,8 @@ planet_routes = Blueprint("planet", __name__)
 def planet(id):
     planet = Planet.query.get(id)
     return planet.to_dict()
+
+@planet_routes.route("/")
+def allPlanets():
+    planets = Planet.query.all()
+    return {"planets": [planet.to_dict() for planet in planets]}

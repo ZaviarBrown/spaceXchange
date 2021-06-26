@@ -1,13 +1,9 @@
 
 .listItem {
-  margin: 10px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.783);
-  border-radius: 4px;
-  padding: 2px;
-  width: 100px;
-  color: #343b51;
+  width: 100%;
+  padding: 5px 0;
 }
 
 .listItem:hover{
-  background-color: rgb(205, 208, 210);
+  background-color: rgb(12, 66, 113);
 }

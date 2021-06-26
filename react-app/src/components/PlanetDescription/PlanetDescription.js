@@ -11,24 +11,22 @@ import styles from './PlanetDescription.module.css'
 import Transaction from '../Transaction/Transaction';
 
 export default function Planet() {
-  let planet = useSelector((state) => state.planet)
   const dispatch = useDispatch()
-  const { planetId } = useParams()
-  planet = planet[planetId]
   const [articles, setArticles] = useState([])
+  const { planetId } = useParams()
+  let planet = useSelector((state) => state.planet)
+  planet = planet[planetId]
 
   const getArticles = async () => {
     const data = await fetch('/api/article/')
     const result = await data.json()
     return setArticles(result)
   };
-  
+
   useEffect(() => {
     dispatch(getOnePlanet(planetId));
     getArticles();
   }, [dispatch])
-
-  console.log(articles)
 
   if (!planet) return null
   if (articles.length === 0) return null

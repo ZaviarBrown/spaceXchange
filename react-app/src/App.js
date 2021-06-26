@@ -11,6 +11,7 @@ import Planet from './components/PlanetDescription/PlanetDescription';
 import Portfolio from './components/Portfolio/Portfolio';
 import Splash from "./components/Splash/Splash";
 import Footer from "./components/Footer/Footer";
+import AllPlanets from "./components/AllPlanets/AllPlanets";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -45,10 +46,14 @@ function App() {
           <NavBar />  
           <Portfolio />
         </ProtectedRoute>
-        <Route path='/planet/:planetId' exact={true}>
+        <ProtectedRoute path='/planet/:planetId' exact={true}>
           <NavBar />  
           <Planet />
-        </Route>
+        </ProtectedRoute>
+        <ProtectedRoute path='/allPlanets'>
+          <NavBar/>
+          <AllPlanets/>
+        </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
           <NavBar />  
           <User />

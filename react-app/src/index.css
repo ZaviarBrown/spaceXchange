@@ -4,34 +4,7 @@
     padding: 0;
 }
 
-
 html {
-    border-top: 1px solid black;
     height: 100vh;
     background-color: #0C4271;
-}
-
-.page {
-    position: absolute;
-    top: 100px;
-    right: 0;
-    left: 0;
-}
-
-.fade-appear,
-.fade-enter{
-    opacity: 0;
-    z-index: 1;
-}
-.fade-appear-active,
-.fade-enter.fade-enter-active{
-    opacity: 1;
-    transition: opacity 3000ms linear 150ms;
-}
- .fade-exit{
-    opacity: 1;
-}
-.fade-exit.fade-exit-active{
-    opacity: 0;
-    transition: opacity 150ms linear;
 }
