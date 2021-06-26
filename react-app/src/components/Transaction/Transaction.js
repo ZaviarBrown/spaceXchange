@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
+import F from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
 export default function Transaction({ planetId, planetName, ticker }) {
@@ -115,38 +116,39 @@ export default function Transaction({ planetId, planetName, ticker }) {
     return () => clearInterval(interval)
   }, []);
 
+  if (!prices) return null
   return (
     <>
-    <div className={styles.transaction__container}>
-      <div className={styles.orderContainer}>
-        <div className={styles.order}>
-        Buy {planetName}
+      <div className={styles.transaction__container}>
+        <div className={styles.orderContainer}>
+          <div className={styles.order}>
+            Buy {planetName}
           </div>
+        </div>
+        <form
+          className={styles.transactionForm}
+          action=""
+          onSubmit={(e) => handleSubmit(e)}
+        >
+          <div className={styles.shares}>
+            <label>Shares:</label>
+            <input className={styles.shareInput}
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+            />
+          </div>
+          <div className={styles.priceContainer}>
+            <div className={styles.price}>Market Price:</div>
+            <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
+          </div>
+          <div className={styles.transactionButtons}>
+
+            <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
+          </div>
+        </form>
       </div>
-      <form
-        className={styles.transactionForm}
-        action=""
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <div className={styles.shares}>
-        <label>Shares:</label>
-        <input className={styles.shareInput}
-          type="number"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-        />
-        </div>
-        <div className={styles.priceContainer}>
-          <div className={styles.price}>Market Price:</div>
-          <div className={styles.price}> {prices[planetName.toLowerCase()]?.price}</div>
-        </div>
-        <div className={styles.transactionButtons}>
-     
-        <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
-        <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
-        </div>
-      </form>
-    </div>
     </>
   );
 }

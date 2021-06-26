@@ -6,10 +6,12 @@ import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
 import Article from '../articles/Article';
+import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
-  const cash_balance = useSelector(state => state.session.user.cash_balance)
+  const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
+  console.log("OWNED", ownedAssets)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getListItems());
@@ -27,27 +29,25 @@ export default function Portfolio() {
     getArticles();
   }, []);
 
-  // console.log('OWNED ASSETS', ownedAssets);
-
   return (
     <div className={styles.portfolio__container}>
-      Portfolio test
       <div className={styles.portfolio__left}>
         Left
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
-        <div className={styles.chart__control}>Chart controls</div>
-        <div className={styles.buyingpower__container}>buying power</div>
-        <div className={styles.news__container}> <Article articles={articles} /></div>
-        {/* <div className={styles.news__container}>News placeholder</div>
+        <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>buying power:
-          {cash_balance}</div>
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div>
-        <div className={styles.news__container}>News placeholder</div> */}
+          {F(cash_balance)}</div>
+        <div className={styles.news__container}>
+        {Object.values(articles).map((article) => (
+            <Article article={article} />
+          ))}
+        </div>
       </div>
       <div className={styles.portfolio__right}>
+      <div className={styles.listTitle}><h2>Owned</h2></div>
+      <div className={styles.listContainer}>
         {ownedAssets && (
           <div>
             {ownedAssets.map((asset) => (
@@ -57,8 +57,7 @@ export default function Portfolio() {
             ))}
           </div>
         )}
-        Right
-        <div>List</div>
+        </div>
       </div>
     </div>
   );
