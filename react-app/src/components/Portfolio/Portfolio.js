@@ -17,8 +17,21 @@ export default function Portfolio() {
 
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
+  const [assets, setAssets] = useState(ownedAssets)
   const dispatch = useDispatch();
-  
+  useEffect(() => {
+    dispatch(getListItems());
+    setAssets(ownedAssets)
+  }, [assets]);
+  const [prices, setPrices] = useState({})
+
+  // raspberry route
+  const getPrices = async () => {
+    const data = await fetch('/api/raspberry/')
+    const result = await data.json()
+    return setPrices(result)
+  }
+
   const [articles, setArticles] = useState([]);
   
   const getArticles = async () => {
@@ -57,24 +70,24 @@ export default function Portfolio() {
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-        <h1>Your Portfolio</h1>
+      <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
-
+        <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>
-          <hr />
-            <div className={styles.buyingPower}>
-              <h2>Buying Power: {F(cash_balance)}</h2>
-            </div>
-          <hr />
+          <div className={styles.statsContainer}>
+            Stats
+            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Account Value: </div>
+          </div>
         </div>
         <div className={styles.news__container}>
           <h1>
             Recent News
           </h1>
           {Object.values(articles).map((article) => (
-            <Article article={article} />
+            <Article key={article.title} article={article} />
           ))}
         </div>
       </div>

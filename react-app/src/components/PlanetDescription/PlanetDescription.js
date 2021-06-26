@@ -22,13 +22,11 @@ export default function Planet() {
     const result = await data.json()
     return setArticles(result)
   };
-  
+
   useEffect(() => {
     dispatch(getOnePlanet(planetId));
     getArticles();
   }, [dispatch])
-
-  console.log(articles)
 
   if (!planet) return null
   if (articles.length === 0) return null

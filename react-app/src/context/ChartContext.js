@@ -12,10 +12,10 @@ export const ChartProvider = (props) => {
     let lastWeek = today - week
     let lastYear = today - year
 
-    const [start, setStart] = useState(yesterday)
+    const [start, setStart] = useState(lastWeek)
     const [stop, setStop] = useState(today)
     const [type, setType] = useState('litecoin')
-    const [time, setTime] = useState('day') //day, week, 6month, year
+    const [time, setTime] = useState('week') //day, week, 6month, year
 
     return (
         <ChartContext.Provider value={{ start, stop, type, time, setStart, setStop, setType, setTime }}>
