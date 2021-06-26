@@ -16,12 +16,14 @@ export default function AllPlanets() {
 
   return (
     <>
-      <div className={styles.planetsContainer}>
-        {planets.map((planet) => (
-          <NavLink to={`/planet/${planet.id}`}>
-            <OnePlanet planet={planet}></OnePlanet>
-          </NavLink>
-        ))}
+      <div className={styles.allPlanetsPageContainer}>
+        <div className={styles.planetsContainer}>
+          {planets.map((planet) => (
+            <NavLink to={`/planet/${planet.id}`}>
+              <OnePlanet planet={planet}></OnePlanet>
+            </NavLink>
+          ))}
+        </div>
       </div>
     </>
   );

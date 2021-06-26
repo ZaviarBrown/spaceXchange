@@ -1,5 +1,17 @@
-.planetsContainer{
+.planetsContainer {
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
+}
+
+.allPlanetsPageContainer {
+  position: absolute;
+  height: 85%;
+  width: 85%;
+  margin-left: 12vh;
+  margin-top: 4vh;
+  margin-bottom: 200px;
+  background-color: rgba(245, 245, 245, 0.529);
+  border-radius: 10%;
+  box-shadow: 2px 2px 6px .5px rgba(226, 218, 232, 0.673);
 }
