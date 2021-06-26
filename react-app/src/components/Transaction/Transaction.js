@@ -13,7 +13,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
   const userCash = useSelector(state => state.session.user.cash_balance)
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
-  const [prices, setPrices] = useState({})
+  const [prices, setPrices] = useState({});
 
   // can I push into this array to show that this has been purchased already to prevent
   // from double creating assets

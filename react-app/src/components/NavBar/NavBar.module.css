@@ -3,8 +3,8 @@
   background-color: #0C4271;
   height: 75px;
   grid-template-rows: 100%;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-areas: "a b c";
+  grid-template-columns: 15% 50% 36%;
+  grid-template-areas: "a  b  c";
   color: #E7E6E1;
   font-weight: bold;
   font-size: 20px;
@@ -42,4 +42,28 @@
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-evenly;
+}
+
+.searchBar {
+  grid-area: b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputContainer input {
+  color: white;
+  font-weight: bold;
+  width: 500px;
+  padding: 8px;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #0C4271;
+  border: 1px solid white;
+}
+
+.searchIcon {
+  position: relative;
+  right: 45px;
+  top: 7px;
 }

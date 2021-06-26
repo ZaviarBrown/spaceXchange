@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import { useSelector } from 'react-redux';
+import searchIcon from '../../assets/outline_search_white_24dp.png';
 import styles from './NavBar.module.css';
 
 const NavBar = () => {
@@ -41,6 +42,12 @@ const NavBar = () => {
                         spaceXchange
                     </NavLink>
                 </div>
+            <div className={styles.searchBar}>
+                <div className={styles.inputContainer}>
+                    <input type="text" />
+                    <img src={searchIcon} className={styles.searchIcon} />
+                </div>
+            </div>
             {setLinks}
         </div>
     );

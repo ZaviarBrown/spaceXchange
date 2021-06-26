@@ -13,6 +13,8 @@ def article():
     soup = BeautifulSoup(site.content, "html5lib")
     news = soup.find_all("div", class_="listing-long-image")
     news2 = soup.find_all("div", class_="listing-long-content")
+    #! THE ERROR MESSAGE
+    # was loaded over HTTPS, but requested an insecure resource 'http://spacexchange.herokuapp.com/api/article/'. This request has been blocked; the content must be served over HTTPS.
 
     # source (is static)
 

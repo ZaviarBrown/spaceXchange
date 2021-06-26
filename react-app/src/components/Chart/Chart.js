@@ -119,46 +119,48 @@ const Chart = () => {
     if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
-            {draw}
-            <div className={styles.chart__controller}>
-                <button onClick={() => {
-                    setGraphData('')
-                    setType("litecoin")
-                    setStart(lastYear)
-                    setStop(today)
-                    setTime("year")
-                    apiCall(type, start, stop, time)
-                }}>year </button>
+            <div className={styles.chartControlWrapper}>
+                <div className={styles.chartWrapper}>
+                    {draw}
+                </div>
+                <div className={styles.chart__controller}>
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastYear)
+                        setStop(today)
+                        setTime("year")
+                        apiCall(type, start, stop, time)
+                    }}>year </button>
 
-                <button onClick={() => {
-                    setGraphData('')
-                    setType("litecoin")
-                    setStart(lastYear)
-                    setStop(today)
-                    setTime("6months")
-                    apiCall(type, start, stop, time)
-                }} >6month </button>
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastYear)
+                        setStop(today)
+                        setTime("6months")
+                        apiCall(type, start, stop, time)
+                    }} >6 months </button>
 
-                <button onClick={() => {
-                    setGraphData('')
-                    setType("litecoin")
-                    setStart(lastWeek)
-                    setStop(today)
-                    setTime("week")
-                    apiCall(type, start, stop, time)
-                }} >1week </button>
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(lastWeek)
+                        setStop(today)
+                        setTime("week")
+                        apiCall(type, start, stop, time)
+                    }} >1 week </button>
 
-                <button onClick={() => {
-                    setGraphData('')
-                    setType("litecoin")
-                    setStart(yesterday)
-                    setStop(today)
-                    setTime("day")
-                    apiCall(type, start, stop, time)
-                }}>day </button>
-                CONTROLS
+                    <button onClick={() => {
+                        setGraphData('')
+                        setType("litecoin")
+                        setStart(yesterday)
+                        setStop(today)
+                        setTime("day")
+                        apiCall(type, start, stop, time)
+                    }}>24hr </button>
+                </div>
             </div>
-
         </>
     );
 }
