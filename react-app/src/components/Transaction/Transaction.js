@@ -20,6 +20,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
   // should I do this from context.... as well as implementing the OWNED LIST asset
   // to try to ensure that it loads FROM CONTEXT rather than referencing the STATE
 
+
   const [justPurchased, setJustPurchased] = useState(new Set())
 
   // !issue double created asset when purchased without leaving planet page
@@ -35,12 +36,13 @@ export default function Transaction({ planetId, planetName, ticker }) {
     if (found) { // already OWN this ASSET -------------------------------------
       if (orderType === 'sell') { // SELL && FOUND -----------------------------
 
-        if (amount * 1 === found.shares) { // SELL ALL ----------------------
+        if (amount * 1 === found.shares) { // SELL ALL -------------------------
           let totalPrice = amount * 1 * assetPrice
           number = amount * 1 // normalize
           let transPrice = number * assetPrice // price for trans records
           dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
+          window.alert("delete one asset route hit")
           dispatch(getAllAssets())
           // dispatch(deleteListItem(found.id))
           setAmount('')
@@ -61,6 +63,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
         dispatch(getAllAssets())
         dispatch(getListItems())
+        window.alert("edit one asset route hit")
         setAmount('')
         return
 
@@ -74,7 +77,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
-
+          window.alert("create one asset route hit")
           setAmount('')
           return
 
@@ -97,6 +100,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
+          window.alert("create one asset route hit")
           setAmount('')
           return
 
