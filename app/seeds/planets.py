@@ -218,7 +218,7 @@ def seed_planets():
         ticker="MRNGA",
         description="Maranga the anime planet and is the entertainment source for the Universe. Every inhabitant of Maranga is an actual anime character, and every anime is filmed here, live. Many of the Universe's heros, and villians, were born on Maranga",
         labor_force=63262770,
-        planet_leader="X AE A-12",
+        planet_leader="X AE A-12 (Elon Musk's Son)",
         top_export="Anime",
         crypto="bitcoin",
     )

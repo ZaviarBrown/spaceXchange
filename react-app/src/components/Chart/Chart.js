@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './Chart.module.css'
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, ResponsiveContainer, LineChart, Line, Legend } from 'recharts';
 import { useChart } from '../../context/ChartContext'
-import F, { F2, F3 } from '../../utils/formatter'
+import { F2, F3 } from '../../utils/formatter'
 
 const Chart = () => {
     const hour1 = 3600
@@ -13,23 +13,16 @@ const Chart = () => {
     let yesterday = today - hours24
     let lastWeek = today - week
     let lastYear = today - year
-    const [md, setMd] = useState([])
-    const [graphName, setGraphName] = useState([]) //weekdays, months, hour
     const [graphData, setGraphData] = useState([]) // from returned mockdata
-    const [graphInterval, setGraphInterval] = useState("day") //day, week, 6month, year
-    const [start, setStart] = useState(yesterday)
-    const [stop, setStop] = useState(today)
-    const [type, setType] = useState('litecoin')
-    const [time, setTime] = useState('day')
     let mockData = [];
-    let coin = "litecoin"
     let months = ["July", "Aug", "Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "June"]
     let arr = [];
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
+    const { start, stop, type, time, setStart, setStop, setType, setTime } = useChart()
     const multi = {
-        "dodgecoin": 1,
+        "dogecoin": 100,
         "theta-fuel": 1,
         "leo-token": 1,
         "0x": 1,
@@ -60,14 +53,14 @@ const Chart = () => {
         .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1] * multi.coin) }) && counter++;
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1] * multi[type]) }) && counter++;
                 }
             }
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({ name: months[counter], price: F2(data[num][1] * multi.coin) });
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: F2(data[num][1] * multi[type]) });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
                             counter += 1;
                         }
@@ -83,7 +76,7 @@ const Chart = () => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num][1] * multi.coin) })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num][1] * multi[type]) })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
@@ -100,7 +93,7 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F3(data[num][1] * multi.coin) }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F3(data[num][1] * multi[type]) }) && counter++
                 }
             }
         })
@@ -153,7 +146,7 @@ const Chart = () => {
                 <div className={styles.chart__controller}>
                     <button onClick={() => {
                         setGraphData('')
-                        setType("litecoin")
+                        setType("dogecoin")
                         setStart(lastYear)
                         setStop(today)
                         setTime("year")
@@ -162,7 +155,7 @@ const Chart = () => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        setType("litecoin")
+                        setType("dogecoin")
                         setStart(lastYear)
                         setStop(today)
                         setTime("6months")
@@ -171,7 +164,7 @@ const Chart = () => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        setType("litecoin")
+                        setType("dogecoin")
                         setStart(lastWeek)
                         setStop(today)
                         setTime("week")
@@ -180,7 +173,7 @@ const Chart = () => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        setType("litecoin")
+                        setType("dogecoin")
                         setStart(yesterday)
                         setStop(today)
                         setTime("day")
