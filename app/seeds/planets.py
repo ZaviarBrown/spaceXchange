@@ -214,7 +214,7 @@ def seed_planets():
 
     maranga = Planet(
         name="Maranga",
-        price=10324995073496.46,
+        price=44816824.33,
         ticker="MRNGA",
         description="Maranga the anime planet and is the entertainment source for the Universe. Every inhabitant of Maranga is an actual anime character, and every anime is filmed here, live. Many of the Universe's heros, and villians, were born on Maranga",
         labor_force=63262770768,
