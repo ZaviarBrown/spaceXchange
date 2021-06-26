@@ -5,8 +5,10 @@ import Chart from '../Chart/Chart';
 import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
+import { authenticate } from '../../store/session'
 import Article from '../articles/Article';
-import F, { F2 } from '../../utils/formatter';
+
+import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
@@ -33,6 +35,7 @@ export default function Portfolio() {
     useEffect(() => {
       dispatch(getListItems());
       getArticles();
+      dispatch(authenticate())
       const interval = setInterval(getPrices, 2000)
       // clearing interval on componentWillUnmount
       return () => clearInterval(interval)
@@ -59,9 +62,13 @@ export default function Portfolio() {
         </div>
       </div>
       <div className={styles.portfolio__right}>
+<<<<<<< HEAD
         <div className={styles.listTitle}>
           <h2>Owned</h2>
         </div>
+=======
+        <div className={styles.listTitle}><h2>Owned</h2></div>
+>>>>>>> main
         <div className={styles.listContainer}>
           {ownedAssets && (
             <div>
