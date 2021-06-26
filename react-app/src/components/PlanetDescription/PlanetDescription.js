@@ -28,8 +28,6 @@ export default function Planet() {
     getArticles();
   }, [dispatch])
 
-  console.log(articles)
-
   if (!planet) return null
   if (articles.length === 0) return null
 

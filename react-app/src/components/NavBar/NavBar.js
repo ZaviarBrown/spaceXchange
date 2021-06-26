@@ -15,8 +15,12 @@ const NavBar = () => {
                     <NavLink to="/dashboard" exact={true} activeClassName="active">
                         Dashboard
                     </NavLink>
+                    <NavLink to ="/allPlanets" exact={true} activeClassName="active">
+                        Tradeable Planets
+                    </NavLink>
                     <LogoutButton />
                 </div>
+            
             </>
         )
     } else {
