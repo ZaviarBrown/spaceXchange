@@ -14,32 +14,20 @@ import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
   const [prices, setPrices] = useState([]);
-
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const [assets, setAssets] = useState(ownedAssets)
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getListItems());
-    setAssets(ownedAssets)
-  }, [assets]);
-  const [prices, setPrices] = useState({})
-
-  // raspberry route
-  const getPrices = async () => {
-    const data = await fetch('/api/raspberry/')
-    const result = await data.json()
-    return setPrices(result)
-  }
-
   const [articles, setArticles] = useState([]);
-  
+  const dispatch = useDispatch();
+
+
   const getArticles = async () => {
     const data = await fetch('/api/article');
     const result = await data.json();
     return setArticles(result);
   };
-  
+
+  // raspberry route
   const getPrices = async () => {
     const data = await fetch('/api/raspberry/')
     const result = await data.json()
@@ -48,13 +36,12 @@ export default function Portfolio() {
   }
 
   const grabPrice = (asset, priceObj) => {
-    console.log(typeof(priceObj))
+    console.log(typeof (priceObj))
     // let planetName = asset.planetName.toLowerCase();
     // let planetData = priceObj[planetName];
-    
+
     return
   }
-  
   useEffect(() => {
     dispatch(getListItems());
     getArticles();
@@ -70,7 +57,7 @@ export default function Portfolio() {
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-      <h1>Your Portfolio</h1>
+        <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
           <Chart />
         </div>
@@ -92,7 +79,7 @@ export default function Portfolio() {
         </div>
       </div>
       <div className={styles.portfolio__right}>
-        <div className={styles.sidebarContainer}>  
+        <div className={styles.sidebarContainer}>
           <div className={styles.listTitle}>
             <h2>Owned</h2>
             <hr />
@@ -101,7 +88,7 @@ export default function Portfolio() {
             {ownedAssets && prices && (
               <div>
                 {ownedAssets.map((asset) => (
-                  <NavLink to={`/planet/${asset.id}`}>
+                  <NavLink to={`/planet/${asset.planetId}`}>
                     <OwnedList asset={asset} price={grabPrice(asset, prices)} key={asset.id} />
                   </NavLink>
                 ))}
