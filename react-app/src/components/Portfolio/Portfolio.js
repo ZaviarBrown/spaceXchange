@@ -62,13 +62,9 @@ export default function Portfolio() {
         </div>
       </div>
       <div className={styles.portfolio__right}>
-<<<<<<< HEAD
         <div className={styles.listTitle}>
           <h2>Owned</h2>
         </div>
-=======
-        <div className={styles.listTitle}><h2>Owned</h2></div>
->>>>>>> main
         <div className={styles.listContainer}>
           {ownedAssets && (
             <div>
