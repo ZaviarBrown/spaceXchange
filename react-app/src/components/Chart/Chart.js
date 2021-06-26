@@ -4,11 +4,6 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, Respo
 import F, { F2 } from '../../utils/formatter'
 
 const Chart = () => {
-    const [name, setName] = useState('');
-    const [dk, setDk] = useState('');
-    const [graphData, setGraphData] = useState([]);
-    const [timeInterval, setTimeInterval] = useState("day");
-    const [md, setMd] = useState([])
     const hour1 = 3600
     const hours24 = 86399
     const week = 604799
@@ -17,6 +12,14 @@ const Chart = () => {
     let yesterday = today - hours24
     let lastWeek = today - week
     let lastYear = today - year
+    const [md, setMd] = useState([])
+    const [graphName, setGraphName] = useState([]) //weekdays, months, hour
+    const [graphData, setGraphData] = useState([]) // from returned mockdata
+    const [graphInterval, setGraphInterval] = useState("day") //day, week, 6month, year
+    const [start, setStart] = useState(yesterday)
+    const [stop, setStop] = useState(today)
+    const [type, setType] = useState('litecoin')
+    const [time, setTime] = useState('day')
     let mockData = [];
     let coin = "litecoin"
     let months = ["July", "Aug", "Sept", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "June"]
@@ -96,7 +99,7 @@ const Chart = () => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: data[num][1] * multi.coin }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F2(data[num][1] * multi.coin) }) && counter++
                 }
             }
         })
