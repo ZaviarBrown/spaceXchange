@@ -74,7 +74,7 @@ export default function Portfolio() {
             Recent News
           </h1>
           {Object.values(articles).map((article) => (
-            <Article key={article.date} article={article} />
+            <Article article={article} />
           ))}
         </div>
       </div>
