@@ -82,7 +82,7 @@ def seed_planets():
 
     amerind = Planet(
         name="Amerind",
-        price=,
+        price=100620.85,
         ticker="AMRND",
         description="Amerind was an inhabited planet said to be half a galaxy away from Earth, which was nonetheless discovered in the 23rd century to contain settlements of pre-industrial Humans, the Amerind inhabitants.",
         labor_force=75391524,
@@ -93,7 +93,7 @@ def seed_planets():
 
     benzar = Planet(
         name="Benzar",
-        price=,
+        price=22310220.30,
         ticker="BNZAR",
         description="Benzar was the homeworld of the Benzite civilization, and a significant member of the United Federation of Planets. In 2256, during the Federation-Klingon War, the USS Discovery successfully broke a Klingon supply line at this planet.",
         labor_force=73783527180,
@@ -104,7 +104,7 @@ def seed_planets():
 
     caldonia = Planet(
         name="Caldonia",
-        price=,
+        price=129.35,
         ticker="CLDNA",
         description="Caldonia was an inhabited planet. The planet had rich deposits of trillium 323. This was the homeworld for the Caldonians, a warp-capable humanoid species.",
         labor_force=2087424222,
@@ -115,7 +115,7 @@ def seed_planets():
 
     denobula = Planet(
         name="Denobula",
-        price=,
+        price=2328334.47,
         ticker="DNBLA",
         description="Denobula was an inhabited planet in the Denobula Triaxa system. This system was located in the Beta Quadrant. It was the homeworld of the Denobulans, a warp-capable humanoid species, as well as of the Denobulan lemur.",
         labor_force=27895450687,
@@ -126,7 +126,7 @@ def seed_planets():
 
     eridani = Planet(
         name="Eridani",
-        price=,
+        price=18281.07,
         ticker="ERDNI",
         description="Eridani was a planet with at least seven moons. On Michael Burnham's tenth birthday, in 2236, her foster mother Amanda Grayson traveled with her on a shuttle to this planet's system.",
         labor_force=1184630676,
@@ -137,7 +137,7 @@ def seed_planets():
 
     fahleena = Planet(
         name="Fahleena",
-        price=,
+        price=12925.43,
         ticker="FHLNA",
         description="Along with Mariah IV and Ultima Thule, Fahleena was a stop on a route formerly taken by Valerian traders supplying weapons-grade dolamide to the Cardassians.",
         labor_force=27944040707,
@@ -148,7 +148,7 @@ def seed_planets():
 
     gelrak = Planet(
         name="Gelrak",
-        price=,
+        price=583733.31,
         ticker="GLRAK",
         description="Gelrak V was an inhabited planet, and the homeworld of the Gelrakians. In 2380, Commander Jack Ransom and Ensign Beckett Mariner of the USS Cerritos went on an away mission to Gelrak V.",
         labor_force=82951398800,
@@ -159,7 +159,7 @@ def seed_planets():
 
     himaa = Planet(
         name="Himaa",
-        price=,
+        price=17110.65,
         ticker="HIMAA",
         description="Himaa was an inhabited planet. It had a single sun and at least four moons. The planet hosted a variety of native lifeforms, including a bird, a predatory insect, a winged insect, a fish, and a mobile aquatic plant with healing properties.",
         labor_force=2087424222,
@@ -170,7 +170,7 @@ def seed_planets():
 
     indri = Planet(
         name="Indri",
-        price=,
+        price=2889.91,
         ticker="INDRI",
         description="Indri was the L-class eighth planet in the Indri system, in the Beta Quadrant. Indri was one of the planets seeded with part of a genetic program by the ancient humanoids 4.5 billion years ago.",
         labor_force=4304595618,
@@ -181,7 +181,7 @@ def seed_planets():
 
     jouret = Planet(
         name="Jouret",
-        price=,
+        price=3191.02,
         ticker="JORET",
         description="Jouret IV was the fourth planet in the Jouret system of the Beta Quadrant. In 2366, it was an inhabited planet. Founded over a century before, the New Providence colony was one of the Federation's outermost colonies.",
         labor_force=9624912463,
@@ -192,7 +192,7 @@ def seed_planets():
 
     kesprytt = Planet(
         name="Kesprytt",
-        price=,
+        price=197497.86,
         ticker="KSPYT",
         description="Kesprytt was the inhabited third planet of its star system, and was the homeworld of the Kesprytt. The planet was divided into two large nation-states controlled by the Kes and the Prytt Alliance.",
         labor_force=6178536346,
@@ -203,7 +203,7 @@ def seed_planets():
 
     ledonia = Planet(
         name="Ledonia",
-        price=,
+        price=39851.64,
         ticker="LDNIA",
         description="Ledonia was the third planet in its star system. This planet was home to an exotic plant. Ledonian soil contained a benevolent mycorrhizal fungus that helped the native plants retain water.",
         labor_force=3170462898,
@@ -216,7 +216,7 @@ def seed_planets():
         name="Maranga",
         price=,
         ticker="MRNGA",
-        description="In 2370, the USS Enterprise-D visited Maranga IV to attend the Kot'baval Festival. While on the surface, Worf was attacked by forces loyal to the House of Duras. The attack was actually arranged by a future version of Alexander.",
+        description="Maranga the anime planet and is the entertainment source for the Universe. Every inhabitant of Maranga is an actual anime character, and every anime is filmed here, live. Many of the Universe's heros, and villians, were born on Maranga",
         labor_force=63262770768,
         planet_leader="X AE A-12",
         top_export="Anime",
