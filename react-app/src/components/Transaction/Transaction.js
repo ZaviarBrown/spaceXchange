@@ -22,8 +22,6 @@ export default function Transaction({ planetId, planetName, ticker }) {
     let assetPrice = prices[planetName.toLowerCase()].price
     //! for testing
     // let assetPrice = 6
-    console.log("asset price\n\n\n", assetPrice)
-    console.log('userCash\n\n\n', userCash)
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
@@ -37,8 +35,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
-          dispatch(getListItems())
           setAmount('')
+          dispatch(getListItems())
           return
         }
 

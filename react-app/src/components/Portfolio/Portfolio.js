@@ -62,7 +62,7 @@ export default function Portfolio() {
         </div>
         <div className={styles.news__container}>
           {Object.values(articles).map((article) => (
-            <Article article={article} />
+            <Article key={article.title} article={article} />
           ))}
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function Portfolio() {
           {ownedAssets && (
             <div>
               {ownedAssets.map((asset) => (
-                <NavLink to={`/planet/${asset.id}`}>
+                <NavLink to={`/planet/${asset.planetId}`}>
                   <OwnedList asset={asset} key={asset.id} />
                 </NavLink>
               ))}
