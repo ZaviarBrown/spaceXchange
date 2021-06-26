@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import db, Asset
 
@@ -10,3 +10,13 @@ owned_list_routes = Blueprint("owned_list", __name__)
 def owned_list():
     assets = Asset.query.filter(Asset.userId == current_user.id).all()
     return {"assets": [asset.to_dict() for asset in assets]}
+
+
+@owned_list_routes.route("/", methods=["DELETE"])
+@login_required
+def delete_list():
+    assetId = request.json["assetId"]
+    asset = Asset.query.filter(Asset.id == assetId).first()
+    db.session.delete(asset)
+    db.session.commit()
+    return {"assetId": assetId}

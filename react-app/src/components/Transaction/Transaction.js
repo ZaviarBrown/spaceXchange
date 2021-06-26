@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
-import { getListItems } from '../../store/ownedList'
+import { getListItems, deleteListItem } from '../../store/ownedList'
 import F from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
@@ -15,7 +15,14 @@ export default function Transaction({ planetId, planetName, ticker }) {
   const [orderType, setOrderType] = useState('');
   const [prices, setPrices] = useState({})
 
+  // can I push into this array to show that this has been purchased already to prevent
+  // from double creating assets
+  // should I do this from context.... as well as implementing the OWNED LIST asset
+  // to try to ensure that it loads FROM CONTEXT rather than referencing the STATE
 
+  const [justPurchased, setJustPurchased] = useState(new Set())
+
+  // !issue double created asset when purchased without leaving planet page
   const handleSubmit = (e) => {
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
@@ -35,6 +42,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
+          // dispatch(deleteListItem(found.id))
           setAmount('')
           dispatch(getListItems())
           return
@@ -54,6 +62,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(getAllAssets())
         dispatch(getListItems())
         setAmount('')
+        return
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
         let totalPrice = amount * assetPrice * -1
@@ -65,7 +74,9 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
+
           setAmount('')
+          return
 
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
@@ -87,6 +98,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(getAllAssets())
           dispatch(getListItems())
           setAmount('')
+          return
 
         } else { // X NOT ENOUGH CASH X
           alert("You don't have the buying power")
@@ -115,6 +127,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
 
   // on initial load
   useEffect(() => {
+    // window.location.reload()
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
     // setting interval to hit raspberry route
@@ -151,8 +164,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
           </div>
           <div className={styles.transactionButtons}>
 
-            <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
-            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
+            <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button>
           </div>
         </form>
       </div>
