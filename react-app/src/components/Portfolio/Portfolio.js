@@ -69,14 +69,14 @@ export default function Portfolio() {
             <div>Account Value: </div>
           </div>
         </div>
-        {/*<div className={styles.news__container}>*/}
-        <h1>
-        Recent News
-        </h1>
-        {Object.values(articles).map((article) => (
-        <Article article={article} />
-        ))}
-        {/*</div>*/}
+        <div className={styles.news__container}>
+            <h1>
+            Recent News
+            </h1>
+            {Object.values(articles).map((article) => (
+            <Article article={article} />
+            ))}
+        </div>
       </div>
       <div className={styles.portfolio__right}>
         <div className={styles.sidebarContainer}>
