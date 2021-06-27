@@ -16,9 +16,12 @@ const NavBar = () => {
                     <NavLink to="/dashboard" exact={true} activeClassName="active">
                         Dashboard
                     </NavLink>
-                    <NavLink to ="/allPlanets" exact={true} activeClassName="active">
+                    <NavLink to="/allPlanets" exact={true} activeClassName="active">
                         Tradeable Planets
                     </NavLink>
+                    <NavBar to="/allTransactions" exact={true} activeClassName="active">
+                        Transactions
+                    </NavBar>
                     <LogoutButton />
                 </div>
             
