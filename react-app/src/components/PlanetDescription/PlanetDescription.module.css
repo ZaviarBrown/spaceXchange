@@ -1,7 +1,8 @@
 .pageContainer {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-areas: '. left left left left right right right';
+  grid-template-columns: 1fr 5fr 2fr 2fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas: '. left left right .';
 }
 
 body {
@@ -31,19 +32,13 @@ body {
 .planetContainer {
   display: flex;
   flex-direction: column;
+  width: 100%;
   justify-content: space-between;
   align-items: left;
   min-height: 600px;
   max-height: 800px;
   margin-bottom: 20px;
 }
-/* 
-.articlesContainer {
-  margin-left: 150px;
-  display: flex;
-  justify-content: space-between;
-  min-height: 700px;
-} */
 
 .chartContainer {
   display: flex;
@@ -71,4 +66,9 @@ p {
 .statistics {
   display: flex;
   justify-content: space-around;
+  margin: 30px 0;
+}
+
+.news {
+  margin: 30px 0;
 }
