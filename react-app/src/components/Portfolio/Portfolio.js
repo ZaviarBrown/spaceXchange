@@ -19,6 +19,7 @@ export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssetsObject = useSelector((state) => state.ownedList);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
+
   const [assets, setAssets] = useState(ownedAssets);
   const [accountValue, setAccountValue] = useState('Fetching...');
   const planets = useSelector((state) => Object.values(state.planet));
@@ -26,8 +27,6 @@ export default function Portfolio() {
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const dispatch = useDispatch();
-
-  console.log('OWNED', ownedAssets);
 
   const getArticles = async () => {
     const data = await fetch('/api/article');
