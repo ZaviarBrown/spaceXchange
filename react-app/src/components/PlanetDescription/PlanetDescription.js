@@ -26,7 +26,7 @@ export default function Planet() {
   useEffect(() => {
     dispatch(getOnePlanet(planetId));
     getArticles();
-  }, [dispatch])
+  }, [dispatch, planetId])
 
   if (!planet) return null
   if (articles.length === 0) return null
