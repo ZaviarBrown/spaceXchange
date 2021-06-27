@@ -9,7 +9,7 @@ export default function OnePlanet({ planet, prices }) {
 
     <>
       <div className={styles.onePlanet}>
-        <div className={styles.planetGrid}>
+        <div id={styles.planetName} className={styles.planetGrid}>
           {planet.name}
         </div>
         <div className={styles.planetGrid}>

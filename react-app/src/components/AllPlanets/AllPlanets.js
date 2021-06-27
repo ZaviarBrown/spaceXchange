@@ -30,11 +30,16 @@ export default function AllPlanets() {
     <>
       <div className={styles.allPlanetsPageContainer}>
         <div className={styles.planetsContainer}> 
-          {planets.map((planet) => (
-            <NavLink to={`/planet/${planet.id}`}>
-              <OnePlanet planet={planet} prices={prices}></OnePlanet>
-            </NavLink>
-          ))}
+          <div className={styles.pageTitle}>
+            <h1>Tradeable Planets</h1>
+          </div>
+            <div className={styles.planetBox}>
+              {planets.map((planet) => (
+                <NavLink to={`/planet/${planet.id}`}>
+                  <OnePlanet planet={planet} prices={prices}></OnePlanet>
+                </NavLink>
+              ))}
+            </div>
         </div>
       </div>
     </>

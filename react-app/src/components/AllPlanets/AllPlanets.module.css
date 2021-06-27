@@ -12,3 +12,11 @@
   padding: 10px 5px;
   margin: 40px;
 }
+
+.pageTitle {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-bottom: 1px solid white;
+  width: 100%;
+}
