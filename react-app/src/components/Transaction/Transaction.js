@@ -4,7 +4,7 @@ import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../.
 import { createATransaction, getAllTransactions } from '../../store/transactions';
 import { getListItems, deleteListItem } from '../../store/ownedList'
 import { usePurchased } from '../../context/PurchasedContext'
-import F from '../../utils/formatter'
+import F, { F4 } from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
 export default function Transaction({ planetId, planetName, ticker, planetCrypto }) {
@@ -179,7 +179,8 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           </div>
           <div className={styles.priceContainer}>
             <div className={styles.price}>Market Price:</div>
-            <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
+            {/* <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div> */}
+            <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
           </div>
           <div className={styles.transactionButtons}>
 

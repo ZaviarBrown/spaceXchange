@@ -88,7 +88,7 @@ export default function Portfolio() {
             <hr />
           </div>
           <div className={styles.listContainer}>
-            {ownedAssets && prices && (
+            {ownedAssets && (
               <div>
                 {ownedAssets.map((asset) => {
                   let price = pricesCtxt[asset.planetName.toLowerCase()]

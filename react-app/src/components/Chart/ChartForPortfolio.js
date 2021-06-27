@@ -4,7 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, Respo
 import { useChart } from '../../context/ChartContext'
 import { F2, F3 } from '../../utils/formatter'
 
-const ChartForList = ({ crypto }) => {
+const ChartForPortfolio = ({ crypto }) => {
     const hour1 = 3600
     const hours24 = 86399
     const week = 604799
@@ -109,7 +109,7 @@ const ChartForList = ({ crypto }) => {
 
     const draw = (
         <ResponsiveContainer width="100%" aspect={7} >
-            <AreaChart
+            <LineChart
                 width={300}
                 height={200}
                 data={graphData}
@@ -120,14 +120,14 @@ const ChartForList = ({ crypto }) => {
                     bottom: 0,
                 }}
             >
-                {/* <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} /> */}
+                <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} />
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
                 {/* <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} /> */}
                 <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={0} />
                 {/* <Tooltip wrapperStyle={{ maxWidth: 130, backgroundColor: '#ccc', color: "black" }} /> */}
                 {/* <Legend /> */}
-                <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" />
-            </AreaChart>
+                {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
+            </LineChart>
         </ResponsiveContainer >
     )
     useEffect(() => {
@@ -148,4 +148,4 @@ const ChartForList = ({ crypto }) => {
     );
 }
 
-export default ChartForList
+export default ChartForPortfolio

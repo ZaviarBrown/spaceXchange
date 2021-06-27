@@ -39,7 +39,7 @@ export default function Planet() {
               <h1>{planet.name}</h1>
             </div>
             <div className={styles.chartContainer}>
-              <Chart></Chart>
+              <Chart crypto={planet.crypto} />
             </div>
             <div className={styles.underline}>
               <h2>About</h2>

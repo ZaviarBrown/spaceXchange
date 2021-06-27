@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styles from './OwnedList.module.css';
 import ChartForList from '../Chart/ChartForList'
+import F, { F4 } from '../../utils/formatter'
 
 export default function OwnedList({ asset, price }) {
-  price = price?.price ? price.price.toFixed(2) : "fetching..."
+  // price = price?.price ? price.price.toFixed(2) : "fetching..."
+  price = price?.price ? price?.price < 10 ? F4(price?.price) : F(price?.price) : "fetching..."
   return (
     <>
       <div className={styles.listItem}>
@@ -12,6 +14,7 @@ export default function OwnedList({ asset, price }) {
         <h3>{price}</h3>
         <h4> <ChartForList crypto={asset.crypto} /></h4>
       </div>
+      {/* <hr /> */}
     </>
   );
 }
