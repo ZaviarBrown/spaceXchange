@@ -20,8 +20,8 @@ const Chart = ({ crypto }) => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
-    let type = crypto
-    const { start, stop, time, setStart, setStop, setTime } = useChart()
+
+    const { start, stop, time, type, setStart, setStop, setTime } = useChart()
     const multi = {
         "dogecoin": 100,
         "theta-fuel": 1,

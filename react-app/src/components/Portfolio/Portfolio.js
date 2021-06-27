@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import Chart from '../Chart/Chart';
+import ChartForPortfolio from '../Chart/ChartForPortfolio';
 import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
 import { getListItems } from '../../store/ownedList';
@@ -10,6 +10,7 @@ import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
+
 import Article from '../articles/Article';
 
 import F, { F2 } from '../../utils/formatter'
@@ -19,9 +20,11 @@ export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const [assets, setAssets] = useState(ownedAssets)
+  // const [isLoaded, setIsLoaded] = useState(false)
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const dispatch = useDispatch();
+  const [totalsArr, setTotalsArr] = useState([])
 
 
   const getArticles = async () => {
@@ -37,19 +40,19 @@ export default function Portfolio() {
     setPricesCtxt(result)
   }
 
-  const grabPrice = (asset, priceObj) => {
-    // console.log(typeof (priceObj))
-    // let planetName = asset.planetName.toLowerCase();
-    // let planetData = priceObj[planetName];
 
-    return
-  }
+
+  // useEffect(() => {
+  //   // portfolioCalculator()
+  // }, [isLoaded])
   useEffect(() => {
     dispatch(getListItems());
     getArticles();
     dispatch(authenticate());
     dispatch(getAllAssets());
     dispatch(getAllTransactions());
+    // setIsLoaded(true)
+
     //! DISABLED FOR TESTING
     // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000);
@@ -62,13 +65,19 @@ export default function Portfolio() {
       <div className={styles.portfolio__left}>
         <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
-          <Chart />
+
+
+
+
+          <ChartForPortfolio />
         </div>
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>
           <div className={styles.statsContainer}>
             Stats
-            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Buying Power: {F(cash_balance)}
+
+            </div>
             <div>Account Value: </div>
           </div>
         </div>
