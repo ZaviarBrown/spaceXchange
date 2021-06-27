@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
-import styles from "./AllPlanets.module.css";
+import styles from "./AllTransactions.module.css";
+import { getAllTransactions } from "../../store/transactions";
 import { getAllPlanets } from "../../store/planet";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import OnePlanet from "../OnePlanet/OnePlanet";
+import OneTransaction from "../OneTransaction/OneTransaction";
 
-export default function AllPlanets() {
+export default function AllTransactions() {
   const dispatch = useDispatch();
 
+  const transactions = useSelector((state) =>
+    Object.values(state.transactions)
+  );
   const planets = useSelector((state) => Object.values(state.planet));
-  const [prices, setPrices] = useState({});
 
-  // console.log(prices)
-
-  const getPrices = async () => {
-    const data = await fetch("/api/raspberry/");
-    const result = await data.json();
-    return setPrices(result);
-  };
+  console.log(planets);
+  console.log(transactions);
 
   useEffect(() => {
+    dispatch(getAllTransactions());
     dispatch(getAllPlanets());
-    const interval = setInterval(getPrices, 2000);
-    // clearing interval on componentWillUnmount
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -31,12 +27,12 @@ export default function AllPlanets() {
       <div className={styles.allPlanetsPageContainer}>
         <div className={styles.planetsContainer}>
           <div className={styles.pageTitle}>
-            <h1>Tradeable Planets</h1>
+            <h1>All Previous Transactions</h1>
           </div>
           <div className={styles.planetBox}>
-            {planets.map((planet) => (
-              <NavLink to={`/planet/${planet.id}`}>
-                <OnePlanet planet={planet} prices={prices}></OnePlanet>
+            {transactions.reverse().map((t) => (
+              <NavLink to={`/planet/${t.planetId}`}>
+                <OneTransaction t={t} planets={planets} />
               </NavLink>
             ))}
           </div>

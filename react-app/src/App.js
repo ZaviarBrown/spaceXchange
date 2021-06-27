@@ -7,11 +7,12 @@ import NavBar from "./components/NavBar/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import User from "./components/Users/User";
 import { authenticate } from "./store/session";
-import Planet from './components/PlanetDescription/PlanetDescription';
-import Portfolio from './components/Portfolio/Portfolio';
+import Planet from "./components/PlanetDescription/PlanetDescription";
+import Portfolio from "./components/Portfolio/Portfolio";
 import Splash from "./components/Splash/Splash";
 import Footer from "./components/Footer/Footer";
 import AllPlanets from "./components/AllPlanets/AllPlanets";
+import AllTransactions from "./components/AllTransactions/AllTransactions";
 
 function App() {
   // const [authenticated, setAuthenticated] = useState(false);
@@ -43,19 +44,23 @@ function App() {
           <SignUpForm />
         </Route>
         <ProtectedRoute path="/dashboard" exact={true}>
-          <NavBar />  
+          <NavBar />
           <Portfolio />
         </ProtectedRoute>
-        <ProtectedRoute path='/planet/:planetId' exact={true}>
-          <NavBar />  
+        <ProtectedRoute path="/planet/:planetId" exact={true}>
+          <NavBar />
           <Planet />
         </ProtectedRoute>
-        <ProtectedRoute path='/allPlanets'>
-          <NavBar/>
-          <AllPlanets/>
+        <ProtectedRoute path="/allPlanets">
+          <NavBar />
+          <AllPlanets />
+        </ProtectedRoute>
+        <ProtectedRoute path="/allTransactions">
+          <NavBar />
+          <AllTransactions />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true}>
-          <NavBar />  
+          <NavBar />
           <User />
         </ProtectedRoute>
       </Switch>
