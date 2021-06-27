@@ -4,7 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Container, Respo
 import { useChart } from '../../context/ChartContext'
 import { F2, F3 } from '../../utils/formatter'
 
-const Chart = ({ asset }) => {
+const ChartForList = ({ crypto }) => {
     const hour1 = 3600
     const hours24 = 86399
     const week = 604799
@@ -20,7 +20,13 @@ const Chart = ({ asset }) => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
-    const { start, stop, type, time, setStart, setStop, setType, setTime } = useChart()
+    // let start = yesterday
+    // let stop = today
+    let type = crypto
+    let time = 'day'
+    let start = yesterday
+    let stop = today
+    // const { start, stop, } = useChart()
     const multi = {
         "dogecoin": 100,
         "theta-fuel": 1,
@@ -103,10 +109,10 @@ const Chart = ({ asset }) => {
 
 
     const draw = (
-        <ResponsiveContainer width="100%" aspect={3} >
-            <LineChart
-                width={500}
-                height={400}
+        <ResponsiveContainer width="100%" aspect={7} >
+            <AreaChart
+                width={300}
+                height={200}
                 data={graphData}
                 margin={{
                     top: 10,
@@ -115,14 +121,14 @@ const Chart = ({ asset }) => {
                     bottom: 0,
                 }}
             >
-                <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} />
+                {/* <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} /> */}
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
-                <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} />
-                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
-                <Tooltip wrapperStyle={{ maxWidth: 130, backgroundColor: '#ccc', color: "black" }} />
+                {/* <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} /> */}
+                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={0} />
+                {/* <Tooltip wrapperStyle={{ maxWidth: 130, backgroundColor: '#ccc', color: "black" }} /> */}
                 {/* <Legend /> */}
-                {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
-            </LineChart>
+                <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" />
+            </AreaChart>
         </ResponsiveContainer >
 
     )
@@ -134,55 +140,16 @@ const Chart = ({ asset }) => {
         // other wise every rerender will default it back after change
         apiCall(type, start, stop, time)
 
-    }, [start])
+    }, [])
 
     if (!graphData) return null // we need to make sure graph has DATA key before we try to render
     return (
         <>
-            <div className={styles.chartControlWrapper}>
-                <div className={styles.chartWrapper}>
-                    {draw}
-                </div>
-                <div className={styles.chart__controller}>
-                    <button onClick={() => {
-                        setGraphData('')
-                        setType("dogecoin")
-                        setStart(lastYear)
-                        setStop(today)
-                        setTime("year")
-                        apiCall(type, start, stop, time)
-                    }}>year </button>
-
-                    <button onClick={() => {
-                        setGraphData('')
-                        setType("dogecoin")
-                        setStart(lastYear)
-                        setStop(today)
-                        setTime("6months")
-                        apiCall(type, start, stop, time)
-                    }} >6 months </button>
-
-                    <button onClick={() => {
-                        setGraphData('')
-                        setType("dogecoin")
-                        setStart(lastWeek)
-                        setStop(today)
-                        setTime("week")
-                        apiCall(type, start, stop, time)
-                    }} >1 week </button>
-
-                    <button onClick={() => {
-                        setGraphData('')
-                        setType("dogecoin")
-                        setStart(yesterday)
-                        setStop(today)
-                        setTime("day")
-                        apiCall(type, start, stop, time)
-                    }}>24hr </button>
-                </div>
+            <div className={styles.chartWrapper}>
+                {draw}
             </div>
         </>
     );
 }
 
-export default Chart
+export default ChartForList

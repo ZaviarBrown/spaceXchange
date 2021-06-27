@@ -9,6 +9,7 @@ import { authenticate } from '../../store/session';
 import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
 import { useArticles } from '../../context/ArticlesContext'
+import { usePrices } from '../../context/PricesContext'
 import Article from '../articles/Article';
 
 import F, { F2 } from '../../utils/formatter'
@@ -19,7 +20,7 @@ export default function Portfolio() {
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const [assets, setAssets] = useState(ownedAssets)
   const { articlesCtxt, setArticlesCtxt } = useArticles();
-  const { pricesCtxt, setPricesCtxt } = useArticles();
+  const { pricesCtxt, setPricesCtxt } = usePrices();
   const dispatch = useDispatch();
 
 
@@ -89,17 +90,19 @@ export default function Portfolio() {
           <div className={styles.listContainer}>
             {ownedAssets && prices && (
               <div>
-              //! WORKING ON THIS LINE
-                {ownedAssets.map((asset) => (
-                  <NavLink to={`/planet/${asset.planetId}`}>
-                    <OwnedList asset={asset} price={grabPrice(asset, prices)} key={asset.id} />
-                  </NavLink>
-                ))}
+                {ownedAssets.map((asset) => {
+                  let price = pricesCtxt[asset.planetName.toLowerCase()]
+                  return (
+                    < NavLink to={`/planet/${asset.planetId}`}>
+                      <OwnedList asset={asset} price={price} key={asset.id} />
+                    </NavLink>
+                  )
+                })}
               </div>
             )}
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
