@@ -12,7 +12,7 @@ const NavBar = () => {
     
     const [search, setSearch] = useState('');
     const planets = useSelector((state) => Object.values(state.planet));
-    console.log(planets);
+    // console.log(planets);
     const sessionUser = useSelector(state => state.session.user);
     let setLinks;
 
