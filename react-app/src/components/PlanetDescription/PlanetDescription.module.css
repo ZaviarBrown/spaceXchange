@@ -27,6 +27,7 @@ body {
   display: flex;
   width: 100%;
   align-items: left;
+  margin: 30px 20px 30px 0;
 }
 
 .planetContainer {
@@ -43,7 +44,7 @@ body {
 .underline {
   border-bottom: 1px solid;
   border-color: #E7E6E1;
-  margin-bottom: 10px;
+  margin: 30px 0;
 }
 
 h1, h2 {
@@ -60,7 +61,6 @@ p {
 .statistics {
   display: flex;
   justify-content: space-around;
-  margin: 30px 0;
 }
 
 .news {
