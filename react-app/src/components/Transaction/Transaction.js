@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
 import { getListItems, deleteListItem } from '../../store/ownedList'
+import { usePurchased } from '../../context/PurchasedContext'
 import F from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
@@ -11,6 +12,8 @@ export default function Transaction({ planetId, planetName, ticker }) {
   const assets = useSelector(state => state.assets);
   const userId = useSelector(state => state.session.user.id);
   const userCash = useSelector(state => state.session.user.cash_balance)
+  const { purchased, setPurchased } = usePurchased()
+  const [justBought, setJustBought] = useState({})
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
   const [prices, setPrices] = useState({});
@@ -20,42 +23,38 @@ export default function Transaction({ planetId, planetName, ticker }) {
   // should I do this from context.... as well as implementing the OWNED LIST asset
   // to try to ensure that it loads FROM CONTEXT rather than referencing the STATE
 
-
-  const [justPurchased, setJustPurchased] = useState(new Set())
-
   // !issue double created asset when purchased without leaving planet page
   const handleSubmit = (e) => {
+    setPurchased(assets)
+    console.log(purchased)
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
-    let assetPrice = prices[planetName.toLowerCase()].price
-    //! for testing
-    // let assetPrice = 6
+    // let assetPrice = prices[planetName.toLowerCase()].price
+    // //! for testing
+    let assetPrice = 6
     let asset = Object.values(assets)
     let number
-    let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
+    let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
     if (found) { // already OWN this ASSET -------------------------------------
       if (orderType === 'sell') { // SELL && FOUND -----------------------------
-
         if (amount * 1 === found.shares) { // SELL ALL -------------------------
           let totalPrice = amount * 1 * assetPrice
           number = amount * 1 // normalize
           let transPrice = number * assetPrice // price for trans records
           dispatch(deleteOneAsset(found.id, totalPrice))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          window.alert("delete one asset route hit")
+          window.alert("delete one asset SELL ALL FOUND route hit")
           dispatch(getAllAssets())
           // dispatch(deleteListItem(found.id))
           setAmount('')
           dispatch(getListItems())
           return
         }
-
         else if (amount > found.shares) { // X SELL more than OWNED X ----------
           window.alert("You don't own that many shares.")
           setAmount('')
           return // kill
         }
-
         let totalPrice = amount * 1 * assetPrice // price of shares
         number = amount * -1 // normalize
         let transPrice = number * -1 * assetPrice // price for trans records
@@ -63,9 +62,12 @@ export default function Transaction({ planetId, planetName, ticker }) {
         dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
         dispatch(getAllAssets())
         dispatch(getListItems())
-        window.alert("edit one asset route hit")
+        window.alert("edit one asset SELL < found.shares route hit")
         setAmount('')
         return
+
+
+
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
         let totalPrice = amount * assetPrice * -1
@@ -77,7 +79,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
-          window.alert("create one asset route hit")
+          window.alert("edit one asset BUY AND FOUND route hit")
           setAmount('')
           return
 
@@ -87,38 +89,48 @@ export default function Transaction({ planetId, planetName, ticker }) {
           return // kill
         }
       }
+      //!NOT FOUND---------------------------
+    } else if (orderType === 'buy') { // BUY && NOT FOUND ---------------------------
+      let totalPrice = amount * -1 * assetPrice
+      number = amount * 1 // normalize number to send
+      let transPrice = number * assetPrice // price for trans records
 
-    } else {
-      if (orderType === 'buy') { // BUY && NOT FOUND ---------------------------
-        let totalPrice = amount * -1 * assetPrice
-        number = amount * 1 // normalize number to send
-        let transPrice = number * assetPrice // price for trans records
-
-        if (userCash >= transPrice) { // checking for enough cash
+      if (userCash >= transPrice) {
+        let purchasedArr = Object.values(purchased)
+        // let found2 = purchasedArr.find((el) => el['planetId'] === +planetId && el['userId'] === userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
+        // checking for enough cash
+        // console.log("FOUND2 && FOUND\n\n\n\n", found2, found)
+        if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
           dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
-          window.alert("create one asset route hit")
+          setPurchased({ planetId: planetId })
+          window.alert("create one asset BUY NOT FOUND route hit")
           setAmount('')
           return
-
-        } else { // X NOT ENOUGH CASH X
-          alert("You don't have the buying power")
-          setAmount('')
-          return // kill
+        } else {
+          console.log(!("planetId" in purchased), purchased, justBought)
+          alert('please resubmit your order, there was a problem')
+          // dispatch(editOneAsset(found.id, number, totalPrice))
+          // dispatch(createATransaction(transPrice, +planetId, number, orderType))
+          // dispatch(getAllAssets())
+          // dispatch(getListItems())
         }
-
-      } else {
-        if (orderType === 'sell') { // X SELL && NOT FOUND X -------------------
-          alert("You don't have any to sell")
-          setAmount('')
-          return // kill
-        }
+      } else { // X NOT ENOUGH CASH X
+        alert("You don't have the buying power")
+        setAmount('')
+        return // kill
       }
-      return;
+
+    } else if (orderType === 'sell') { // X SELL && NOT FOUND X -------------------
+      alert("You don't have any to sell")
+      setAmount('')
+      return // kill
     }
+    return;
+
     //maybe push history("/")???????????
   };
 
@@ -134,10 +146,12 @@ export default function Transaction({ planetId, planetName, ticker }) {
     // window.location.reload()
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-    // setting interval to hit raspberry route
-    const interval = setInterval(getPrices, 2000)
-    // clearing interval on componentWillUnmount
-    return () => clearInterval(interval)
+
+    //! disabled for TESTING
+    // // setting interval to hit raspberry route
+    // const interval = setInterval(getPrices, 2000)
+    // // clearing interval on componentWillUnmount
+    // return () => clearInterval(interval)
   }, []);
 
   if (!prices) return null
@@ -168,8 +182,10 @@ export default function Transaction({ planetId, planetName, ticker }) {
           </div>
           <div className={styles.transactionButtons}>
 
-            <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
-            <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button>
+            {/* <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button> */}
+            <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
           </div>
         </form>
       </div>

@@ -48,10 +48,11 @@ export default function Portfolio() {
     dispatch(authenticate());
     dispatch(getAllAssets());
     dispatch(getAllTransactions());
+    //! DISABLED FOR TESTING
     // setting interval to hit raspberry route
-    const interval = setInterval(getPrices, 2000);
+    // const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   return (

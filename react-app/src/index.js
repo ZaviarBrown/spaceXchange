@@ -5,15 +5,18 @@ import './index.css';
 import App from './App';
 import configureStore from './store';
 import { ChartProvider } from './context/ChartContext'
+import { PurchasedProvider } from './context/PurchasedContext'
 
 const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ChartProvider>
-        <App />
-      </ChartProvider>
+      <PurchasedProvider>
+        <ChartProvider>
+          <App />
+        </ChartProvider>
+      </PurchasedProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -57,7 +57,7 @@ export default function Planet() {
             </div>
           </div>
           {Object.values(articles).map((article) => (
-            <Article article={article} />
+            <Article key={article.title} article={article} />
           ))}
         </div>
         <div className={styles.pageRight}>
