@@ -10,6 +10,7 @@ import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
+import { useOwned } from '../../context/OwnedContext'
 
 import Article from '../articles/Article';
 
@@ -20,6 +21,8 @@ export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const [assets, setAssets] = useState(ownedAssets)
+  const { ownedCtxt, setOwnedCtxt } = useOwned()
+  const [owned, setOwned] = useState(ownedCtxt)
   // const [isLoaded, setIsLoaded] = useState(false)
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
@@ -40,21 +43,18 @@ export default function Portfolio() {
     setPricesCtxt(result)
   }
 
-
-
-  // useEffect(() => {
-  //   // portfolioCalculator()
-  // }, [isLoaded])
+  //! hashing out how to delete without needing manual refresh
+  useEffect(() => {
+    // dispatch(getAllAssets());
+    dispatch(getListItems())
+    // setOwned(ownedCtxt)
+  }, [assets])
   useEffect(() => {
     dispatch(getListItems());
     getArticles();
     dispatch(authenticate());
     dispatch(getAllAssets());
     dispatch(getAllTransactions());
-    // setIsLoaded(true)
-
-    //! DISABLED FOR TESTING
-    // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
     return () => clearInterval(interval);

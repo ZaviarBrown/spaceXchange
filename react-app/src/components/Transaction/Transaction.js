@@ -4,6 +4,7 @@ import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../.
 import { createATransaction, getAllTransactions } from '../../store/transactions';
 import { getListItems, deleteListItem } from '../../store/ownedList'
 import { usePurchased } from '../../context/PurchasedContext'
+import { useOwned } from '../../context/OwnedContext'
 import F, { F4 } from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
@@ -13,6 +14,7 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
   const userId = useSelector(state => state.session.user.id);
   const userCash = useSelector(state => state.session.user.cash_balance)
   const { purchased, setPurchased } = usePurchased()
+  const { ownedCtxt, setOwnedCtxt } = useOwned()
   const [justBought, setJustBought] = useState({})
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
@@ -45,9 +47,11 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           window.alert("delete one asset SELL ALL FOUND route hit")
           dispatch(getAllAssets())
-          // dispatch(deleteListItem(found.id))
-          setAmount('')
+          dispatch(deleteListItem(found.id))
           dispatch(getListItems())
+          setAmount('')
+          // dispatch(getListItems())
+          setOwnedCtxt('1')
           return
         }
         else if (amount > found.shares) { // X SELL more than OWNED X ----------
@@ -96,16 +100,13 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       let transPrice = number * assetPrice // price for trans records
 
       if (userCash >= transPrice) {
-        let purchasedArr = Object.values(purchased)
-        // let found2 = purchasedArr.find((el) => el['planetId'] === +planetId && el['userId'] === userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
-        // checking for enough cash
-        // console.log("FOUND2 && FOUND\n\n\n\n", found2, found)
         if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
           dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())
+          // dispatch(getListItems())
           setPurchased({ planetId: planetId })
           window.alert("create one asset BUY NOT FOUND route hit")
           setAmount('')
@@ -114,11 +115,6 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           console.log(!("planetId" in purchased), purchased, justBought)
           alert('please resubmit your order, there was a problem')
           dispatch(getAllAssets())
-
-          // dispatch(editOneAsset(found.id, number, totalPrice))
-          // dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          // dispatch(getAllAssets())
-          // dispatch(getListItems())
         }
       } else { // X NOT ENOUGH CASH X
         alert("You don't have the buying power")
@@ -147,7 +143,6 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     // window.location.reload()
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-
     //! disabled for TESTING
     // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000)
