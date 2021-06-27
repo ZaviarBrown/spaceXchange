@@ -7,9 +7,9 @@ export default function Article({ article }) {
       <div className={styles.articleContainer}>
         <a href={article.link}>
           <div className={styles.articleWrapper}>
-            <div className={styles.newsImg}>
+            {/* <div className={styles.newsImg}>
               <img src={article.img} />
-            </div>
+            </div> */}
             <h6>{article.source}</h6>
             <h6>{article.date}</h6>
             <div className={styles.articleTitle}>
