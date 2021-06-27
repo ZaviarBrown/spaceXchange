@@ -40,12 +40,6 @@ body {
   margin-bottom: 20px;
 }
 
-.chartContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .underline {
   border-bottom: 1px solid;
   border-color: #E7E6E1;
