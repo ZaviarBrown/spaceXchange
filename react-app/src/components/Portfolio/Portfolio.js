@@ -70,12 +70,12 @@ export default function Portfolio() {
           </div>
         </div>
         <div className={styles.news__container}>
-          <h1>
+            <h1>
             Recent News
-          </h1>
-          {Object.values(articles).map((article) => (
+            </h1>
+            {Object.values(articles).map((article) => (
             <Article article={article} />
-          ))}
+            ))}
         </div>
       </div>
       <div className={styles.portfolio__right}>
