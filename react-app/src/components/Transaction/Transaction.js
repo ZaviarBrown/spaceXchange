@@ -29,9 +29,9 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     console.log(purchased)
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
-    // let assetPrice = prices[planetName.toLowerCase()].price
+    let assetPrice = prices[planetName.toLowerCase()].price
     // //! for testing
-    let assetPrice = 6
+    // let assetPrice = 6
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
@@ -113,6 +113,8 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
         } else {
           console.log(!("planetId" in purchased), purchased, justBought)
           alert('please resubmit your order, there was a problem')
+          dispatch(getAllAssets())
+
           // dispatch(editOneAsset(found.id, number, totalPrice))
           // dispatch(createATransaction(transPrice, +planetId, number, orderType))
           // dispatch(getAllAssets())
@@ -130,7 +132,6 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       return // kill
     }
     return;
-
     //maybe push history("/")???????????
   };
 
@@ -148,10 +149,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     dispatch(getAllTransactions())
 
     //! disabled for TESTING
-    // // setting interval to hit raspberry route
-    // const interval = setInterval(getPrices, 2000)
-    // // clearing interval on componentWillUnmount
-    // return () => clearInterval(interval)
+    // setting interval to hit raspberry route
+    const interval = setInterval(getPrices, 2000)
+    // clearing interval on componentWillUnmount
+    return () => clearInterval(interval)
   }, []);
 
   if (!prices) return null
@@ -182,10 +183,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           </div>
           <div className={styles.transactionButtons}>
 
-            {/* <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
-            <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button> */}
-            <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
-            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button>
+            <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button>
+            {/* <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
+            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button> */}
           </div>
         </form>
       </div>

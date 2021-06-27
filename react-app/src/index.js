@@ -6,6 +6,8 @@ import App from './App';
 import configureStore from './store';
 import { ChartProvider } from './context/ChartContext'
 import { PurchasedProvider } from './context/PurchasedContext'
+import { PricesProvider } from './context/PricesContext'
+import { ArticlesProvider } from './context/ArticlesContext'
 
 const store = configureStore();
 
@@ -13,9 +15,14 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PurchasedProvider>
-        <ChartProvider>
-          <App />
-        </ChartProvider>
+        <PricesProvider>
+
+          <ChartProvider>
+            <ArticlesProvider>
+              <App />
+            </ArticlesProvider>
+          </ChartProvider>
+        </PricesProvider>
       </PurchasedProvider>
     </Provider>
   </React.StrictMode>,

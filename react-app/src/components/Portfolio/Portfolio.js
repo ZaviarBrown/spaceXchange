@@ -8,6 +8,7 @@ import { getListItems } from '../../store/ownedList';
 import { authenticate } from '../../store/session';
 import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
+import { useArticles } from '../../context/ArticlesContext'
 import Article from '../articles/Article';
 
 import F, { F2 } from '../../utils/formatter'
@@ -17,26 +18,26 @@ export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
   const [assets, setAssets] = useState(ownedAssets)
-  const [articles, setArticles] = useState([]);
+  const { articlesCtxt, setArticlesCtxt } = useArticles();
+  const { pricesCtxt, setPricesCtxt } = useArticles();
   const dispatch = useDispatch();
 
 
   const getArticles = async () => {
     const data = await fetch('/api/article');
     const result = await data.json();
-    return setArticles(result);
+    return setArticlesCtxt(result);
   };
 
   // raspberry route
   const getPrices = async () => {
     const data = await fetch('/api/raspberry/')
     const result = await data.json()
-    const resultArray = Array.from(result)
-    setPrices(resultArray)
+    setPricesCtxt(result)
   }
 
   const grabPrice = (asset, priceObj) => {
-    console.log(typeof (priceObj))
+    // console.log(typeof (priceObj))
     // let planetName = asset.planetName.toLowerCase();
     // let planetData = priceObj[planetName];
 
@@ -50,9 +51,9 @@ export default function Portfolio() {
     dispatch(getAllTransactions());
     //! DISABLED FOR TESTING
     // setting interval to hit raspberry route
-    // const interval = setInterval(getPrices, 2000);
+    const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -74,7 +75,7 @@ export default function Portfolio() {
           <h1>
             Recent News
           </h1>
-          {Object.values(articles).map((article) => (
+          {Object.values(articlesCtxt).map((article) => (
             <Article article={article} />
           ))}
         </div>

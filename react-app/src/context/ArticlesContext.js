@@ -4,17 +4,15 @@ export const ArticlesContext = createContext()
 
 export const ArticlesProvider = (props) => {
 
-
-
-    const [] = useState()
+    const [articlesCtxt, setArticlesCtxt] = useState('')
 
     return (
-        <ArticlesContext.Provider value={{}}>
+        <ArticlesContext.Provider value={{ articlesCtxt, setArticlesCtxt }}>
             {props.children}
         </ArticlesContext.Provider>
     )
 }
 
 export const useArticles = () => {
-    return useContext(ChartContext)
+    return useContext(ArticlesContext)
 }
