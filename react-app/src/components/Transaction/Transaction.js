@@ -7,7 +7,7 @@ import { usePurchased } from '../../context/PurchasedContext'
 import F from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
-export default function Transaction({ planetId, planetName, ticker }) {
+export default function Transaction({ planetId, planetName, ticker, planetCrypto }) {
   const dispatch = useDispatch();
   const assets = useSelector(state => state.assets);
   const userId = useSelector(state => state.session.user.id);
@@ -102,7 +102,7 @@ export default function Transaction({ planetId, planetName, ticker }) {
         // console.log("FOUND2 && FOUND\n\n\n\n", found2, found)
         if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
-          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker))
+          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           dispatch(getAllAssets())
           dispatch(getListItems())

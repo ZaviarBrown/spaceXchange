@@ -18,30 +18,40 @@ def assets():
 @login_required
 def new_asset():
     totalPrice = request.json["totalPrice"]
-    amount = request.json["amount"]
+    planetCrypto = request.json["planetCrypto"]
+    number = request.json["amount"]
     planetId = request.json["planetId"]
     planetName = request.json["planetName"]
     ticker = request.json["ticker"]
-    current_user.cash_balance = current_user.cash_balance + float(totalPrice)
-    created = Asset(
-        userId=current_user.id,
-        planetId=planetId,
-        shares=amount,
-        planetName=planetName,
-        ticker=ticker,
-    )
-    db.session.add(created)
-    db.session.commit()
-    assetId = created.id
-    userId = created.userId
-    return {"id": assetId, "userId": userId}
+    checker = Asset.query.filter(
+        Asset.planetName == planetName and Asset.userId == current_user.id
+    ).first()
+    if checker is None:
+        current_user.cash_balance = current_user.cash_balance + float(totalPrice)
+        created = Asset(
+            userId=current_user.id,
+            planetId=planetId,
+            shares=number,
+            planetName=planetName,
+            ticker=ticker,
+            crypto=planetCrypto,
+        )
+        db.session.add(created)
+        db.session.commit()
+        assetId = created.id
+        userId = created.userId
+        return {"id": assetId, "userId": userId}
+    else:
+        checker.shares = checker.shares + float(number)
+        shares = checker.shares
+        db.session.commit()
+        return {"id": id, "shares": shares}
 
 
 @asset_routes.route("/", methods=["PATCH"])
 @login_required
 def edit_asset():
     totalPrice = request.json["totalPrice"]
-    print(totalPrice)
     id = request.json["id"]
     current_user.cash_balance = current_user.cash_balance + float(totalPrice)
     number = request.json["number"]

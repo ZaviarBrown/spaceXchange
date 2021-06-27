@@ -62,7 +62,7 @@ export default function Planet() {
         </div>
         <div className={styles.pageRight}>
           <div>
-            <Transaction planetId={planetId} planetName={planet.name} ticker={planet.ticker} />
+            <Transaction planetId={planetId} planetName={planet.name} ticker={planet.ticker} planetCrypto={planet.crypto} />
           </div>
         </div>
       </div>

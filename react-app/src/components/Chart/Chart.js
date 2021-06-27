@@ -60,7 +60,7 @@ const Chart = () => {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({ name: months[counter], price: F2(data[num][1] * multi[type]) });
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: Math.round(((data[num][1] * multi[type])).toFixed(2)) });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
                             counter += 1;
                         }
@@ -76,7 +76,7 @@ const Chart = () => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F2(data[num][1] * multi[type]) })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F3(data[num][1] * multi[type]) })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
