@@ -100,6 +100,7 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
 9. set up your database:
 
    ```bash
+   heroku run -a spacexchange flask db downgrade
    heroku run -a spacexchange flask db upgrade
    heroku run -a spacexchange flask seed all
    ```

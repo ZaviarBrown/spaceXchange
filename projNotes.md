@@ -1,7 +1,16 @@
 Possible features
 
-    * "Sell all" button on a particular asset
+    * Assets page
     * Transactions page
-    * The Onion Financial stories scraped by python, displayed on our site
-    * Host our own API
-    * New database with 10 entires per asset, overwrite as algo generates data
+    * Fractional shares
+    * Live updating chart with Plotly.js
+    * "Get a job button" give you a random amount of money at increment
+    * Color code transactions buy/sell
+    * Color code planets by star system or "wealth class"
+    * Store prices to object, multiply by that amount
+
+
+BUGS THAT NEED TO BE FIXED
+
+    - Need to be able to deposit for buying power
+    - Dashboard "owned assets" is stuck at a weird spot on the page

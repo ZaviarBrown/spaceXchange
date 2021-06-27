@@ -14,7 +14,7 @@ export const ChartProvider = (props) => {
 
     const [start, setStart] = useState(lastWeek)
     const [stop, setStop] = useState(today)
-    const [type, setType] = useState('litecoin')
+    const [type, setType] = useState('dogecoin')
     const [time, setTime] = useState('week') //day, week, 6month, year
 
     return (

@@ -4,15 +4,15 @@ from app.models import db, Asset
 def seed_assets():
 
     demoUserP1 = Asset(userId=1, planetId=1,
-                       planetName="Mercury", ticker="MCRY", shares=6)
+                       planetName="Mercury", ticker="MCRY", shares=6, crypto="dogecoin")
     demoUserP2 = Asset(userId=1, planetId=2,
-                       planetName="Venus", ticker="VNUS", shares=8)
+                       planetName="Venus", ticker="VNUS", shares=8, crypto="theta-fuel")
     demoUserP3 = Asset(userId=1, planetId=3,
-                       planetName="Mars", ticker="MARS", shares=6)
+                       planetName="Mars", ticker="MARS", shares=6, crypto="leo-token")
     demoUserP4 = Asset(userId=1, planetId=4,
-                       planetName="Jupiter", ticker="JPTR", shares=6)
+                       planetName="Jupiter", ticker="JPTR", shares=6, crypto="0x")
     demoUserP5 = Asset(userId=1, planetId=5,
-                       planetName="Saturn", ticker="STRN", shares=3)
+                       planetName="Saturn", ticker="STRN", shares=3, crypto="cardano")
 
     db.session.add(demoUserP1)
     db.session.add(demoUserP2)

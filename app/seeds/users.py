@@ -6,9 +6,8 @@ def seed_users():
     hp = generate_password_hash("password")
     demo = User(
         username="Demo",
-        email="demo@aa.io",
         hashed_password=hp,
-        full_name="Demo User",
+        email="demo@aa.io",
         cash_balance=10000000,
     )
 
