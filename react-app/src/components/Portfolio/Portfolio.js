@@ -88,6 +88,7 @@ export default function Portfolio() {
           <div className={styles.listContainer}>
             {ownedAssets && prices && (
               <div>
+              //! WORKING ON THIS LINE
                 {ownedAssets.map((asset) => (
                   <NavLink to={`/planet/${asset.planetId}`}>
                     <OwnedList asset={asset} price={grabPrice(asset, prices)} key={asset.id} />
