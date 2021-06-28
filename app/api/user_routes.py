@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify
 import datetime
 from flask_login import login_required
 from app.models import User
+from localStoragePy import localStoragePy
+
 
 user_routes = Blueprint("users", __name__)
 
@@ -18,16 +20,17 @@ start_data = [
 ]
 
 
-@user_routes.route("/")
+@user_routes.route("/", methods=["GET", "PATCH"])
 @login_required
 def user_history():
     if localStorage.getItem("history") is None:
         localStorage.setItem("history", jsonify(start_data))
 
     else:
+        print(request.json)
         history = localStorage.getItem("history")
         user_id = request.json["userId"]
-        account_value = request.json["accountValue"]
+        account_value = request.json
         history.pop(0)
         history.append({"name": f"${datetime.time}", "value": account_value})
         localStorage.setItem("history", jsonify(history))

@@ -45,97 +45,115 @@ export default function Portfolio() {
   }
 
   const getHistory = async () => {
-    let body = JSON.stringify({ "accountValue"})
-    const data = await fetch('/api/history/', {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: body
-    });
-    const result = await data.json()
-    setHistory(result)
+    let startData = [
+      { "name": "9 days ago", "value": 481230.58 },
+      { "name": "8 days ago", "value": 491898.26 },
+      { "name": "7 days ago", "value": 96902.54 },
+      { "name": "6 days ago", "value": 96902.96 },
+      { "name": "5 days ago", "value": 94201.31 },
+      { "name": "4 days ago", "value": 439387.71 },
+      { "name": "3 days ago", "value": 439394.75 },
+      { "name": "2 days ago", "value": 439400.85 },
+      { "name": "1 days ago", "value": 319845.93 },
+    ]
+    if (!localStorage.getItem('history')) {
+      localStorage.setItem('history', JSON.stringify(startData))
+      setHistory(startData)
+    }
+    else if (localStorage.getItem('history')) {
+      let history = localStorage.getItem('history')
+      history.shift()
+      history.push(accountValue)
+      localStorage.setItem('history', JSON.stringify(history))
+    }
+    setHistory(history)
   }
 
-  const getAccountValue = async () => {
-    let accountValue = 0;
-    let ownedObject = {};
+}
 
-    ownedAssets && pricesCtxt && loaded && ownedAssets.forEach((asset) => {
-      ownedObject[asset.planetName.toLowerCase()] = asset.id;
-    });
+const getAccountValue = async () => {
+  let accountValue = 0;
+  let ownedObject = {};
 
-    for (const key in pricesCtxt) {
-      if (Object.keys(ownedObject).includes(key)) {
-        accountValue +=
-          pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
-      }
+  ownedAssets && pricesCtxt && loaded && ownedAssets.forEach((asset) => {
+    ownedObject[asset.planetName.toLowerCase()] = asset.id;
+  });
+
+  for (const key in pricesCtxt) {
+    if (Object.keys(ownedObject).includes(key)) {
+      accountValue +=
+        pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
     }
+  }
 
-    setAccountValue(accountValue);
+  setAccountValue(accountValue);
+};
+
+useEffect(() => {
+  getArticles();
+  dispatch(authenticate())
+  dispatch(getAllAssets())
+  dispatch(getAllTransactions());
+  const interval = setInterval(getPrices, 2000);
+  const historyInterval = setInterval(getHistory, 5000)
+  // clearing interval on componentWillUnmount
+  return () => {
+    clearInterval(historyInterval)
+    clearInterval(interval)
   };
+}, []);
 
-  useEffect(() => {
-    getArticles();
-    dispatch(authenticate())
-    dispatch(getAllAssets())
-    dispatch(getAllTransactions());
-    const interval = setInterval(getPrices, 2000);
-    // clearing interval on componentWillUnmount
-    return () => clearInterval(interval);
-  }, []);
+useEffect(() => {
+  getAccountValue();
+}, [pricesCtxt]);
 
-  useEffect(() => {
-    getAccountValue();
-  }, [pricesCtxt]);
-
-  return (
-    <div className={styles.portfolio__container}>
-      <div className={styles.portfolio__left}>
-        <h1>Your Portfolio</h1>
-        <div className={styles.portfolio__chart__container}>
-          {
-            history &&
-            <ChartForPortfolio history={history} />
-          }
-        </div>
-        <div className={styles.chart__control}></div>
-        <div className={styles.buyingpower__container}>
-          <div className={styles.statsContainer}>
-            Stats
-            <div>Buying Power: {F(cash_balance)}</div>
-            <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
-          </div>
-        </div>
-        <div className={styles.news__container}>
-          <h1>Recent News</h1>
-          {Object.values(articlesCtxt).map((article) => (
-            <Article article={article} key={article.title} />
-          ))}
+return (
+  <div className={styles.portfolio__container}>
+    <div className={styles.portfolio__left}>
+      <h1>Your Portfolio</h1>
+      <div className={styles.portfolio__chart__container}>
+        {
+          history &&
+          <ChartForPortfolio history={history} />
+        }
+      </div>
+      <div className={styles.chart__control}></div>
+      <div className={styles.buyingpower__container}>
+        <div className={styles.statsContainer}>
+          Stats
+          <div>Buying Power: {F(cash_balance)}</div>
+          <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
         </div>
       </div>
-      <div className={styles.portfolio__right}>
-        <div className={styles.sidebarContainer}>
-          <div className={styles.listTitle}>
-            <h2>Owned</h2>
-            <hr />
-          </div>
-          <div className={styles.listContainer}>
-            {ownedAssets && pricesCtxt && loaded && (
-              <div>
-                {ownedAssets.map((asset) => {
-                  let price = pricesCtxt[asset?.planetName.toLowerCase()]
-                  return (
-                    <NavLink to={`/planet/${asset.planetId}`}>
-                      <OwnedList asset={asset} price={price} key={asset.id} />
-                    </NavLink>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+      <div className={styles.news__container}>
+        <h1>Recent News</h1>
+        {Object.values(articlesCtxt).map((article) => (
+          <Article article={article} key={article.title} />
+        ))}
+      </div>
+    </div>
+    <div className={styles.portfolio__right}>
+      <div className={styles.sidebarContainer}>
+        <div className={styles.listTitle}>
+          <h2>Owned</h2>
+          <hr />
+        </div>
+        <div className={styles.listContainer}>
+          {ownedAssets && pricesCtxt && loaded && (
+            <div>
+              {ownedAssets.map((asset) => {
+                let price = pricesCtxt[asset?.planetName.toLowerCase()]
+                return (
+                  <NavLink to={`/planet/${asset.planetId}`}>
+                    <OwnedList asset={asset} price={price} key={asset.id} />
+                  </NavLink>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }
