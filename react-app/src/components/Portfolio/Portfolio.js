@@ -139,6 +139,9 @@ export default function Portfolio() {
           <div className={styles.listContainer} onMouseEnter={(e) => console.log()}>
             {ownedAssets && pricesCtxt && loaded && (
               <div>
+                {ownedAssets.length === 0 ? (
+                  <p className={styles.noAssets}>No assets to display</p>
+                ) : null}
                 {ownedAssets.map((asset) => {
                   let price = pricesCtxt[asset?.planetName.toLowerCase()]
                   return (
