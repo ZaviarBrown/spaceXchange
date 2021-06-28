@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import galaxySky from "../../assets/galaxySkyRight.png"
 import styles from './SignUpForm.module.css';
@@ -42,9 +42,12 @@ const SignUpForm = () => {
 
   return (
     <div className={styles.signupPageContainer}>
+      <div className={styles.siteTitle}>
+        <h1>spaceXchange</h1>
+      </div>
       <div className={styles.signupFormContainer}>
         <div className={styles.signUpFormTitle}>
-          <h2>Make Your Money Move</h2>
+          <h1>Make Your Money Move</h1>
         </div>
         <form onSubmit={onSignUp}>
           <div>
@@ -87,10 +90,25 @@ const SignUpForm = () => {
           <div className={styles.signupButtons}>
           <button type="submit">Sign Up</button>
           </div>
+          <div className={styles.accountAlready}>
+            <NavLink to='/login'>
+              <p>Already have an account?  Please click here!</p>
+            </NavLink>
+          </div>
         </form>
-        <div>
-          <p>Already have an account?  Please click here!</p>
+        <div className={styles.signupDisclaimer}>
+          <p>All investments involve risk, including the possible loss of principal. Investors should consider their investment objectives and risks carefully before investing.
+
+          </p>
+          <br />
+          <p>
+            Commission-free trading means $0 commission trading on self-directed individual cash or margin brokerage accounts that trade U.S. listed securities via mobile devices or web. Keep in mind, other fees such as trading (non-commission) fees, wire transfer fees, and paper statement fees may apply to your brokerage account.
+            Securities trading offered through spaceXchange. 
+          </p>
         </div>
+      </div>
+      <div className={styles.spacerDiv}>
+
       </div>
       <div className={styles.signupImgContainer}>
         <img src={galaxySky} />

@@ -2,23 +2,37 @@
   display: flex;
 }
 
+.siteTitle h1 {
+  font-family: 'Exo', sans-serif;
+  font-weight: bold;
+  margin: 20px;
+}
+
 .signupImgContainer, 
 .signupFormContainer {
   display: flex;
   flex-direction: column;
-  width: 50%;
   height: 100vh;
+}
+
+.signupImgContainer {
+  width: 70%;
+}
+
+.spacerDiv {
+  width: 20%;
+}
+
+.signupFormContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 25%;
 }
 
 .signupImgContainer img {
   width: 100%;
   height: 100vh;
-}
-
-.signupFormContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .signupFormContainer label {
@@ -55,4 +69,18 @@
 
 .signUpFormTitle {
   margin: 20px;
+}
+
+.signupDisclaimer {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  bottom: 40px;
+  text-align: center;
+}
+
+.accountAlready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -19,8 +19,7 @@ export default function Splash() {
               <div className={styles.leftTitle}>
                 <h1>SPACE Investing <br /> For Everyone!</h1>
               </div>
-              <h3>Commission-free investing, plus the tools you need to put your money in motion. 
-                Sign up and get your first stock for free. Certain limitations apply.</h3>
+              <h3>Commission-free investing, plus the tools you need to put your money in motion. </h3>
                 <div className={styles.signupButton}>
                   <NavLink to="/sign-up" className={styles.navsignup} exact={true} activeClassName="active">
                     Sign Up
