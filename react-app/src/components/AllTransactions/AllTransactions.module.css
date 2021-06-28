@@ -1,0 +1,22 @@
+.transactionsPageContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.transactionsContainer {
+  display: grid;
+  width: 60vw;
+  border: 1px solid white;
+  border-radius: 20px;
+  background-color: rgb(77, 81, 85);
+  padding: 10px 5px;
+  margin: 40px;
+}
+
+.pageTitle {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+  border-bottom: 1px solid white;
+  width: 100%;
+}
