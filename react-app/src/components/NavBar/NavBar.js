@@ -101,7 +101,6 @@ const NavBar = () => {
             </div>
             {setLinks}
         </div>
-      </>
     );
   } else {
     setLinks = (
