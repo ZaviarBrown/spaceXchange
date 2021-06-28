@@ -24,10 +24,6 @@
   transition-duration: 300ms;
 }
 
-.andrewContainer a {
-  position: absolute;
-}
-
 .andrewContainer:hover,
 .ryanContainer:hover,
 .johnContainer:hover,

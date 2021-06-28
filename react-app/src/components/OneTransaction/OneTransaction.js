@@ -9,7 +9,7 @@ export default function OneTransaction({ t, planets }) {
   const planetName = planet.name;
   const order = t.orderType;
   return (
-    <>
+    <div className={styles.pageContainer}>
       {order === "buy" ? (
         <div className={styles.orderBuy}>
           <div id={styles.planetName} className={styles.orderGrid}>
@@ -41,6 +41,6 @@ export default function OneTransaction({ t, planets }) {
           <div className={styles.orderGrid}>Sold For {t.price_paid < 10 ? F4(t.price_paid) : F(t.price_paid)}</div>
         </div>
       )}
-    </>
+    </div>
   );
 }

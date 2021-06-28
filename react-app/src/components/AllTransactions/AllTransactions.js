@@ -14,9 +14,6 @@ export default function AllTransactions() {
   );
   const planets = useSelector((state) => Object.values(state.planet));
 
-  console.log(planets);
-  console.log(transactions);
-
   useEffect(() => {
     dispatch(getAllTransactions());
     dispatch(getAllPlanets());

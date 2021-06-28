@@ -38,7 +38,6 @@ export default function planet(state = initialState, action) {
     }
     case GET_PLANETS: {
       let newState = { ...state };
-      // console.log("ACTION", action.payload)
       action.payload.planets.forEach((planet) => {
         newState[planet.id] = planet;
       });

@@ -15,7 +15,6 @@ import AllPlanets from "./components/AllPlanets/AllPlanets";
 import AllTransactions from "./components/AllTransactions/AllTransactions";
 
 function App() {
-  // const [authenticated, setAuthenticated] = useState(false);
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
 

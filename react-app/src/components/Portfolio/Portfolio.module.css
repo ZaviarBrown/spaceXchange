@@ -66,10 +66,10 @@
   color: white;
   height: 650px;
   overflow: auto;
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
   position: fixed;
-  /* padding: 10px; */
+
 }
 
 .sidebarContainer::-webkit-scrollbar {

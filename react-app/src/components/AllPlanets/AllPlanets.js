@@ -12,8 +12,6 @@ export default function AllPlanets() {
   const planets = useSelector((state) => Object.values(state.planet));
   const [prices, setPrices] = useState({});
 
-  console.log(planets);
-
   const getPrices = async () => {
     const data = await fetch("/api/raspberry/");
     const result = await data.json();

@@ -1,6 +1,5 @@
 
 {
-    // let totalArr = []
     (() => {
         let pricesArr = []
         ownedAssets.forEach((asset, i) => {
@@ -22,11 +21,8 @@
                     {/* checkerArr.push({ name: date, price: assetsTotal }) */ }
                 }
             }
-            console.log('totalsarr', totalsArr)
+
             localStorage.setItem("totals", JSON.stringify(totalsArr))
-            {/* console.log(localStorage.getItem("totals")) */ }
-            {/* console.log(`${asset.planetName} ${shares * price ? shares * price : "fetching..."}`, '\n\n\n\n') */ }
-            {/* console.log('pricesArr', pricesArr && pricesArr) */ }
         })
     })()
 }

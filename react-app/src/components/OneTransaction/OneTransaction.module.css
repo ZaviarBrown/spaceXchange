@@ -1,3 +1,11 @@
+.pageContainer {
+  color: white;
+}
+
+.pageContainer:visited {
+  color: white;
+}
+
 .orderBuy {
   display: grid;
   background-color: rgba(0, 128, 0, 0.25);
