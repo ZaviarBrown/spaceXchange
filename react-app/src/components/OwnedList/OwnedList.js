@@ -14,7 +14,6 @@ export default function OwnedList({ asset, price }) {
         <h3>{price}</h3>
         <h4> <ChartForList crypto={asset.crypto} /></h4>
       </div>
-      {/* <hr /> */}
     </>
   );
 }

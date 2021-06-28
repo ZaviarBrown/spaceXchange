@@ -106,7 +106,11 @@ export default function Portfolio() {
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-        <h1>Your Portfolio</h1>
+        <div className={styles.accountValue}>
+          Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)}
+          <br />
+          Buying Power: {F(cash_balance)}
+        </div>
         <div className={styles.portfolio__chart__container}>
           < ChartForPortfolio history={historyCtxt} />
         </div>
@@ -129,11 +133,13 @@ export default function Portfolio() {
         <div className={styles.sidebarContainer}>
           <div className={styles.listTitle}>
             <h2>Owned</h2>
-            <hr />
           </div>
-          <div className={styles.listContainer}>
+          <div className={styles.listContainer} onMouseEnter={(e) => console.log()}>
             {ownedAssets && pricesCtxt && loaded && (
               <div>
+                {ownedAssets.length === 0 ? (
+                  <p className={styles.noAssets}>No assets to display</p>
+                ) : null}
                 {ownedAssets.map((asset) => {
                   let price = pricesCtxt[asset?.planetName.toLowerCase()]
                   return (

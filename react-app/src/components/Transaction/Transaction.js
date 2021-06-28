@@ -166,9 +166,16 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
             />
           </div>
           <div className={styles.priceContainer}>
-            <div style={{ color: "black" }}>{F(userCash)}</div>
-            <div className={styles.price}>Market Price:</div>
-            <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
+            <div className={styles.priceCashContainer}>
+              <div className={styles.price}>Market Price:</div>
+              <div className={styles.number}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
+            </div>
+            <div className={styles.availCash}>
+              <div className={styles.price}>Available Balance:</div>
+              <div className={styles.number}>
+                {F(userCash)}
+              </div>
+            </div>
           </div>
           <div className={styles.transactionButtons}>
             <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>

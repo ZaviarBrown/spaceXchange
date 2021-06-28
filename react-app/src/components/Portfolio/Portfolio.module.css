@@ -19,7 +19,7 @@
 .portfolio__chart__container {
   height: 345px;
   min-width: 600px;
-  margin: 16px 20px 20px 20px;
+  margin: 50px 20px 20px 20px;
 }
 
 .chart__control {
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  margin: 5px 5px 20px 5px;
+  margin: 50px 5px 20px 5px;
   padding-left: 15px;
 }
 
@@ -61,12 +61,35 @@
   border: 1px solid white;
   border-radius: 5px;
   width: 250px;
-  position: relative;
-  top: 50px;
+  top: 175px;
   background-color: rgba(0, 30, 75, 0.75);
   color: white;
+  height: 650px;
+  overflow: auto;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  position: fixed;
+  /* padding: 10px; */
+}
+
+.sidebarContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .listTitle {
-  margin: 10px 0 10px 0;
+  border-bottom: 1px solid white;
+  padding: 10px 0;
+}
+
+.accountValue {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  font-size: 30px;
+  text-align: left;
+  margin: 20px 0;
+}
+
+.noAssets {
+  margin: 20px 0;
 }

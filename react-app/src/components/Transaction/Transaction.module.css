@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 250px;
   width: 300px;
   position: fixed;
   top: 200px;
@@ -80,6 +80,7 @@ label {
 
 .priceContainer{
     display: flex;
+    flex-direction: column;
     justify-content:space-between;
     font-size: 15px;
     font-weight: 300;
@@ -98,4 +99,15 @@ label {
 .price {
     color: #343b51;
     margin-right: 8px;
+    font-weight: bold;
+}
+
+.number {
+  color: #343b51;
+  font-weight: bold;
+}
+
+.priceCashContainer,
+.availCash {
+  display: flex;
 }
