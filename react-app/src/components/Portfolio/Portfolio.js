@@ -107,20 +107,12 @@ export default function Portfolio() {
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
         <div className={styles.accountValue}>
-          Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)}
+          Account Value: {ownedAssets.length > 0 ? accountValue === 0 ? "...fetching" : F(accountValue) : 0}
           <br />
           Buying Power: {F(cash_balance)}
         </div>
         <div className={styles.portfolio__chart__container}>
           < ChartForPortfolio history={historyCtxt} />
-        </div>
-        <div className={styles.chart__control}></div>
-        <div className={styles.buyingpower__container}>
-          <div className={styles.statsContainer}>
-            Stats
-            <div>Buying Power: {F(cash_balance)}</div>
-            <div>Account Value: {ownedAssets.length > 0 ? accountValue === 0 ? "...fetching" : F(accountValue) : 0} </div>
-          </div>
         </div>
         <div className={styles.news__container}>
           <h1>Recent News</h1>
