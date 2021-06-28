@@ -1,110 +1,38 @@
-# Flask React Project
+# spaceXchange
+*By [[Zaviar Brown](https://github.com/ZaviarBrown), [Ryan Dalton](https://github.com/DaltonR121), [Andrew Moss](https://github.com/aMoss5150), [John Sims](https://github.com/simzeee)*
 
-This is the backend for the Flask React project.
+See ya space cowboy...on [spaceXchange](https://spacexchange.herokuapp.com/)
 
-## Getting started
+The galactic empire is being developed as we speak, quickly transforming uninhabitable wastelands into industrial giants, and making a ton of money along the way. spaceXchange is your one stop shop for trading your USD into any other planet's currency, allowing you to take part in the universal stock market. 
 
-1. Clone this repository (only this branch)
+## Index
+* [API Documentation](https://github.com/ZaviarBrown/spaceXchange/wiki/API-Routes)
+* [Database Schema](https://github.com/ZaviarBrown/spaceXchange/wiki/Database-Schema)
+* [Frontend Routes](https://github.com/ZaviarBrown/spaceXchange/wiki/Frontend-Routes)
+* [MVP Feature List](https://github.com/ZaviarBrown/spaceXchange/wiki/MVP-List)
+* [User Stories](https://github.com/ZaviarBrown/spaceXchange/wiki/User-Stories)
 
-   ```bash
-   git clone https://github.com/appacademy-starters/python-project-starter.git
-   ```
+## Technologies Used
+* JavaScript
+* React/Redux
+* Recharts
+* CSS
+* Python
+* Flask/SQLAlchemy
+* Beautiful Soup
+* Coingecko API
+* Raspberry Pi
 
-2. Install dependencies
+## Summary
+spaceXchange is a Robinhood clone, created to allow a space-faring civilization to participate in the universal stock market. When a user first accesses the site, they are brought to the splash page, greeting the user and prompting them to signup. Attempting to access any page on the site without login/signup will redirect them to login.
 
-   ```bash
-   pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
-   ```
+![](assets/sXc1.jpg)
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+When logging into the site, the user is greeted with their portfolio, allowing them to quickly see the value of all their assets and watch their money move as the market fluctuates and updates in real time. The planet assets you own are displayed on the right, with the stock chart, the number of shares you own, and the price per share (which also updates in real time). 
 
-4. Setup your PostgreSQL user, password and database and make sure it matches your **.env** file
+![](assets/sXc2.jpg)
 
-5. Get into your pipenv, migrate your database, seed your database, and run your flask app
-
-   ```bash
-   pipenv shell
-   ```
-
-   ```bash
-   flask db upgrade
-   ```
-
-   ```bash
-   flask seed all
-   ```
-
-   ```bash
-   flask run
-   ```
-
-6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
----
-
-_IMPORTANT!_
-If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
-You can do this by running:
-
-```bash
-pipenv lock -r > requirements.txt
-```
-
-_ALSO IMPORTANT!_
-psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
-There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
-
----
-
-## Deploy to Heroku
-
-1. Create a new project on Heroku
-
-2. Under Resources click "Find more add-ons" and add the add on called "Heroku Postgres"
-
-3. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line)
-
-4. Run
-
-   ```bash
-   heroku login
-   ```
-
-5. Login to the heroku container registry
-
-   ```bash
-   heroku container:login
-   ```
-
-6. Update the `REACT_APP_BASE_URL` variable in the Dockerfile.
-   This should be the full URL of your Heroku app: i.e. "https://flask-react-aa.herokuapp.com"
-7. Push your docker container to heroku from the root directory of your project.
-   This will build the dockerfile and push the image to your heroku container registry
-
-   ```bash
-   heroku container:push web -a {NAME_OF_HEROKU_APP}
-   ```
-   REAL STEP 7 (M1 Mac)
-   docker buildx build --platform linux/amd64 -t spacexchange .
-   docker tag spacexchange registry.heroku.com/spacexchange/web
-   docker push registry.heroku.com/spacexchange/web
-
-
-8. Release your docker container to heroku
-
-   ```bash
-   heroku container:release web -a spacexchange
-   ```
-
-9. set up your database:
-
-   ```bash
-   heroku run -a spacexchange flask db downgrade
-   heroku run -a spacexchange flask db upgrade
-   heroku run -a spacexchange flask seed all
-   ```
-
-10. Under Settings find "Config Vars" and add any additional/secret .env variables.
-
-11. profit
+Difficult 
+- Timing
+- Search bar, web scraping, raspberry pi hosting api
+- Recharts handling data
