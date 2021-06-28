@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './OnePlanet.module.css';
 import ChartForList from '../Chart/ChartForList'
-import F from '../../utils/formatter'
+import F, { F4 } from '../../utils/formatter'
 
 export default function OnePlanet({ planet, prices }) {
 
@@ -16,7 +16,7 @@ export default function OnePlanet({ planet, prices }) {
           {planet.ticker}
         </div>
         <div className={styles.planetGrid}>
-          {prices[planet.name.toLowerCase()]?.price ? F(prices[planet.name.toLowerCase()]?.price) : "fetching..."}
+          {prices[planet.name.toLowerCase()]?.price ? prices[planet.name.toLowerCase()]?.price < 10 ? F4(prices[planet.name.toLowerCase()]?.price) : F(prices[planet.name.toLowerCase()]?.price) : "fetching..."}
         </div>
         <div>
           <h4> <ChartForList crypto={planet.crypto} /></h4>

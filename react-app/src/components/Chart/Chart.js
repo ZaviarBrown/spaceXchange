@@ -21,7 +21,7 @@ const Chart = ({ crypto }) => {
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
 
-    const { start, stop, time, type, setStart, setStop, setTime } = useChart()
+    const { start, stop, time, setStart, setStop, setTime } = useChart()
     const multi = {
         "dogecoin": 100,
         "theta-fuel": 1,
@@ -112,7 +112,7 @@ const Chart = ({ crypto }) => {
                 margin={{
                     top: 10,
                     right: 30,
-                    left: 0,
+                    left: 29,
                     bottom: 0,
                 }}
             >
