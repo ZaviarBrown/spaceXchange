@@ -23,6 +23,7 @@ export default function Portfolio() {
 
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
+  const [history, setHistory] = useState([])
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   //! for portfolio calc
@@ -41,6 +42,19 @@ export default function Portfolio() {
     setPricesCtxt(result)
     setLoaded(true)
 
+  }
+
+  const getHistory = async () => {
+    let body = JSON.stringify({ "accountValue"})
+    const data = await fetch('/api/history/', {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: body
+    });
+    const result = await data.json()
+    setHistory(result)
   }
 
   const getAccountValue = async () => {
@@ -80,8 +94,10 @@ export default function Portfolio() {
       <div className={styles.portfolio__left}>
         <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
-
-          <ChartForPortfolio />
+          {
+            history &&
+            <ChartForPortfolio history={history} />
+          }
         </div>
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>

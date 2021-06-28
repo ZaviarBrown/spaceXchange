@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b13ab8674ff6e9a022b585ecbd52948df6c460e539298a263af03fd3a1035f84"
+            "sha256": "312f31ca4445dc747037ef1b0e8d513cea9ea649de29cf2692fd45a6e204629b"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -172,6 +172,14 @@
             ],
             "index": "pypi",
             "version": "==2.11.2"
+        },
+        "localstoragepy": {
+            "hashes": [
+                "sha256:4446afc2df066f2dde33430a0fd9416d86515f798346fc9aa16a11f615f20d7e",
+                "sha256:bcaaf07a5cbaab65c34cc4532a685b2a44243979d089d8d37a9c612ac743c0bf"
+            ],
+            "index": "pypi",
+            "version": "==0.2.3"
         },
         "mako": {
             "hashes": [
