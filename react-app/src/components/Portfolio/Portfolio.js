@@ -9,6 +9,7 @@ import { getAllAssets } from '../../store/assets'
 import { getAllTransactions } from '../../store/transactions'
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
+import { useHistory } from '../../context/HistoryContext'
 import Article from '../articles/Article'
 import F, { F2 } from '../../utils/formatter'
 
@@ -21,8 +22,10 @@ export default function Portfolio() {
   const [accountValue, setAccountValue] = useState('Fetching...');
   const planets = useSelector((state) => Object.values(state.planet));
 
+  const { historyCtxt, setHistoryCtxt } = useHistory()
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
+  const [history, setHistory] = useState([])
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   //! for portfolio calc
@@ -43,6 +46,36 @@ export default function Portfolio() {
 
   }
 
+  const getHistory = async () => {
+    let startData = [
+      { "name": "9 days ago", "value": 481230.58 },
+      { "name": "8 days ago", "value": 491898.26 },
+      { "name": "7 days ago", "value": 96902.54 },
+      { "name": "6 days ago", "value": 96902.96 },
+      { "name": "5 days ago", "value": 94201.31 },
+      { "name": "4 days ago", "value": 439387.71 },
+      { "name": "3 days ago", "value": 439394.75 },
+      { "name": "2 days ago", "value": 439400.85 },
+      { "name": "1 days ago", "value": 319845.93 },
+    ]
+    if (!localStorage.getItem('history')) {
+      await localStorage.setItem('history', JSON.stringify(startData))
+      setHistoryCtxt(startData)
+    }
+    else if (localStorage.getItem('history')) {
+      let history = await JSON.parse(localStorage.getItem('history'))
+
+      accountValue > 0 && history.shift()
+      let name = (new Date(Date.now())).toString().split(' ')[4]
+      accountValue > 0 && loaded && history.push({ 'name': name, "value": accountValue.toFixed(2) })
+      loaded && localStorage.setItem('history', JSON.stringify(history))
+      setHistoryCtxt(history)
+    }
+
+  }
+
+
+
   const getAccountValue = async () => {
     let accountValue = 0;
     let ownedObject = {};
@@ -58,7 +91,7 @@ export default function Portfolio() {
       }
     }
 
-    setAccountValue(accountValue);
+    setAccountValue(accountValue)
   };
 
   useEffect(() => {
@@ -67,12 +100,17 @@ export default function Portfolio() {
     dispatch(getAllAssets())
     dispatch(getAllTransactions());
     const interval = setInterval(getPrices, 2000);
+    // const historyInterval = setInterval(getHistory, 5000)
     // clearing interval on componentWillUnmount
-    return () => clearInterval(interval);
+    return () => {
+      // clearInterval(historyInterval)
+      clearInterval(interval)
+    };
   }, []);
 
   useEffect(() => {
-    getAccountValue();
+    getAccountValue().then(() => getHistory())
+
   }, [pricesCtxt]);
 
   return (
@@ -81,7 +119,8 @@ export default function Portfolio() {
         <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
 
-          <ChartForPortfolio />
+          < ChartForPortfolio history={historyCtxt} />
+
         </div>
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>

@@ -54,14 +54,14 @@ const Chart = ({ crypto }) => {
         .then(data => {
             if (timeInterval === "year") {
                 for (let num in data) {
-                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1] * multi[type]) }) && counter++;
+                    num % 31 === 0 && mockData.push({ name: months[counter], price: Math.floor(data[num][1] * multi[coin]) }) && counter++;
                 }
             }
             else if (timeInterval === "6months") {
                 counter = 6;
                 for (let num in data) {
                     if (num > 182) {
-                        num % 15 === 0 && mockData.push({ name: months[counter], price: Math.round(((data[num][1] * multi[type]))) });
+                        num % 15 === 0 && mockData.push({ name: months[counter], price: Math.round(((data[num][1] * multi[coin]))) });
                         if (mockData.length % 2 === 0 && num % 15 === 0) {
                             counter += 1;
                         }
@@ -77,7 +77,7 @@ const Chart = ({ crypto }) => {
                     x++
                 }
                 for (let num in data) {
-                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F3(data[num][1] * multi[type]) })
+                    num % 12 === 0 && mockData.push({ name: arr[counter], price: F3(data[num][1] * multi[coin]) })
                     if (mockData.length % 2 === 0 && num % 12 === 0) {
                         counter += 1
                     }
@@ -94,7 +94,7 @@ const Chart = ({ crypto }) => {
                     x -= 2;
                 }
                 for (let num in data) {
-                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F3(data[num][1] * multi[type]) }) && counter++
+                    num % 25 === 0 && mockData.push({ name: arrTime[counter], price: F3(data[num][1] * multi[coin]) }) && counter++
                 }
             }
         })
@@ -133,7 +133,7 @@ const Chart = ({ crypto }) => {
         // defaults will be passed in.. probably need to build caller function,
         // that will be invoked off click listener
         // other wise every rerender will default it back after change
-        apiCall(type, start, stop, time)
+        apiCall(crypto, start, stop, time)
 
     }, [start])
 
@@ -151,7 +151,7 @@ const Chart = ({ crypto }) => {
                         setStart(lastYear)
                         setStop(today)
                         setTime("year")
-                        apiCall(type, start, stop, time)
+                        apiCall(crypto, start, stop, time)
                     }}>year </button>
 
                     <button onClick={() => {
@@ -160,7 +160,7 @@ const Chart = ({ crypto }) => {
                         setStart(lastYear)
                         setStop(today)
                         setTime("6months")
-                        apiCall(type, start, stop, time)
+                        apiCall(crypto, start, stop, time)
                     }} >6 months </button>
 
                     <button onClick={() => {
@@ -169,7 +169,7 @@ const Chart = ({ crypto }) => {
                         setStart(lastWeek)
                         setStop(today)
                         setTime("week")
-                        apiCall(type, start, stop, time)
+                        apiCall(crypto, start, stop, time)
                     }} >1 week </button>
 
                     <button onClick={() => {
@@ -178,7 +178,7 @@ const Chart = ({ crypto }) => {
                         setStart(yesterday)
                         setStop(today)
                         setTime("day")
-                        apiCall(type, start, stop, time)
+                        apiCall(crypto, start, stop, time)
                     }}>24hr </button>
                 </div>
             </div>
