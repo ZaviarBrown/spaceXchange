@@ -23,7 +23,7 @@ export default function OneTransaction({ t, planets }) {
             Per Share
           </div>
           <div className={styles.orderGrid}>
-            Bought For {t.price_paid < 1 ? F4(t.price_paid) : F(t.price_paid)}
+            Bought For {t.price_paid < 10 ? F4(t.price_paid) : F(t.price_paid)}
           </div>
         </div>
       ) : (
@@ -38,7 +38,7 @@ export default function OneTransaction({ t, planets }) {
               : F(t.price_paid / t.shares)}{" "}
             Per Share
           </div>
-          <div className={styles.orderGrid}>Sold For {F(t.price_paid)}</div>
+          <div className={styles.orderGrid}>Sold For {t.price_paid < 10 ? F4(t.price_paid) : F(t.price_paid)}</div>
         </div>
       )}
     </>

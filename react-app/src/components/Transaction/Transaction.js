@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { editOneAsset, getAllAssets, deleteOneAsset, createOneAsset } from '../../store/assets';
 import { createATransaction, getAllTransactions } from '../../store/transactions';
-import { getListItems, deleteListItem } from '../../store/ownedList'
+import { authenticate } from '../../store/session';
 import { usePurchased } from '../../context/PurchasedContext'
 import { useOwned } from '../../context/OwnedContext'
 import { usePrices } from '../../context/PricesContext'
@@ -18,16 +18,11 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
   const { setPricesCtxt } = usePrices()
   const { ownedCtxt, setOwnedCtxt } = useOwned()
   const [justBought, setJustBought] = useState({})
+  const [update, setUpdate] = useState(false)
   const [amount, setAmount] = useState('');
   const [orderType, setOrderType] = useState('');
   const [prices, setPrices] = useState({});
 
-  // can I push into this array to show that this has been purchased already to prevent
-  // from double creating assets
-  // should I do this from context.... as well as implementing the OWNED LIST asset
-  // to try to ensure that it loads FROM CONTEXT rather than referencing the STATE
-
-  // !issue double created asset when purchased without leaving planet page
   const handleSubmit = (e) => {
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
@@ -42,7 +37,11 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           let totalPrice = amount * 1 * assetPrice
           number = amount * 1 // normalize
           let transPrice = number * assetPrice // price for trans records
-          dispatch(deleteOneAsset(found.id, totalPrice)).then(dispatch(getAllAssets())).then(setPurchased(assets))
+          dispatch(deleteOneAsset(found.id, totalPrice))
+            .then(() => dispatch(getAllAssets()))
+            .then(() => setPurchased(assets))
+            .then(() => setUpdate(!update))
+
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           setAmount('')
           setOwnedCtxt('1')
@@ -56,7 +55,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
         let totalPrice = amount * 1 * assetPrice // price of shares
         number = amount * -1 // normalize
         let transPrice = number * -1 * assetPrice // price for trans records
-        dispatch(editOneAsset(found.id, number, totalPrice)).then(dispatch(getAllAssets()))
+        dispatch(editOneAsset(found.id, number, totalPrice))
+          .then(() => dispatch(getAllAssets()))
+          .then(() => setUpdate(!update))
+
         dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
         setAmount('')
         return
@@ -67,7 +69,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
         let transPrice = number * assetPrice // price for trans records
 
         if (userCash >= transPrice) { // checking for enough cash
-          dispatch(editOneAsset(found.id, number, totalPrice)).then(dispatch(getAllAssets()))
+          dispatch(editOneAsset(found.id, number, totalPrice))
+            .then(() => dispatch(getAllAssets()))
+            .then(() => setUpdate(!update))
+
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           setPurchased({ planetId: planetId })
           setAmount('')
@@ -84,11 +89,14 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       let totalPrice = amount * -1 * assetPrice
       number = amount * 1 // normalize number to send
       let transPrice = number * assetPrice // price for trans records
-
       if (userCash >= transPrice) {
         if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
-          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto)).then(dispatch(getAllAssets())).then(setPurchased(assets))
+          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto))
+            .then(() => dispatch(getAllAssets()))
+            .then(() => setPurchased(assets))
+            .then(() => setUpdate(!update))
+
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           setPurchased({ planetId: planetId })
           setAmount('')
@@ -111,10 +119,7 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       return // kill
     }
     return;
-    //maybe push history("/")???????????
   };
-
-
 
   // raspberry route
   const getPrices = async () => {
@@ -124,16 +129,14 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     return setPrices(result)
   }
 
+  useEffect(() => {
+    dispatch(authenticate())
+  }, [update])
 
-  // useEffect(() => {
-  //   dispatch(getAllAssets()).then(setPurchased(assets))
-  // }, [purchased])
   // on initial load
   useEffect(() => {
-    // window.location.reload()
     dispatch(getAllAssets());
     dispatch(getAllTransactions())
-    //! disabled for TESTING
     // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000)
     // clearing interval on componentWillUnmount
@@ -163,6 +166,7 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
             />
           </div>
           <div className={styles.priceContainer}>
+            <div style={{ color: "black" }}>{F(userCash)}</div>
             <div className={styles.price}>Market Price:</div>
             <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
           </div>
