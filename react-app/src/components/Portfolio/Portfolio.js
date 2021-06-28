@@ -11,25 +11,20 @@ import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
 import { useHistory } from '../../context/HistoryContext'
 import Article from '../articles/Article'
-import F, { F2 } from '../../utils/formatter'
+import F from '../../utils/formatter'
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
   const ownedAssetsObject = useSelector((state) => state.assets);
   const ownedAssets = useSelector((state) => Object.values(state.assets));
 
-  const [assets, setAssets] = useState(ownedAssets);
   const [accountValue, setAccountValue] = useState('Fetching...');
-  const planets = useSelector((state) => Object.values(state.planet));
-
   const { historyCtxt, setHistoryCtxt } = useHistory()
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
-  const [history, setHistory] = useState([])
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   //! for portfolio calc
-  const [totalsArr, setTotalsArr] = useState([])
 
   const getArticles = async () => {
     const data = await fetch('/api/article');
@@ -71,7 +66,6 @@ export default function Portfolio() {
       loaded && localStorage.setItem('history', JSON.stringify(history))
       setHistoryCtxt(history)
     }
-
   }
 
 
@@ -100,17 +94,13 @@ export default function Portfolio() {
     dispatch(getAllAssets())
     dispatch(getAllTransactions());
     const interval = setInterval(getPrices, 2000);
-    // const historyInterval = setInterval(getHistory, 5000)
     // clearing interval on componentWillUnmount
-    return () => {
-      // clearInterval(historyInterval)
-      clearInterval(interval)
-    };
+    return () => clearInterval(interval)
+
   }, []);
 
   useEffect(() => {
     getAccountValue().then(() => getHistory())
-
   }, [pricesCtxt]);
 
   return (
@@ -118,16 +108,14 @@ export default function Portfolio() {
       <div className={styles.portfolio__left}>
         <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
-
           < ChartForPortfolio history={historyCtxt} />
-
         </div>
         <div className={styles.chart__control}></div>
         <div className={styles.buyingpower__container}>
           <div className={styles.statsContainer}>
             Stats
             <div>Buying Power: {F(cash_balance)}</div>
-            <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
+            <div>Account Value: {ownedAssets.length > 0 ? accountValue === 0 ? "...fetching" : F(accountValue) : 0} </div>
           </div>
         </div>
         <div className={styles.news__container}>
@@ -152,7 +140,7 @@ export default function Portfolio() {
                     <NavLink to={`/planet/${asset.planetId}`}>
                       <OwnedList asset={asset} price={price} key={asset.id} />
                     </NavLink>
-                  );
+                  )
                 })}
               </div>
             )}
