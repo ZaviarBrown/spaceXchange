@@ -126,7 +126,7 @@ export default function Portfolio() {
           <div className={styles.listTitle}>
             <h2>Owned</h2>
           </div>
-          <div className={styles.listContainer} onMouseEnter={(e) => console.log()}>
+          <div className={styles.listContainer}>
             {ownedAssets && pricesCtxt && loaded && (
               <div>
                 {ownedAssets.length === 0 ? (

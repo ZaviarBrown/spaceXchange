@@ -20,13 +20,10 @@ const ChartForList = ({ crypto }) => {
     let arrTime = [];
     let counter = 0;
     let weekdays = new Date((lastWeek + (hours24 * 1)) * 1000);
-    // let start = yesterday
-    // let stop = today
     let type = crypto
     let time = 'day'
     let start = yesterday
     let stop = today
-    // const { start, stop, } = useChart()
     const multi = {
         "dogecoin": 100,
         "theta-fuel": 1,
@@ -120,12 +117,7 @@ const ChartForList = ({ crypto }) => {
                     bottom: 0,
                 }}
             >
-                {/* <Line type="monotone" dataKey={"price"} stroke="#8884d8" dot={false} /> */}
-                {/* <CartesianGrid strokeDasharray="2 2" /> */}
-                {/* <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={"name"} /> */}
                 <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={0} />
-                {/* <Tooltip wrapperStyle={{ maxWidth: 130, backgroundColor: '#ccc', color: "black" }} /> */}
-                {/* <Legend /> */}
                 <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" />
             </AreaChart>
         </ResponsiveContainer >

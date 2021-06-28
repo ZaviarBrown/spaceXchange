@@ -147,7 +147,6 @@ const Chart = ({ crypto }) => {
                 <div className={styles.chart__controller}>
                     <button onClick={() => {
                         setGraphData('')
-                        // setType("dogecoin")
                         setStart(lastYear)
                         setStop(today)
                         setTime("year")
@@ -156,7 +155,6 @@ const Chart = ({ crypto }) => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        // setType("dogecoin")
                         setStart(lastYear)
                         setStop(today)
                         setTime("6months")
@@ -165,7 +163,6 @@ const Chart = ({ crypto }) => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        // setType("dogecoin")
                         setStart(lastWeek)
                         setStop(today)
                         setTime("week")
@@ -174,7 +171,6 @@ const Chart = ({ crypto }) => {
 
                     <button onClick={() => {
                         setGraphData('')
-                        // setType("dogecoin")
                         setStart(yesterday)
                         setStop(today)
                         setTime("day")
