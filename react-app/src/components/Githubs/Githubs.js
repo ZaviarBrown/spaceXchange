@@ -28,8 +28,8 @@ export default function Githubs() {
             </div>
           </div>
         </div>
-        <div className={styles.rightContainer} onClick={() => (window.location.href='https://github.com/simzeee')}>
-          <div className={styles.johnContainer}>
+        <div className={styles.rightContainer}>
+          <div className={styles.johnContainer} onClick={() => (window.location.href='https://github.com/simzeee')}>
             <div className={styles.john}>
               <h1>John Sims</h1>
               <div className={styles.githubImg}>
