@@ -124,7 +124,7 @@ export default function Portfolio() {
       <div className={styles.portfolio__right}>
         <div className={styles.sidebarContainer}>
           <div className={styles.listTitle}>
-            <h2>Owned</h2>
+            <h2>Your Assets</h2>
           </div>
           <div className={styles.listContainer}>
             {ownedAssets && pricesCtxt && loaded && (
