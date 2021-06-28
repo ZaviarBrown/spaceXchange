@@ -39,7 +39,7 @@ const Chart = ({ crypto }) => {
         "staked-ether": 317,
         "bitcoin-cash": 37,
         "binancecoin": 10,
-        "compound-coin": 14,
+        "dash": 14,
         "monero": 994,
         "aave": 207,
         "bitcoin": 2674

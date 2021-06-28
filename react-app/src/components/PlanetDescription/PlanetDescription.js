@@ -53,12 +53,17 @@ export default function Planet() {
               </section>
             </div>
             <div className={styles.statistics}>
+              <p>Planet Leader: {planet.planet_leader}</p>
+              <p>Top Export: {planet.top_export}</p>
               <p>Labor Force: {planet.labor_force}</p>
             </div>
           </div>
+          <div className={styles.news}>
+            <h2>Recent News</h2>
           {Object.values(articles).map((article) => (
             <Article key={article.title} article={article} />
           ))}
+          </div>
         </div>
         <div className={styles.pageRight}>
           <div>

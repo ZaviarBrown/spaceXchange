@@ -5,7 +5,7 @@ export default function Footer() {
 
   return (
     <div className={styles.mainContent}>
-      <h3>Trademark Bullshit</h3>
+      <h6>No rights reserved.</h6>
     </div>
   );
 }

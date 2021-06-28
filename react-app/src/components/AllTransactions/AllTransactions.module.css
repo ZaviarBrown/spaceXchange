@@ -1,9 +1,9 @@
-.allPlanetsPageContainer {
+.transactionsPageContainer {
   display: flex;
   justify-content: center;
 }
 
-.planetsContainer {
+.transactionsContainer {
   display: grid;
   width: 60vw;
   border: 1px solid white;

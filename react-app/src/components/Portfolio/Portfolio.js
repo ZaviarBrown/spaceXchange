@@ -8,24 +8,26 @@ import { getListItems } from '../../store/ownedList';
 import { authenticate } from '../../store/session';
 import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
-import { useArticles } from '../../context/ArticlesContext'
-import { usePrices } from '../../context/PricesContext'
-
+import { useArticles } from '../../context/ArticlesContext';
+import { usePrices } from '../../context/PricesContext';
 import Article from '../articles/Article';
 
-import F, { F2 } from '../../utils/formatter'
+import F, { F2 } from '../../utils/formatter';
 
 export default function Portfolio() {
   const [prices, setPrices] = useState([]);
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
+  const ownedAssetsObject = useSelector((state) => state.ownedList);
   const ownedAssets = useSelector((state) => Object.values(state.ownedList));
-  const [assets, setAssets] = useState(ownedAssets)
-  // const [isLoaded, setIsLoaded] = useState(false)
+
+  const [assets, setAssets] = useState(ownedAssets);
+  const [accountValue, setAccountValue] = useState('Fetching...');
+  const planets = useSelector((state) => Object.values(state.planet));
+
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const dispatch = useDispatch();
   const [totalsArr, setTotalsArr] = useState([])
-
 
   const getArticles = async () => {
     const data = await fetch('/api/article');
@@ -35,16 +37,33 @@ export default function Portfolio() {
 
   // raspberry route
   const getPrices = async () => {
-    const data = await fetch('/api/raspberry/')
-    const result = await data.json()
-    setPricesCtxt(result)
-  }
+    const data = await fetch('/api/raspberry/');
+    const result = await data.json();
+    setPricesCtxt(result);
+  };
 
 
 
-  // useEffect(() => {
-  //   // portfolioCalculator()
-  // }, [isLoaded])
+
+
+  const getAccountValue = async () => {
+    let accountValue = 0;
+    let ownedObject = {};
+
+    ownedAssets.forEach((asset) => {
+      ownedObject[asset.planetName.toLowerCase()] = asset.id;
+    });
+
+    for (const key in pricesCtxt) {
+      if (Object.keys(ownedObject).includes(key)) {
+        accountValue +=
+          pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
+      }
+    }
+
+    setAccountValue(accountValue);
+  };
+
   useEffect(() => {
     dispatch(getListItems());
     getArticles();
@@ -59,6 +78,10 @@ export default function Portfolio() {
     // clearing interval on componentWillUnmount
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    getAccountValue();
+  }, [pricesCtxt]);
 
   return (
     <div className={styles.portfolio__container}>
@@ -75,16 +98,12 @@ export default function Portfolio() {
         <div className={styles.buyingpower__container}>
           <div className={styles.statsContainer}>
             Stats
-            <div>Buying Power: {F(cash_balance)}
-
-            </div>
-            <div>Account Value: </div>
+            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Account Value: {F(accountValue)} </div>
           </div>
         </div>
         <div className={styles.news__container}>
-          <h1>
-            Recent News
-          </h1>
+          <h1>Recent News</h1>
           {Object.values(articlesCtxt).map((article) => (
             <Article article={article} />
           ))}
@@ -100,18 +119,18 @@ export default function Portfolio() {
             {ownedAssets && (
               <div>
                 {ownedAssets.map((asset) => {
-                  let price = pricesCtxt[asset.planetName.toLowerCase()]
+                  let price = pricesCtxt[asset.planetName.toLowerCase()];
                   return (
-                    < NavLink to={`/planet/${asset.planetId}`}>
+                    <NavLink to={`/planet/${asset.planetId}`}>
                       <OwnedList asset={asset} price={price} key={asset.id} />
                     </NavLink>
-                  )
+                  );
                 })}
               </div>
             )}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }
