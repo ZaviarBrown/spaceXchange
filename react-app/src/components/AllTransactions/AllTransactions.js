@@ -24,12 +24,12 @@ export default function AllTransactions() {
 
   return (
     <>
-      <div className={styles.allPlanetsPageContainer}>
-        <div className={styles.planetsContainer}>
+      <div className={styles.transactionsPageContainer}>
+        <div className={styles.transactionsContainer}>
           <div className={styles.pageTitle}>
             <h1>All Previous Transactions</h1>
           </div>
-          <div className={styles.planetBox}>
+          <div>
             {transactions.reverse().map((t) => (
               <NavLink to={`/planet/${t.planetId}`}>
                 <OneTransaction t={t} planets={planets} />
