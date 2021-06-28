@@ -10,33 +10,39 @@ export default function AllPlanets() {
   const { setPurchased } = usePurchased()
 
   const planets = useSelector((state) => Object.values(state.planet));
-  const [prices, setPrices] = useState({})
+  const [prices, setPrices] = useState({});
 
-  // console.log(prices)
+  console.log(planets);
 
   const getPrices = async () => {
-    const data = await fetch('/api/raspberry/')
-    const result = await data.json()
-    return setPrices(result)
-  }
+    const data = await fetch("/api/raspberry/");
+    const result = await data.json();
+    return setPrices(result);
+  };
 
   useEffect(() => {
     dispatch(getAllPlanets());
     setPurchased([])
+    // setting interval
     const interval = setInterval(getPrices, 2000)
     // clearing interval on componentWillUnmount
-    return () => clearInterval(interval)
+    return () => clearInterval(interval);
   }, []);
 
   return (
     <>
       <div className={styles.allPlanetsPageContainer}>
         <div className={styles.planetsContainer}>
-          {planets.map((planet) => (
-            <NavLink to={`/planet/${planet.id}`}>
-              <OnePlanet planet={planet} prices={prices}></OnePlanet>
-            </NavLink>
-          ))}
+          <div className={styles.pageTitle}>
+            <h1>Tradeable Planets</h1>
+          </div>
+          <div className={styles.planetBox}>
+            {planets.map((planet) => (
+              <NavLink to={`/planet/${planet.id}`}>
+                <OnePlanet planet={planet} prices={prices}></OnePlanet>
+              </NavLink>
+            ))}
+          </div>
         </div>
       </div>
     </>

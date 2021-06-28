@@ -14,7 +14,13 @@ import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
+  const ownedAssetsObject = useSelector((state) => state.ownedList);
   const ownedAssets = useSelector((state) => Object.values(state.assets));
+
+  const [assets, setAssets] = useState(ownedAssets);
+  const [accountValue, setAccountValue] = useState('Fetching...');
+  const planets = useSelector((state) => Object.values(state.planet));
+
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const [loaded, setLoaded] = useState(false)
@@ -37,7 +43,24 @@ export default function Portfolio() {
 
   }
 
-  //! hashing out how to delete without needing manual refresh
+  const getAccountValue = async () => {
+    let accountValue = 0;
+    let ownedObject = {};
+
+    ownedAssets.forEach((asset) => {
+      ownedObject[asset.planetName.toLowerCase()] = asset.id;
+    });
+
+    for (const key in pricesCtxt) {
+      if (Object.keys(ownedObject).includes(key)) {
+        accountValue +=
+          pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
+      }
+    }
+
+    setAccountValue(accountValue);
+  };
+
   useEffect(() => {
     getArticles();
     dispatch(authenticate())
@@ -47,6 +70,10 @@ export default function Portfolio() {
     // clearing interval on componentWillUnmount
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    getAccountValue();
+  }, [pricesCtxt]);
 
   return (
     <div className={styles.portfolio__container}>
@@ -60,16 +87,12 @@ export default function Portfolio() {
         <div className={styles.buyingpower__container}>
           <div className={styles.statsContainer}>
             Stats
-            <div>Buying Power: {F(cash_balance)}
-
-            </div>
-            <div>Account Value: </div>
+            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Account Value: {F(accountValue)} </div>
           </div>
         </div>
         <div className={styles.news__container}>
-          <h1>
-            Recent News
-          </h1>
+          <h1>Recent News</h1>
           {Object.values(articlesCtxt).map((article) => (
             <Article article={article} key={article.title} />
           ))}
@@ -87,16 +110,16 @@ export default function Portfolio() {
                 {ownedAssets.map((asset) => {
                   let price = pricesCtxt[asset?.planetName.toLowerCase()]
                   return (
-                    < NavLink to={`/planet/${asset.planetId}`}>
+                    <NavLink to={`/planet/${asset.planetId}`}>
                       <OwnedList asset={asset} price={price} key={asset.id} />
                     </NavLink>
-                  )
+                  );
                 })}
               </div>
             )}
           </div>
         </div>
       </div>
-    </div >
+    </div>
   );
 }

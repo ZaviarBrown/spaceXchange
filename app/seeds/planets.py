@@ -181,13 +181,13 @@ def seed_planets():
 
     jouret = Planet(
         name="Jouret",
-        price=3191.02,
+        price=1654.38,
         ticker="JORET",
         description="Jouret IV was the fourth planet in the Jouret system of the Beta Quadrant. In 2366, it was an inhabited planet. Founded over a century before, the New Providence colony was one of the Federation's outermost colonies.",
         labor_force=9624912,
         planet_leader="Jayden Smith",
         top_export="Jouret Seed",
-        crypto="compound-coin",
+        crypto="dash",
     )
 
     kesprytt = Planet(

@@ -21,6 +21,7 @@
 }
 
 .mainContentLeft {
+  color: black;
   grid-area: left;
   display: flex;
   flex-direction: column;

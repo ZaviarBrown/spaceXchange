@@ -1,0 +1,28 @@
+.orderBuy {
+  display: grid;
+  background-color: rgba(0, 128, 0, 0.25);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.orderSell {
+  display: grid;
+  background-color: rgba(128, 0, 0, 0.25);
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.orderGrid {
+  display: flex;
+  font-size: 20px;
+  justify-content: center;
+  margin: 20px 40px;
+}
+
+.orderBuy:hover,
+.orderSell:hover {
+  border-radius: 5px;
+  background-color: rgb(12, 66, 113);
+}
+
+#planetName {
+  font-weight: bold;
+}
