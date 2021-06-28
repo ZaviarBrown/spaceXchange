@@ -5,6 +5,7 @@ import { createATransaction, getAllTransactions } from '../../store/transactions
 import { getListItems, deleteListItem } from '../../store/ownedList'
 import { usePurchased } from '../../context/PurchasedContext'
 import { useOwned } from '../../context/OwnedContext'
+import { usePrices } from '../../context/PricesContext'
 import F, { F4 } from '../../utils/formatter'
 import styles from './Transaction.module.css';
 
@@ -14,6 +15,7 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
   const userId = useSelector(state => state.session.user.id);
   const userCash = useSelector(state => state.session.user.cash_balance)
   const { purchased, setPurchased } = usePurchased()
+  const { setPricesCtxt } = usePrices()
   const { ownedCtxt, setOwnedCtxt } = useOwned()
   const [justBought, setJustBought] = useState({})
   const [amount, setAmount] = useState('');
@@ -40,9 +42,8 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           let totalPrice = amount * 1 * assetPrice
           number = amount * 1 // normalize
           let transPrice = number * assetPrice // price for trans records
-          dispatch(deleteOneAsset(found.id, totalPrice)).then(dispatch(getAllAssets()))
+          dispatch(deleteOneAsset(found.id, totalPrice)).then(dispatch(getAllAssets())).then(setPurchased(assets))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          dispatch(getAllAssets())
           setAmount('')
           setOwnedCtxt('1')
           return
@@ -87,7 +88,7 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       if (userCash >= transPrice) {
         if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
-          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto)).then(dispatch(getAllAssets()))
+          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto)).then(dispatch(getAllAssets())).then(setPurchased(assets))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
           setPurchased({ planetId: planetId })
           setAmount('')
@@ -119,13 +120,14 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
   const getPrices = async () => {
     const data = await fetch('/api/raspberry/')
     const result = await data.json()
+    await setPricesCtxt(result)
     return setPrices(result)
   }
 
 
-  useEffect(() => {
-    dispatch(getAllAssets()).then(setPurchased(assets))
-  }, [purchased])
+  // useEffect(() => {
+  //   dispatch(getAllAssets()).then(setPurchased(assets))
+  // }, [purchased])
   // on initial load
   useEffect(() => {
     // window.location.reload()
@@ -165,7 +167,6 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
             <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
           </div>
           <div className={styles.transactionButtons}>
-
             <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
             <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button>
           </div>

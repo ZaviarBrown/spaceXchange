@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import ChartForPortfolio from '../Chart/ChartForPortfolio';
-import styles from './Portfolio.module.css';
-import OwnedList from '../OwnedList/OwnedList';
-import { authenticate } from '../../store/session';
-import { getAllAssets } from '../../store/assets';
-import { getAllTransactions } from '../../store/transactions';
+import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import ChartForPortfolio from '../Chart/ChartForPortfolio'
+import styles from './Portfolio.module.css'
+import OwnedList from '../OwnedList/OwnedList'
+import { authenticate } from '../../store/session'
+import { getAllAssets } from '../../store/assets'
+import { getAllTransactions } from '../../store/transactions'
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
-import Article from '../articles/Article';
+import Article from '../articles/Article'
 import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
@@ -17,6 +17,7 @@ export default function Portfolio() {
   const ownedAssets = useSelector((state) => Object.values(state.assets));
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
+  const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   //! for portfolio calc
   const [totalsArr, setTotalsArr] = useState([])
@@ -32,6 +33,8 @@ export default function Portfolio() {
     const data = await fetch('/api/raspberry/')
     const result = await data.json()
     setPricesCtxt(result)
+    setLoaded(true)
+
   }
 
   //! hashing out how to delete without needing manual refresh
@@ -67,7 +70,7 @@ export default function Portfolio() {
           <h1>
             Recent News
           </h1>
-          {Object.values(articlesCtxt).map((article, i) => (
+          {Object.values(articlesCtxt).map((article) => (
             <Article article={article} key={article.title} />
           ))}
         </div>
@@ -79,7 +82,7 @@ export default function Portfolio() {
             <hr />
           </div>
           <div className={styles.listContainer}>
-            {ownedAssets && (
+            {ownedAssets && pricesCtxt && loaded && (
               <div>
                 {ownedAssets.map((asset) => {
                   let price = pricesCtxt[asset?.planetName.toLowerCase()]

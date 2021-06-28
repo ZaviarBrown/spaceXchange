@@ -4,9 +4,10 @@ import { getAllPlanets } from '../../store/planet';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import OnePlanet from '../OnePlanet/OnePlanet';
-
+import { usePurchased } from '../../context/PurchasedContext'
 export default function AllPlanets() {
   const dispatch = useDispatch();
+  const { setPurchased } = usePurchased()
 
   const planets = useSelector((state) => Object.values(state.planet));
   const [prices, setPrices] = useState({})
@@ -21,6 +22,7 @@ export default function AllPlanets() {
 
   useEffect(() => {
     dispatch(getAllPlanets());
+    setPurchased([])
     const interval = setInterval(getPrices, 2000)
     // clearing interval on componentWillUnmount
     return () => clearInterval(interval)
@@ -29,7 +31,7 @@ export default function AllPlanets() {
   return (
     <>
       <div className={styles.allPlanetsPageContainer}>
-        <div className={styles.planetsContainer}> 
+        <div className={styles.planetsContainer}>
           {planets.map((planet) => (
             <NavLink to={`/planet/${planet.id}`}>
               <OnePlanet planet={planet} prices={prices}></OnePlanet>
