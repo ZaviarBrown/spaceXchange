@@ -65,14 +65,11 @@ const NavBar = () => {
     }
 
     return planets.filter((planetName) => {
-      let data = [];
       let lowerSearch = search.toLowerCase();
       const planet = planetName.name.toLowerCase();
       const ticker = planetName.ticker.toLowerCase();
-      data.push(planet);
-      data.push(ticker);
 
-      return data.includes(lowerSearch) || ticker.includes(lowerSearch);
+      return ticker.includes(lowerSearch) || planet.includes(lowerSearch);
     });
   };
 
