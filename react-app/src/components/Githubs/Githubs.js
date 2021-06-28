@@ -11,12 +11,9 @@ export default function Githubs() {
       </div>
       <div className={styles.mainContent}>
         <div className={styles.andrew}>
-          <h1>Andrew Moss</h1>
-            <div className={styles.githubImg}>
-              <a href="https://github.com/aMoss5150">
-                <img src='https://avatars.githubusercontent.com/u/74944923?v=4' />
-              </a>
-            </div>
+          <a href="https://github.com/aMoss5150">
+            <h1>Andrew Moss</h1>
+          </a>
         </div>
         <div className={styles.john}>
           <h1>John Sims</h1>
