@@ -4,31 +4,22 @@ import { NavLink } from 'react-router-dom';
 import ChartForPortfolio from '../Chart/ChartForPortfolio';
 import styles from './Portfolio.module.css';
 import OwnedList from '../OwnedList/OwnedList';
-import { getListItems } from '../../store/ownedList';
 import { authenticate } from '../../store/session';
 import { getAllAssets } from '../../store/assets';
 import { getAllTransactions } from '../../store/transactions';
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
-import { useOwned } from '../../context/OwnedContext'
-
 import Article from '../articles/Article';
-
 import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
-  const [prices, setPrices] = useState([]);
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
-  const ownedAssets = useSelector((state) => Object.values(state.ownedList));
-  const [assets, setAssets] = useState(ownedAssets)
-  const { ownedCtxt, setOwnedCtxt } = useOwned()
-  const [owned, setOwned] = useState(ownedCtxt)
-  // const [isLoaded, setIsLoaded] = useState(false)
+  const ownedAssets = useSelector((state) => Object.values(state.assets));
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const dispatch = useDispatch();
+  //! for portfolio calc
   const [totalsArr, setTotalsArr] = useState([])
-
 
   const getArticles = async () => {
     const data = await fetch('/api/article');
@@ -45,15 +36,9 @@ export default function Portfolio() {
 
   //! hashing out how to delete without needing manual refresh
   useEffect(() => {
-    // dispatch(getAllAssets());
-    dispatch(getListItems())
-    // setOwned(ownedCtxt)
-  }, [assets])
-  useEffect(() => {
-    dispatch(getListItems());
     getArticles();
-    dispatch(authenticate());
-    dispatch(getAllAssets());
+    dispatch(authenticate())
+    dispatch(getAllAssets())
     dispatch(getAllTransactions());
     const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
@@ -65,9 +50,6 @@ export default function Portfolio() {
       <div className={styles.portfolio__left}>
         <h1>Your Portfolio</h1>
         <div className={styles.portfolio__chart__container}>
-
-
-
 
           <ChartForPortfolio />
         </div>
@@ -85,8 +67,8 @@ export default function Portfolio() {
           <h1>
             Recent News
           </h1>
-          {Object.values(articlesCtxt).map((article) => (
-            <Article article={article} />
+          {Object.values(articlesCtxt).map((article, i) => (
+            <Article article={article} key={article.title} />
           ))}
         </div>
       </div>
@@ -100,7 +82,7 @@ export default function Portfolio() {
             {ownedAssets && (
               <div>
                 {ownedAssets.map((asset) => {
-                  let price = pricesCtxt[asset.planetName.toLowerCase()]
+                  let price = pricesCtxt[asset?.planetName.toLowerCase()]
                   return (
                     < NavLink to={`/planet/${asset.planetId}`}>
                       <OwnedList asset={asset} price={price} key={asset.id} />

@@ -1,4 +1,6 @@
+
 {
+    // let totalArr = []
     (() => {
         let pricesArr = []
         ownedAssets.forEach((asset, i) => {
@@ -12,9 +14,12 @@
             if (i === ownedAssets.length - 1) {
                 let assetsTotal = pricesArr.reduce((acc, el) => {
                     return el += acc
-                }, 0)
-                if (assetsTotal !== 0) {
-                    totalsArr.push({ name: new Date(Date.now()), price: assetsTotal })
+                }, 0).toFixed(4)
+                if (assetsTotal != 0) {
+                    let date = new Date(Date.now())
+                    date = date.toString().split(' ')[4]
+                    totalsArr.push({ name: date, price: assetsTotal })
+                    {/* checkerArr.push({ name: date, price: assetsTotal }) */ }
                 }
             }
             console.log('totalsarr', totalsArr)

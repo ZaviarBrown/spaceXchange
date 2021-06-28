@@ -33,18 +33,18 @@ export const getListItems = () => async (dispatch) => {
 export const deleteListItem = (assetId) => async (dispatch) => {
   let body = JSON.stringify({ assetId })
   let data = await fetch('/api/owned_list/', {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    method: 'DELETE',
-    payload: body
+    body: body
   });
   data = await data.json();
   if (data.errors) {
     return;
   }
   dispatch(delItem(assetId))
-  dispatch(getListItem(data.assets));
+  // dispatch(getListItem(data.assets));
 }
 
 // initial state
@@ -66,7 +66,7 @@ export default function reducer(state = initialState, action) {
 
     case DELETE_LIST_ITEM: {
       const newState = { ...state }
-      delete newState[action];
+      delete newState[action.payload];
       return newState;
     }
 

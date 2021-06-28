@@ -27,30 +27,23 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
 
   // !issue double created asset when purchased without leaving planet page
   const handleSubmit = (e) => {
-    setPurchased(assets)
-    console.log(purchased)
     e.preventDefault();
     // price is pulled from PRICES STATE OBJECT updated from raspberry route
     let assetPrice = prices[planetName.toLowerCase()].price
-    // //! for testing
-    // let assetPrice = 6
     let asset = Object.values(assets)
     let number
     let found = asset.find((el) => el['planetId'] === +planetId && el['userId'] === userId) ? asset.find((el) => el['planetId'] === +planetId && el['userId'] === +userId) : null;
+    //! FOUND
     if (found) { // already OWN this ASSET -------------------------------------
       if (orderType === 'sell') { // SELL && FOUND -----------------------------
         if (amount * 1 === found.shares) { // SELL ALL -------------------------
           let totalPrice = amount * 1 * assetPrice
           number = amount * 1 // normalize
           let transPrice = number * assetPrice // price for trans records
-          dispatch(deleteOneAsset(found.id, totalPrice))
+          dispatch(deleteOneAsset(found.id, totalPrice)).then(dispatch(getAllAssets()))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          window.alert("delete one asset SELL ALL FOUND route hit")
           dispatch(getAllAssets())
-          dispatch(deleteListItem(found.id))
-          dispatch(getListItems())
           setAmount('')
-          // dispatch(getListItems())
           setOwnedCtxt('1')
           return
         }
@@ -62,16 +55,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
         let totalPrice = amount * 1 * assetPrice // price of shares
         number = amount * -1 // normalize
         let transPrice = number * -1 * assetPrice // price for trans records
-        dispatch(editOneAsset(found.id, number, totalPrice))
+        dispatch(editOneAsset(found.id, number, totalPrice)).then(dispatch(getAllAssets()))
         dispatch(createATransaction(transPrice, +planetId, number * -1, orderType))
-        dispatch(getAllAssets())
-        dispatch(getListItems())
-        window.alert("edit one asset SELL < found.shares route hit")
         setAmount('')
         return
-
-
-
 
       } else if (orderType === 'buy') { // BUY && FOUND ------------------------
         let totalPrice = amount * assetPrice * -1
@@ -79,11 +66,9 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
         let transPrice = number * assetPrice // price for trans records
 
         if (userCash >= transPrice) { // checking for enough cash
-          dispatch(editOneAsset(found.id, number, totalPrice))
+          dispatch(editOneAsset(found.id, number, totalPrice)).then(dispatch(getAllAssets()))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          dispatch(getAllAssets())
-          dispatch(getListItems())
-          window.alert("edit one asset BUY AND FOUND route hit")
+          setPurchased({ planetId: planetId })
           setAmount('')
           return
 
@@ -102,19 +87,16 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
       if (userCash >= transPrice) {
         if (!("planetId" in purchased)) {
           // createOneAsset requires planet information to create from model
-          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto))
+          dispatch(createOneAsset(number, +planetId, totalPrice, planetName, ticker, planetCrypto)).then(dispatch(getAllAssets()))
           dispatch(createATransaction(transPrice, +planetId, number, orderType))
-          dispatch(getAllAssets())
-          dispatch(getListItems())
-          // dispatch(getListItems())
           setPurchased({ planetId: planetId })
-          window.alert("create one asset BUY NOT FOUND route hit")
           setAmount('')
           return
         } else {
-          console.log(!("planetId" in purchased), purchased, justBought)
           alert('please resubmit your order, there was a problem')
+          setPurchased([])
           dispatch(getAllAssets())
+          setAmount('')
         }
       } else { // X NOT ENOUGH CASH X
         alert("You don't have the buying power")
@@ -131,6 +113,8 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     //maybe push history("/")???????????
   };
 
+
+
   // raspberry route
   const getPrices = async () => {
     const data = await fetch('/api/raspberry/')
@@ -138,6 +122,10 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
     return setPrices(result)
   }
 
+
+  useEffect(() => {
+    dispatch(getAllAssets()).then(setPurchased(assets))
+  }, [purchased])
   // on initial load
   useEffect(() => {
     // window.location.reload()
@@ -174,15 +162,12 @@ export default function Transaction({ planetId, planetName, ticker, planetCrypto
           </div>
           <div className={styles.priceContainer}>
             <div className={styles.price}>Market Price:</div>
-            {/* <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div> */}
             <div className={styles.price}> {prices[planetName.toLowerCase()]?.price ? prices[planetName.toLowerCase()]?.price < 10 ? F4(prices[planetName.toLowerCase()]?.price) : F(prices[planetName.toLowerCase()]?.price) : "fetching..."}</div>
           </div>
           <div className={styles.transactionButtons}>
 
             <button onClick={() => setOrderType('buy')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Buy</button>
             <button onClick={() => setOrderType('sell')} disabled={amount > 0 && prices[planetName.toLowerCase()]?.price ? false : true}>Sell</button>
-            {/* <button onClick={() => setOrderType('buy')} disabled={amount > 0 ? false : true}>Buy</button>
-            <button onClick={() => setOrderType('sell')} disabled={amount > 0 ? false : true}>Sell</button> */}
           </div>
         </form>
       </div>

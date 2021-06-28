@@ -4,7 +4,7 @@ export const PricesContext = createContext()
 
 export const PricesProvider = (props) => {
 
-    const [pricesCtxt, setPricesCtxt] = useState('')
+    const [pricesCtxt, setPricesCtxt] = useState([])
 
     return (
         <PricesContext.Provider value={{ pricesCtxt, setPricesCtxt }}>
