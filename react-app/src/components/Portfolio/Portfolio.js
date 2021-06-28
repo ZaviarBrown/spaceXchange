@@ -112,7 +112,7 @@ export default function Portfolio() {
           Buying Power: {F(cash_balance)}
         </div>
         <div className={styles.portfolio__chart__container}>
-          < ChartForPortfolio history={historyCtxt} />
+          <ChartForPortfolio history={historyCtxt} />
         </div>
         <div className={styles.news__container}>
           <h1>Recent News</h1>
