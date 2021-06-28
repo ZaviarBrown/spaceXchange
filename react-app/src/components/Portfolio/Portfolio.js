@@ -116,19 +116,13 @@ export default function Portfolio() {
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-        <h1>Your Portfolio</h1>
-        <div className={styles.portfolio__chart__container}>
-
-          < ChartForPortfolio history={historyCtxt} />
-
+        <div className={styles.accountValue}>
+          Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)}
+          <br />
+          Buying Power: {F(cash_balance)}
         </div>
-        <div className={styles.chart__control}></div>
-        <div className={styles.buyingpower__container}>
-          <div className={styles.statsContainer}>
-            Stats
-            <div>Buying Power: {F(cash_balance)}</div>
-            <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
-          </div>
+        <div className={styles.portfolio__chart__container}>
+          < ChartForPortfolio history={historyCtxt} />
         </div>
         <div className={styles.news__container}>
           <h1>Recent News</h1>
@@ -141,9 +135,8 @@ export default function Portfolio() {
         <div className={styles.sidebarContainer}>
           <div className={styles.listTitle}>
             <h2>Owned</h2>
-            <hr />
           </div>
-          <div className={styles.listContainer}>
+          <div className={styles.listContainer} onMouseEnter={(e) => console.log()}>
             {ownedAssets && pricesCtxt && loaded && (
               <div>
                 {ownedAssets.map((asset) => {
