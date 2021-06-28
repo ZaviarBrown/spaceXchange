@@ -27,7 +27,7 @@ const ChartForPortfolio = ({ history }) => {
                 <Line type="monotone" dataKey="value" stroke="#8884d8" dot={false} />
                 {/* <CartesianGrid strokeDasharray="2 2" /> */}
                 <XAxis tick={{ fill: 'lightblue', fontSize: 12 }} dataKey={'name'} />
-                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin + 10000", 'dataMax+ 10000']} tickCount={5} />
+                <YAxis tick={{ fill: 'lightblue', fontSize: 12 }} domain={["dataMin", 'dataMax']} tickCount={5} />
                 <Tooltip wrapperStyle={{ maxWidth: 250, backgroundColor: '#ccc', color: "black" }} />
                 {/* <Legend /> */}
                 {/* <Area type="monotone" dataKey={"price"} stroke="#8884d8" fill="#8884d8" /> */}
