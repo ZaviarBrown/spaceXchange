@@ -14,7 +14,7 @@ import F, { F2 } from '../../utils/formatter'
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
-  const ownedAssetsObject = useSelector((state) => state.ownedList);
+  const ownedAssetsObject = useSelector((state) => state.assets);
   const ownedAssets = useSelector((state) => Object.values(state.assets));
 
   const [assets, setAssets] = useState(ownedAssets);
@@ -47,7 +47,7 @@ export default function Portfolio() {
     let accountValue = 0;
     let ownedObject = {};
 
-    ownedAssets.forEach((asset) => {
+    ownedAssets && pricesCtxt && loaded && ownedAssets.forEach((asset) => {
       ownedObject[asset.planetName.toLowerCase()] = asset.id;
     });
 
@@ -88,7 +88,7 @@ export default function Portfolio() {
           <div className={styles.statsContainer}>
             Stats
             <div>Buying Power: {F(cash_balance)}</div>
-            <div>Account Value: {F(accountValue)} </div>
+            <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
           </div>
         </div>
         <div className={styles.news__container}>
