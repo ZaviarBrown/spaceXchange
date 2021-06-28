@@ -9,6 +9,7 @@ import { PurchasedProvider } from './context/PurchasedContext'
 import { PricesProvider } from './context/PricesContext'
 import { ArticlesProvider } from './context/ArticlesContext'
 import { OwnedProvider } from './context/OwnedContext'
+import { HistoryProvider } from './context/HistoryContext'
 
 const store = configureStore();
 
@@ -17,13 +18,15 @@ ReactDOM.render(
     <Provider store={store}>
       <PurchasedProvider>
         <OwnedProvider>
-          <PricesProvider>
-            <ChartProvider>
-              <ArticlesProvider>
-                <App />
-              </ArticlesProvider>
-            </ChartProvider>
-          </PricesProvider>
+          <HistoryProvider>
+            <PricesProvider>
+              <ChartProvider>
+                <ArticlesProvider>
+                  <App />
+                </ArticlesProvider>
+              </ChartProvider>
+            </PricesProvider>
+          </HistoryProvider>
         </OwnedProvider>
       </PurchasedProvider>
     </Provider>

@@ -9,6 +9,7 @@ import { getAllAssets } from '../../store/assets'
 import { getAllTransactions } from '../../store/transactions'
 import { useArticles } from '../../context/ArticlesContext'
 import { usePrices } from '../../context/PricesContext'
+import { useHistory } from '../../context/HistoryContext'
 import Article from '../articles/Article'
 import F, { F2 } from '../../utils/formatter'
 
@@ -21,6 +22,7 @@ export default function Portfolio() {
   const [accountValue, setAccountValue] = useState('Fetching...');
   const planets = useSelector((state) => Object.values(state.planet));
 
+  const { historyCtxt, setHistoryCtxt } = useHistory()
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
   const [history, setHistory] = useState([])
@@ -57,103 +59,106 @@ export default function Portfolio() {
       { "name": "1 days ago", "value": 319845.93 },
     ]
     if (!localStorage.getItem('history')) {
-      localStorage.setItem('history', JSON.stringify(startData))
-      setHistory(startData)
+      await localStorage.setItem('history', JSON.stringify(startData))
+      setHistoryCtxt(startData)
     }
     else if (localStorage.getItem('history')) {
-      let history = localStorage.getItem('history')
-      history.shift()
-      history.push(accountValue)
-      localStorage.setItem('history', JSON.stringify(history))
+      let history = await JSON.parse(localStorage.getItem('history'))
+
+      accountValue > 0 && history.shift()
+      let name = (new Date(Date.now())).toString().split(' ')[4]
+      accountValue > 0 && loaded && history.push({ 'name': name, "value": accountValue.toFixed(2) })
+      loaded && localStorage.setItem('history', JSON.stringify(history))
+      setHistoryCtxt(history)
     }
-    setHistory(history)
+
   }
 
-}
 
-const getAccountValue = async () => {
-  let accountValue = 0;
-  let ownedObject = {};
 
-  ownedAssets && pricesCtxt && loaded && ownedAssets.forEach((asset) => {
-    ownedObject[asset.planetName.toLowerCase()] = asset.id;
-  });
+  const getAccountValue = async () => {
+    let accountValue = 0;
+    let ownedObject = {};
 
-  for (const key in pricesCtxt) {
-    if (Object.keys(ownedObject).includes(key)) {
-      accountValue +=
-        pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
+    ownedAssets && pricesCtxt && loaded && ownedAssets.forEach((asset) => {
+      ownedObject[asset.planetName.toLowerCase()] = asset.id;
+    });
+
+    for (const key in pricesCtxt) {
+      if (Object.keys(ownedObject).includes(key)) {
+        accountValue +=
+          pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
+      }
     }
-  }
 
-  setAccountValue(accountValue);
-};
-
-useEffect(() => {
-  getArticles();
-  dispatch(authenticate())
-  dispatch(getAllAssets())
-  dispatch(getAllTransactions());
-  const interval = setInterval(getPrices, 2000);
-  const historyInterval = setInterval(getHistory, 5000)
-  // clearing interval on componentWillUnmount
-  return () => {
-    clearInterval(historyInterval)
-    clearInterval(interval)
+    setAccountValue(accountValue)
   };
-}, []);
 
-useEffect(() => {
-  getAccountValue();
-}, [pricesCtxt]);
+  useEffect(() => {
+    getArticles();
+    dispatch(authenticate())
+    dispatch(getAllAssets())
+    dispatch(getAllTransactions());
+    const interval = setInterval(getPrices, 2000);
+    // const historyInterval = setInterval(getHistory, 5000)
+    // clearing interval on componentWillUnmount
+    return () => {
+      // clearInterval(historyInterval)
+      clearInterval(interval)
+    };
+  }, []);
 
-return (
-  <div className={styles.portfolio__container}>
-    <div className={styles.portfolio__left}>
-      <h1>Your Portfolio</h1>
-      <div className={styles.portfolio__chart__container}>
-        {
-          history &&
-          <ChartForPortfolio history={history} />
-        }
-      </div>
-      <div className={styles.chart__control}></div>
-      <div className={styles.buyingpower__container}>
-        <div className={styles.statsContainer}>
-          Stats
-          <div>Buying Power: {F(cash_balance)}</div>
-          <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
+  useEffect(() => {
+    getAccountValue().then(() => getHistory())
+
+  }, [pricesCtxt]);
+
+  return (
+    <div className={styles.portfolio__container}>
+      <div className={styles.portfolio__left}>
+        <h1>Your Portfolio</h1>
+        <div className={styles.portfolio__chart__container}>
+
+          < ChartForPortfolio history={historyCtxt} />
+
+        </div>
+        <div className={styles.chart__control}></div>
+        <div className={styles.buyingpower__container}>
+          <div className={styles.statsContainer}>
+            Stats
+            <div>Buying Power: {F(cash_balance)}</div>
+            <div>Account Value: {accountValue === 0 ? "...fetching" : F(accountValue)} </div>
+          </div>
+        </div>
+        <div className={styles.news__container}>
+          <h1>Recent News</h1>
+          {Object.values(articlesCtxt).map((article) => (
+            <Article article={article} key={article.title} />
+          ))}
         </div>
       </div>
-      <div className={styles.news__container}>
-        <h1>Recent News</h1>
-        {Object.values(articlesCtxt).map((article) => (
-          <Article article={article} key={article.title} />
-        ))}
+      <div className={styles.portfolio__right}>
+        <div className={styles.sidebarContainer}>
+          <div className={styles.listTitle}>
+            <h2>Owned</h2>
+            <hr />
+          </div>
+          <div className={styles.listContainer}>
+            {ownedAssets && pricesCtxt && loaded && (
+              <div>
+                {ownedAssets.map((asset) => {
+                  let price = pricesCtxt[asset?.planetName.toLowerCase()]
+                  return (
+                    <NavLink to={`/planet/${asset.planetId}`}>
+                      <OwnedList asset={asset} price={price} key={asset.id} />
+                    </NavLink>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
-    <div className={styles.portfolio__right}>
-      <div className={styles.sidebarContainer}>
-        <div className={styles.listTitle}>
-          <h2>Owned</h2>
-          <hr />
-        </div>
-        <div className={styles.listContainer}>
-          {ownedAssets && pricesCtxt && loaded && (
-            <div>
-              {ownedAssets.map((asset) => {
-                let price = pricesCtxt[asset?.planetName.toLowerCase()]
-                return (
-                  <NavLink to={`/planet/${asset.planetId}`}>
-                    <OwnedList asset={asset} price={price} key={asset.id} />
-                  </NavLink>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-);
+  );
 }
