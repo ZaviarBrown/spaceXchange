@@ -39,8 +39,8 @@ def article():
 
     x = 0
     seenArticles = []
-    while len(articles) < 5:
-        article_num = random.randint(1, 10)
+    while len(articles) < 3:
+        article_num = random.randint(1, 3)
         splitDate = news2[article_num].find("span", class_="date").text.split()
         newArticle = "article" + (f"{x}")
 
