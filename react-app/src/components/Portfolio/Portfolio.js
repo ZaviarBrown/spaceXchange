@@ -27,7 +27,7 @@ export default function Portfolio() {
   //! for portfolio calc
 
   const getArticles = async () => {
-    const data = await fetch("/api/article");
+    const data = await fetch("/api/article/");
     const result = await data.json();
     return setArticlesCtxt(result);
   };
@@ -119,14 +119,12 @@ export default function Portfolio() {
         <div className={styles.portfolio__chart__container}>
           <ChartForPortfolio history={historyCtxt} />
         </div>
-        {
-          // <div className={styles.news__container}>
-          //   <h1>Recent News</h1>
-          //   {Object.values(articlesCtxt).map((article) => (
-          //     <Article article={article} key={article.title} />
-          //   ))}
-          // </div>
-        }
+        <div className={styles.news__container}>
+          <h1>Recent News</h1>
+          {Object.values(articlesCtxt).map((article) => (
+            <Article article={article} key={article.title} />
+          ))}
+        </div>
       </div>
       <div className={styles.portfolio__right}>
         <div className={styles.sidebarContainer}>
