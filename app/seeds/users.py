@@ -3,7 +3,7 @@ from app.models import db, User
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    hp = generate_password_hash("password")
+    hp = generate_password_hash("StrongPass1225$!")
     demo = User(
         username="Demo",
         hashed_password=hp,
