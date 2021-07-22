@@ -3,7 +3,7 @@
   height: 100%;
   grid-template-columns: 1fr 5fr 2fr 2fr 1fr;
   grid-template-rows: auto;
-  grid-template-areas: '. left left right .';
+  grid-template-areas: ". left left right .";
   text-align: center;
 }
 
@@ -17,8 +17,8 @@
 }
 
 .portfolio__chart__container {
-  height: 345px;
-  min-width: 600px;
+  height: 35vh;
+  min-width: 20vw;
   margin: 50px 20px 20px 20px;
 }
 
@@ -61,15 +61,14 @@
   border: 1px solid white;
   border-radius: 5px;
   width: 250px;
-  top: 175px;
+  top: 18%;
   background-color: rgba(0, 30, 75, 0.75);
   color: white;
-  height: 650px;
+  height: 70vh;
   overflow: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
   position: fixed;
-
 }
 
 .sidebarContainer::-webkit-scrollbar {
