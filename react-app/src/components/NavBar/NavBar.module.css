@@ -1,13 +1,14 @@
 .navContainer {
   display: grid;
-  background-color: #0C4271;
+  background-color: #0c4271;
   height: 75px;
   grid-template-rows: 100%;
   grid-template-columns: 15% 50% 36%;
   grid-template-areas: "a  b  c";
-  color: #E7E6E1;
+  color: #e7e6e1;
   font-weight: bold;
   font-size: 20px;
+  z-index: 2;
 }
 
 .navContainer a {
@@ -15,7 +16,7 @@
   justify-content: center;
   align-content: center;
   text-decoration: none;
-  color: #E7E6E1;
+  color: #e7e6e1;
 }
 
 .navContainer a:hover {

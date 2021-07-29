@@ -1,5 +1,6 @@
 * {
-  font-family: 'Exo', sans-serif;
+  font-family: "Exo", sans-serif;
+  color: white;
 }
 
 .navContainer {
@@ -9,14 +10,15 @@
 }
 
 .mainContent {
-  background-color: rgb(230, 229, 227);
+  /* background-color: rgb(230, 229, 227); */
+  background-color: rgb(25, 25, 25);
   height: 750px;
 }
 
 .mainContentDivider {
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-areas: '. left left left . right right right .';
+  grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr, 1fr;
+  grid-template-areas: ". left left left . right right right right right";
   height: 100%;
 }
 
@@ -43,14 +45,15 @@
 .signupButton {
   font-weight: bold;
   background-color: rgba(12, 66, 113, 0.75);
-  color: #E7E6E1;
+  color: #e7e6e1;
   padding: 10px 30px 10px 30px;
   border-radius: 50px;
   margin: 50px 10px 50px 20px;
 }
 
-.signupButton a, a:visited {
-  color: #E7E6E1;
+.signupButton a,
+a:visited {
+  color: #e7e6e1;
   text-decoration: none;
 }
 
@@ -66,7 +69,8 @@
 }
 
 .mainContentRight img {
-  width: 100%;
+  width: 70%;
+  /* transform: rotate(338deg); */
 }
 
 .navsignup {
