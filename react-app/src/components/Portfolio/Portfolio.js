@@ -12,6 +12,7 @@ import { usePrices } from "../../context/PricesContext";
 import { useHistory } from "../../context/HistoryContext";
 import Article from "../articles/Article";
 import F from "../../utils/formatter";
+import { PulseLoader } from "react-spinners";
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
@@ -108,11 +109,15 @@ export default function Portfolio() {
       <div className={styles.portfolio__left}>
         <div className={styles.accountValue}>
           Account Value:{" "}
-          {ownedAssets.length > 0
-            ? accountValue === 0
-              ? "...fetching"
-              : F(accountValue)
-            : 0}
+          {ownedAssets.length > 0 ? (
+            accountValue === 0 ? (
+              <PulseLoader size={15} margin={2} color="white" loading />
+            ) : (
+              F(accountValue)
+            )
+          ) : (
+            0
+          )}
           <br />
           Buying Power: {F(cash_balance)}
         </div>
