@@ -3,7 +3,7 @@
   background-color: #0c4271;
   height: 75px;
   grid-template-rows: 100%;
-  grid-template-columns: 15% 50% 36%;
+  grid-template-columns: 17% 45% 38%;
   grid-template-areas: "a  b  c";
   color: #e7e6e1;
   font-weight: bold;
