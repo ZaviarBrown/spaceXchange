@@ -36,6 +36,7 @@ export default function Transaction({
   const [amount, setAmount] = useState("");
   const [orderType, setOrderType] = useState("");
   const [prices, setPrices] = useState({});
+  let currentPrice;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -176,6 +177,16 @@ export default function Transaction({
     dispatch(authenticate());
   }, [update]);
 
+  useEffect(() => {
+    console.log("HEEYEYEYEYEYE");
+    if (amount > 0 && amount < 10) {
+      currentPrice = F(prices[planetName.toLowerCase()]?.price * amount);
+    } else {
+      currentPrice = F4(prices[planetName.toLowerCase()]?.price);
+    }
+    console.log(currentPrice);
+  }, [amount, setAmount]);
+
   // on initial load
   useEffect(() => {
     dispatch(getAllAssets());
@@ -213,11 +224,7 @@ export default function Transaction({
               <div className={styles.number}>
                 {" "}
                 {prices[planetName.toLowerCase()]?.price ? (
-                  prices[planetName.toLowerCase()]?.price < 10 ? (
-                    F4(prices[planetName.toLowerCase()]?.price)
-                  ) : (
-                    F(prices[planetName.toLowerCase()]?.price)
-                  )
+                  currentPrice
                 ) : (
                   <BeatLoader size={8} color="black" loading />
                 )}
