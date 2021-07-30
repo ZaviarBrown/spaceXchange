@@ -80,13 +80,26 @@
   padding: 10px 0;
 }
 
-.accountValue {
+.data__wrapper {
   display: flex;
-  flex-direction: column;
   color: white;
   font-size: 30px;
   text-align: left;
-  margin: 20px 0;
+  margin-top: 10px;
+  align-items: baseline;
+}
+
+.spinner__container {
+  margin-left: 20px;
+}
+
+.account__value {
+  margin-left: 10px;
+}
+
+.cash__balance {
+  font-size: 30px;
+  text-align: left;
 }
 
 .noAssets {

@@ -13,6 +13,7 @@ import { useHistory } from "../../context/HistoryContext";
 import Article from "../articles/Article";
 import F from "../../utils/formatter";
 import { PulseLoader } from "react-spinners";
+import { css } from "@emotion/react";
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
@@ -107,18 +108,21 @@ export default function Portfolio() {
   return (
     <div className={styles.portfolio__container}>
       <div className={styles.portfolio__left}>
-        <div className={styles.accountValue}>
-          Account Value:{" "}
+        <div className={styles.data__wrapper}>
+          <div>Account Value: </div>
           {ownedAssets.length > 0 ? (
             accountValue === 0 ? (
-              <PulseLoader size={15} margin={2} color="white" loading />
+              <div className={styles.spinner__container}>
+                <PulseLoader size={15} color="white" loading />
+              </div>
             ) : (
-              F(accountValue)
+              <div className={styles.account__value}>{F(accountValue)}</div>
             )
           ) : (
             0
           )}
-          <br />
+        </div>
+        <div className={styles.cash__balance}>
           Buying Power: {F(cash_balance)}
         </div>
         <div className={styles.portfolio__chart__container}>
