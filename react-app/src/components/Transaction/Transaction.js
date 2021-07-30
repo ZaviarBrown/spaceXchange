@@ -33,7 +33,7 @@ export default function Transaction({
   const { ownedCtxt, setOwnedCtxt } = useOwned();
   const [justBought, setJustBought] = useState({});
   const [update, setUpdate] = useState(false);
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState("");
   const [orderType, setOrderType] = useState("");
   const [prices, setPrices] = useState({});
   const [currPrice, setCurrPrice] = useState(0);
@@ -178,15 +178,11 @@ export default function Transaction({
   }, [update]);
 
   useEffect(() => {
-    console.log("HEEYEYEYEYEYE");
-    setCurrPrice(F4(prices[planetName.toLowerCase()]?.price));
-    if (amount < 10) {
-      console.log(amount);
-      setCurrPrice(F4(prices[planetName.toLowerCase()]?.price * amount));
-    } else {
-      setCurrPrice(F(prices[planetName.toLowerCase()]?.price * amount));
-    }
-  }, [amount, setAmount, currPrice, setCurrPrice]);
+    setCurrPrice(prices[planetName.toLowerCase()]?.price * amount);
+    currPrice < 10
+      ? setCurrPrice(F4(prices[planetName.toLowerCase()]?.price * amount))
+      : setCurrPrice(F(prices[planetName.toLowerCase()]?.price * amount));
+  }, [amount, setAmount, prices, setPrices]);
 
   // on initial load
   useEffect(() => {
@@ -195,7 +191,6 @@ export default function Transaction({
     // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
-    console.log(amount);
     return () => clearInterval(interval);
   }, []);
 
@@ -217,29 +212,34 @@ export default function Transaction({
               className={styles.shareInput}
               type="number"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              onChange={(e) =>
+                e.target.value >= 0 ? setAmount(e.target.value) : setAmount(0)
+              }
             />
           </div>
           <div className={styles.priceContainer}>
             <div className={styles.priceCashContainer}>
               <div className={styles.price}>Market Price:</div>
               <div className={styles.number}>
+                {" "}
                 {prices[planetName.toLowerCase()]?.price ? (
-                  currPrice !== "$NaN" ? (
-                    <div>{currPrice}</div>
-                  ) : prices[planetName.toLowerCase()]?.price < 10 ? (
-                    F(prices[planetName.toLowerCase()]?.price)
-                  ) : (
+                  prices[planetName.toLowerCase()]?.price < 10 ? (
                     F4(prices[planetName.toLowerCase()]?.price)
+                  ) : (
+                    F(prices[planetName.toLowerCase()]?.price)
                   )
                 ) : (
                   <BeatLoader size={8} color="black" loading />
                 )}
               </div>
             </div>
-            <div className={styles.availCash}>
-              <div className={styles.price}>Available Balance:</div>
-              <div className={styles.number}>{F(userCash)}</div>
+          </div>
+          <div className={styles.costContainer}>
+            <div className={styles.totalCost}>
+              <div className={styles.price}>Estimated Cost: </div>
+              <div className={styles.number}>
+                {currPrice === "$NaN" ? "$0.00" : currPrice}
+              </div>
             </div>
           </div>
           <div className={styles.transactionButtons}>
@@ -263,6 +263,10 @@ export default function Transaction({
             >
               Sell
             </button>
+          </div>
+          <div className={styles.availCash}>
+            <div className={styles.price}>Available Balance:</div>
+            <div className={styles.number}>{F(userCash)}</div>
           </div>
         </form>
       </div>

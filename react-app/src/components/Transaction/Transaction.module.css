@@ -1,26 +1,22 @@
 .transaction__container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 278px;
   width: 300px;
   position: fixed;
   top: 200px;
   background-color: #e7e6e1f0;
   border: 1px solid white;
   border-radius: 4px;
-  box-shadow: 3.5px 3px 4px 0px rgba(152, 150, 150, 0.345);
+  box-shadow: 3.5px 3px 4px 0px rgb(152 150 150 / 35%);
   box-sizing: border-box;
 }
 
 .transactionForm {
   display: flex;
-  height: 150px;
-  width: 150px;
   padding: 13px 10px 25px 10px;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
 }
 
@@ -28,6 +24,10 @@
   margin: 0 10px;
   padding: 5px;
   color: black;
+}
+
+.transactionButtons {
+  padding-bottom: 2%;
 }
 
 .orderContainer {
@@ -99,6 +99,22 @@ label {
   margin-bottom: 5px;
 }
 
+.costContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 300;
+  font-family: "DM Sans", sans-serif;
+  display: flex;
+  align-items: baseline;
+  width: 274px;
+  padding: 5px;
+  margin-left: 22px;
+  margin-right: 12px;
+  margin-bottom: 20px;
+}
+
 .price {
   color: #343b51;
   margin-right: 8px;
@@ -110,7 +126,18 @@ label {
   font-weight: bold;
 }
 
-.priceCashContainer,
 .availCash {
+  font-size: 15px;
+  border-top: 1px solid;
+  border-color: rgb(187, 187, 187);
+  width: 86%;
+  margin-top: 5%;
+  padding-top: 2%;
+  justify-content: center;
+}
+
+.priceCashContainer,
+.availCash,
+.totalCost {
   display: flex;
 }
