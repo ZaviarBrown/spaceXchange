@@ -33,10 +33,10 @@ export default function Transaction({
   const { ownedCtxt, setOwnedCtxt } = useOwned();
   const [justBought, setJustBought] = useState({});
   const [update, setUpdate] = useState(false);
-  const [amount, setAmount] = useState("");
+  const [amount, setAmount] = useState(1);
   const [orderType, setOrderType] = useState("");
   const [prices, setPrices] = useState({});
-  let currentPrice;
+  const [currPrice, setCurrPrice] = useState(0);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -179,13 +179,14 @@ export default function Transaction({
 
   useEffect(() => {
     console.log("HEEYEYEYEYEYE");
-    if (amount > 0 && amount < 10) {
-      currentPrice = F(prices[planetName.toLowerCase()]?.price * amount);
+    setCurrPrice(F4(prices[planetName.toLowerCase()]?.price));
+    if (amount < 10) {
+      console.log(amount);
+      setCurrPrice(F4(prices[planetName.toLowerCase()]?.price * amount));
     } else {
-      currentPrice = F4(prices[planetName.toLowerCase()]?.price);
+      setCurrPrice(F(prices[planetName.toLowerCase()]?.price * amount));
     }
-    console.log(currentPrice);
-  }, [amount, setAmount]);
+  }, [amount, setAmount, currPrice, setCurrPrice]);
 
   // on initial load
   useEffect(() => {
@@ -194,6 +195,7 @@ export default function Transaction({
     // setting interval to hit raspberry route
     const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
+    console.log(amount);
     return () => clearInterval(interval);
   }, []);
 
@@ -222,9 +224,14 @@ export default function Transaction({
             <div className={styles.priceCashContainer}>
               <div className={styles.price}>Market Price:</div>
               <div className={styles.number}>
-                {" "}
                 {prices[planetName.toLowerCase()]?.price ? (
-                  currentPrice
+                  currPrice !== "$NaN" ? (
+                    <div>{currPrice}</div>
+                  ) : prices[planetName.toLowerCase()]?.price < 10 ? (
+                    F(prices[planetName.toLowerCase()]?.price)
+                  ) : (
+                    F4(prices[planetName.toLowerCase()]?.price)
+                  )
                 ) : (
                   <BeatLoader size={8} color="black" loading />
                 )}
