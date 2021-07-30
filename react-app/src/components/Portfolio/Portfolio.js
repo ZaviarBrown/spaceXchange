@@ -13,7 +13,6 @@ import { useHistory } from "../../context/HistoryContext";
 import Article from "../articles/Article";
 import F from "../../utils/formatter";
 import { PulseLoader } from "react-spinners";
-import { css } from "@emotion/react";
 
 export default function Portfolio() {
   const cash_balance = useSelector((state) => state.session.user.cash_balance);
