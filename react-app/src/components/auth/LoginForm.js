@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
 import galaxySky from "../../assets/galaxySkyLeft.png";
 import Typewriter from "typewriter-effect";
@@ -87,6 +87,11 @@ const LoginForm = () => {
             <div className={styles.loginButtons}>
               <button type="submit">Login</button>
               <button onClick={demoLogin}>Demo</button>
+            </div>
+            <div className={styles.accountAlready}>
+              <NavLink to="/sign-up">
+                <p>Don't have an account? Click here to sign up!</p>
+              </NavLink>
             </div>
           </div>
         </form>

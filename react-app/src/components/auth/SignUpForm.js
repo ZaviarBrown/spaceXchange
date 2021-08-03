@@ -116,7 +116,7 @@ const SignUpForm = () => {
           </div>
           <div className={styles.accountAlready}>
             <NavLink to="/login">
-              <p>Already have an account? Please click here!</p>
+              <p>Already have an account? Click here to login!</p>
             </NavLink>
           </div>
         </form>
