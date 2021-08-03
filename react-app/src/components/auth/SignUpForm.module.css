@@ -55,16 +55,18 @@
 }
 
 .signupButtons button {
-  background-color: rgba(230, 229, 227, 0.9);
+  background-color: rgba(13, 66, 112, 0.8);
   padding: 10px 70px;
   font-size: 20px;
   font-weight: bold;
   margin: 10px 5px 10px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
 }
 
 .signupButtons button:hover {
-  background-color: rgba(230, 229, 227, 1);
+  background-color: rgba(13, 66, 112, 1);
+  border: 1px solid rgba(255, 255, 255, 1);
 }
 
 .signUpFormTitle {
@@ -87,4 +89,13 @@
 
 .errorDiv {
   color: white;
+}
+
+.inputBox {
+  color: black;
+  font-weight: 900;
+}
+
+.inputBox:focus {
+  outline: none;
 }

@@ -76,6 +76,7 @@ const SignUpForm = () => {
               name="username"
               onChange={updateUsername}
               value={username}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -85,6 +86,7 @@ const SignUpForm = () => {
               name="email"
               onChange={updateEmail}
               value={email}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -94,6 +96,7 @@ const SignUpForm = () => {
               name="password"
               onChange={updatePassword}
               value={password}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -104,6 +107,7 @@ const SignUpForm = () => {
               onChange={updateRepeatPassword}
               value={repeatPassword}
               required={true}
+              className={styles.inputBox}
             ></input>
             <div> {match ? "" : "Passwords do not match"}</div>
           </div>

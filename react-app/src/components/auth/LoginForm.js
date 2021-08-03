@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { login } from "../../store/session";
-import galaxySky from "../../assets/galaxySkyLeft.png"
-import Typewriter from 'typewriter-effect';
-import styles from './LoginForm.module.css';
+import galaxySky from "../../assets/galaxySkyLeft.png";
+import Typewriter from "typewriter-effect";
+import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user)
+  const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,10 +34,10 @@ const LoginForm = () => {
   }
 
   const demoLogin = () => {
-    setEmail('demo@aa.io');
-    setPassword('password');
+    setEmail("demo@aa.io");
+    setPassword("password");
     login(email, password);
-  }
+  };
 
   return (
     <div className={styles.loginPageContainer}>
@@ -46,16 +46,16 @@ const LoginForm = () => {
       </div>
       <div className={styles.loginFormContainer}>
         <h1 id={styles.loginText}>
-        <Typewriter className="workTitle"
+          <Typewriter
+            className="workTitle"
             onInit={(typewriter) => {
-                typewriter.typeString('Hello!')
-                    .pauseFor(1000)
-                    .deleteAll()
-                typewriter.typeString('welcome to spaceXchange')
-                    .pauseFor(2000)
-                    .start()
+              typewriter.typeString("Hello!").pauseFor(1000).deleteAll();
+              typewriter
+                .typeString("welcome to spaceXchange")
+                .pauseFor(2000)
+                .start();
             }}
-        />
+          />
         </h1>
         <form onSubmit={onLogin}>
           <div>
@@ -71,6 +71,7 @@ const LoginForm = () => {
               placeholder="Email"
               value={email}
               onChange={updateEmail}
+              className={styles.inputBox}
             />
           </div>
           <div>
@@ -81,6 +82,7 @@ const LoginForm = () => {
               placeholder="Password"
               value={password}
               onChange={updatePassword}
+              className={styles.inputBox}
             />
             <div className={styles.loginButtons}>
               <button type="submit">Login</button>

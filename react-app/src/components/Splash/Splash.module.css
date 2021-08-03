@@ -13,6 +13,7 @@
   /* background-color: rgb(230, 229, 227); */
   background-color: rgb(25, 25, 25);
   height: 750px;
+  margin-bottom: 5%;
 }
 
 .mainContentDivider {
@@ -80,5 +81,5 @@ a:visited {
 }
 
 .secondaryContent {
-  height: 700px;
+  margin-top: 3%;
 }

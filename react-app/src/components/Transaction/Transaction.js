@@ -37,6 +37,7 @@ export default function Transaction({
   const [orderType, setOrderType] = useState("");
   const [prices, setPrices] = useState({});
   const [currPrice, setCurrPrice] = useState(0);
+  const [confirm, setConfirm] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -183,6 +184,10 @@ export default function Transaction({
       ? setCurrPrice(F4(prices[planetName.toLowerCase()]?.price * amount))
       : setCurrPrice(F(prices[planetName.toLowerCase()]?.price * amount));
   }, [amount, setAmount, prices, setPrices]);
+
+	useEffect(() => {
+
+	})
 
   // on initial load
   useEffect(() => {
