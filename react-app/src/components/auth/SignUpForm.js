@@ -19,6 +19,10 @@ const SignUpForm = () => {
     e.preventDefault();
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
+      if (data.errors) {
+        const emailError = data.errors[0].slice(8, -1);
+        setErrors([emailError]);
+      }
     } else {
       setErrors(["Passwords must match"]);
     }
@@ -68,7 +72,7 @@ const SignUpForm = () => {
             ))}
           </div>
         ) : null}
-        <form onSubmit={onSignUp}>
+        <form className={styles.formSign} onSubmit={onSignUp}>
           <div>
             <label>User Name</label>
             <input
@@ -109,7 +113,10 @@ const SignUpForm = () => {
               required={true}
               className={styles.inputBox}
             ></input>
-            <div> {match ? "" : "Passwords do not match"}</div>
+            <div className={styles.passMatch}>
+              {" "}
+              {match ? "" : "Passwords do not match"}
+            </div>
           </div>
           <div className={styles.signupButtons}>
             <button type="submit">Sign Up</button>

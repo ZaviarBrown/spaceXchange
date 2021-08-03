@@ -25,7 +25,7 @@
 
 .signupFormContainer {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   width: 25%;
 }
@@ -98,4 +98,20 @@
 
 .inputBox:focus {
   outline: none;
+}
+
+.errorDiv {
+  border-bottom: solid 1px red;
+  padding: 2%;
+  font-style: italic;
+}
+
+.passMatch {
+  color: rgb(255, 0, 0);
+  display: flex;
+  justify-content: center;
+}
+
+.formSign {
+  margin: 5%;
 }
