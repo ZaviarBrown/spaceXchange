@@ -66,8 +66,8 @@ const SignUpForm = () => {
         </div>
         {errors.length > 0 ? (
           <div className={styles.errorDiv}>
-            {errors.map((error) => (
-              <div>{error}</div>
+            {errors.map((error, i) => (
+              <div key={i}>{error}</div>
             ))}
           </div>
         ) : null}
@@ -122,7 +122,7 @@ const SignUpForm = () => {
           </div>
           <div className={styles.accountAlready}>
             <NavLink to="/login">
-              <p>Already have an account? Click here to login!</p>
+              <h4>Already have an account? Click here to login!</h4>
             </NavLink>
           </div>
         </form>

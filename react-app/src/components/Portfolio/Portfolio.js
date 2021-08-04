@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import ChartForPortfolio from "../Chart/ChartForPortfolio";
@@ -19,7 +19,7 @@ export default function Portfolio() {
   const ownedAssetsObject = useSelector((state) => state.assets);
   const ownedAssets = useSelector((state) => Object.values(state.assets));
 
-  const [accountValue, setAccountValue] = useState("Fetching...");
+  const [accountValue, setAccountValue] = useState("");
   const { historyCtxt, setHistoryCtxt } = useHistory();
   const { articlesCtxt, setArticlesCtxt } = useArticles();
   const { pricesCtxt, setPricesCtxt } = usePrices();
@@ -37,11 +37,11 @@ export default function Portfolio() {
   const getPrices = async () => {
     const data = await fetch("/api/raspberry/");
     const result = await data.json();
+    console.log("***********", result);
     setPricesCtxt(result);
-    setLoaded(true);
   };
 
-  const getHistory = async () => {
+  const getHistory = useCallback(async () => {
     let startData = [
       { name: "9 days ago", value: 481230.58 },
       { name: "8 days ago", value: 491898.26 },
@@ -56,6 +56,10 @@ export default function Portfolio() {
     if (!localStorage.getItem("history")) {
       await localStorage.setItem("history", JSON.stringify(startData));
       setHistoryCtxt(startData);
+      await setTimeout(() => {}, 2000);
+      // setLoaded(true);
+      // console.log(loaded);
+      // setLoaded(true);
     } else if (localStorage.getItem("history")) {
       let history = await JSON.parse(localStorage.getItem("history"));
 
@@ -66,11 +70,14 @@ export default function Portfolio() {
         history.push({ name: name, value: accountValue.toFixed(2) });
       loaded && localStorage.setItem("history", JSON.stringify(history));
       setHistoryCtxt(history);
+      // setTimeout(() => {}, 2000);
+      // setLoaded(true);
+      // console.log(loaded);
     }
-  };
+  }, [loaded]);
 
   const getAccountValue = async () => {
-    let accountValue = 0;
+    let otherAccountValue = 0;
     let ownedObject = {};
 
     ownedAssets &&
@@ -82,27 +89,38 @@ export default function Portfolio() {
 
     for (const key in pricesCtxt) {
       if (Object.keys(ownedObject).includes(key)) {
-        accountValue +=
+        otherAccountValue +=
           pricesCtxt[key].price * ownedAssetsObject[ownedObject[key]].shares;
       }
     }
 
-    setAccountValue(accountValue);
+    setAccountValue(otherAccountValue);
   };
+
+  useEffect(() => {
+    getPrices();
+  }, []);
 
   useEffect(() => {
     getArticles();
     dispatch(authenticate());
-    dispatch(getAllAssets());
     dispatch(getAllTransactions());
-    const interval = setInterval(getPrices, 2000);
+    dispatch(getAllAssets());
+    // const interval = setInterval(getPrices, 10000);
     // clearing interval on componentWillUnmount
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    getAccountValue().then(() => getHistory());
+    getAccountValue();
+    // .then(() => getHistory());
+    getHistory();
+    const timeout = setTimeout(() => setLoaded(true), 2000);
+    return () => clearTimeout(timeout);
   }, [pricesCtxt]);
+
+  console.log(loaded);
+  console.log(accountValue);
 
   return (
     <div className={styles.portfolio__container}>
@@ -118,7 +136,7 @@ export default function Portfolio() {
               <div className={styles.account__value}>{F(accountValue)}</div>
             )
           ) : (
-            0
+            <div className={styles.account__value}>{"$0"}</div>
           )}
         </div>
         <div className={styles.cash__balance}>

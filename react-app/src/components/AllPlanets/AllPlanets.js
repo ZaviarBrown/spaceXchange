@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import styles from './AllPlanets.module.css';
-import { getAllPlanets } from '../../store/planet';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import OnePlanet from '../OnePlanet/OnePlanet';
-import { usePurchased } from '../../context/PurchasedContext'
+import React, { useState, useEffect } from "react";
+import styles from "./AllPlanets.module.css";
+import { getAllPlanets } from "../../store/planet";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import OnePlanet from "../OnePlanet/OnePlanet";
+import { usePurchased } from "../../context/PurchasedContext";
 export default function AllPlanets() {
   const dispatch = useDispatch();
-  const { setPurchased } = usePurchased()
+  const { setPurchased } = usePurchased();
 
   const planets = useSelector((state) => Object.values(state.planet));
   const [prices, setPrices] = useState({});
@@ -20,9 +20,9 @@ export default function AllPlanets() {
 
   useEffect(() => {
     dispatch(getAllPlanets());
-    setPurchased([])
+    setPurchased([]);
     // setting interval
-    const interval = setInterval(getPrices, 2000)
+    const interval = setInterval(getPrices, 2000);
     // clearing interval on componentWillUnmount
     return () => clearInterval(interval);
   }, []);
@@ -37,7 +37,11 @@ export default function AllPlanets() {
           <div className={styles.planetBox}>
             {planets.map((planet) => (
               <NavLink to={`/planet/${planet.id}`}>
-                <OnePlanet planet={planet} prices={prices}></OnePlanet>
+                <OnePlanet
+                  planet={planet}
+                  prices={prices}
+                  key={planet.id}
+                ></OnePlanet>
               </NavLink>
             ))}
           </div>

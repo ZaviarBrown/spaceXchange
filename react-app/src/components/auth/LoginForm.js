@@ -65,8 +65,8 @@ const LoginForm = () => {
         </h1>
         {errors.length > 0 ? (
           <div className={styles.errorDiv}>
-            {errors.map((error) => (
-              <div>{error}</div>
+            {errors.map((error, i) => (
+              <div key={i}>{error}</div>
             ))}
           </div>
         ) : null}
@@ -98,7 +98,7 @@ const LoginForm = () => {
             </div>
             <div className={styles.accountAlready}>
               <NavLink to="/sign-up">
-                <p>Don't have an account? Click here to sign up!</p>
+                <h4>Don't have an account? Click here to sign up!</h4>
               </NavLink>
             </div>
           </div>

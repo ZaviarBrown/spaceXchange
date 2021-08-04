@@ -40,13 +40,13 @@ const ChartForPortfolio = ({ history }) => {
         <XAxis tick={{ fill: "lightblue", fontSize: 12 }} dataKey={"name"} />
         <YAxis
           tick={{ fill: "lightblue", fontSize: 12 }}
-          domain={["dataMin - 100000", "dataMax + 100000"]}
+          domain={["dataMin", "dataMax"]}
           tickCount={5}
           allowDataOverflow={false}
         />
         <Tooltip
           wrapperStyle={{
-            maxWidth: 250,
+            maxWidth: 500,
             backgroundColor: "#ccc",
             color: "black",
           }}

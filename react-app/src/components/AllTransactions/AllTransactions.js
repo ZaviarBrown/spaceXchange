@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AllTransactions.module.css";
 import { getAllTransactions } from "../../store/transactions";
-import { getAllPlanets } from "../../store/planet";
+import planet, { getAllPlanets } from "../../store/planet";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import OneTransaction from "../OneTransaction/OneTransaction";
@@ -29,7 +29,7 @@ export default function AllTransactions() {
           <div>
             {transactions.reverse().map((t) => (
               <NavLink to={`/planet/${t.planetId}`}>
-                <OneTransaction t={t} planets={planets} />
+                <OneTransaction t={t} planets={planets} key={t.planetId} />
               </NavLink>
             ))}
           </div>
