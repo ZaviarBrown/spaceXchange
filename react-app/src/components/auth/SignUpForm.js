@@ -20,8 +20,7 @@ const SignUpForm = () => {
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
       if (data.errors) {
-        const emailError = data.errors[0].slice(8, -1);
-        setErrors([emailError]);
+        setErrors(data.errors);
       }
     } else {
       setErrors(["Passwords must match"]);

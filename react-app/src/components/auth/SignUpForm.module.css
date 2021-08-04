@@ -101,9 +101,13 @@
 }
 
 .errorDiv {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
   border-bottom: solid 1px red;
   padding: 2%;
   font-style: italic;
+  font-weight: 900;
 }
 
 .passMatch {

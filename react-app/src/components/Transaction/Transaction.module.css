@@ -32,7 +32,7 @@
 
 .orderContainer {
   display: flex;
-  justify-content: left;
+  justify-content: space-between;
   border-bottom: 1px solid;
   border-color: rgb(187, 187, 187);
   width: 90%;
@@ -140,4 +140,19 @@ label {
 .availCash,
 .totalCost {
   display: flex;
+}
+
+.buySell {
+  color: green;
+  animation-name: fade;
+  animation-duration: 5s;
+}
+
+@keyframes fade {
+  from {
+    color: green;
+  }
+  to {
+    color: rgba(0, 0, 0, 0);
+  }
 }

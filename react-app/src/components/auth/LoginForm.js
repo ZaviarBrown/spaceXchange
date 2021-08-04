@@ -16,7 +16,13 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    const invalid = "email : Invalid email address.";
+    const exists = "email : No such user exists.";
     if (data.errors) {
+      if (data.errors.includes(exists && invalid)) {
+        const num = data.errors.indexOf(exists);
+        data.errors.splice(num, 1);
+      }
       setErrors(data.errors);
     }
   };
@@ -49,7 +55,7 @@ const LoginForm = () => {
           <Typewriter
             className="workTitle"
             onInit={(typewriter) => {
-              typewriter.typeString("Hello!").pauseFor(1000).deleteAll();
+              typewriter.typeString("hello!").pauseFor(1000).deleteAll();
               typewriter
                 .typeString("welcome to spaceXchange")
                 .pauseFor(2000)
@@ -57,12 +63,14 @@ const LoginForm = () => {
             }}
           />
         </h1>
-        <form onSubmit={onLogin}>
-          <div>
+        {errors.length > 0 ? (
+          <div className={styles.errorDiv}>
             {errors.map((error) => (
               <div>{error}</div>
             ))}
           </div>
+        ) : null}
+        <form onSubmit={onLogin}>
           <div>
             <label htmlFor="email">Email</label>
             <input
