@@ -1,6 +1,6 @@
 # spaceXchange
 
-_By [[Zaviar Brown](https://github.com/ZaviarBrown), [Ryan Dalton](https://github.com/DaltonR121), [Andrew Moss](https://github.com/aMoss5150), [John Sims](https://github.com/simzeee)_
+_By [Zaviar Brown](https://github.com/ZaviarBrown), [Ryan Dalton](https://github.com/DaltonR121), [Andrew Moss](https://github.com/aMoss5150), [John Sims](https://github.com/simzeee)_
 
 See ya space cowboy...on [spaceXchange](https://spacexchange.herokuapp.com/)
 

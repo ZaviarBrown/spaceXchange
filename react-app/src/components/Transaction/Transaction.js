@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   editOneAsset,
@@ -37,6 +37,16 @@ export default function Transaction({
   const [orderType, setOrderType] = useState("");
   const [prices, setPrices] = useState({});
   const [currPrice, setCurrPrice] = useState(0);
+  const [confirm, setConfirm] = useState(false);
+
+  const confirmationMsg = useCallback(() => {
+    setConfirm(true);
+    console.log("*************************", confirm);
+    // why doesn't this work properly????
+    setTimeout(() => {
+      setConfirm(false);
+    }, 4500);
+  }, [confirm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,6 +81,7 @@ export default function Transaction({
           );
           setAmount("");
           setOwnedCtxt("1");
+          confirmationMsg();
           return;
         } else if (amount > found.shares) {
           // X SELL more than OWNED X ----------
@@ -89,6 +100,7 @@ export default function Transaction({
           createATransaction(transPrice, +planetId, number * -1, orderType)
         );
         setAmount("");
+        confirmationMsg();
         return;
       } else if (orderType === "buy") {
         // BUY && FOUND ------------------------
@@ -107,6 +119,7 @@ export default function Transaction({
           );
           setPurchased({ planetId: planetId });
           setAmount("");
+          confirmationMsg();
           return;
         } else {
           // X NOT ENOUGH CASH X
@@ -143,6 +156,7 @@ export default function Transaction({
           );
           setPurchased({ planetId: planetId });
           setAmount("");
+          confirmationMsg();
           return;
         } else {
           alert("please resubmit your order, there was a problem");
@@ -184,6 +198,8 @@ export default function Transaction({
       : setCurrPrice(F(prices[planetName.toLowerCase()]?.price * amount));
   }, [amount, setAmount, prices, setPrices]);
 
+  useEffect(() => {});
+
   // on initial load
   useEffect(() => {
     dispatch(getAllAssets());
@@ -200,6 +216,13 @@ export default function Transaction({
       <div className={styles.transaction__container}>
         <div className={styles.orderContainer}>
           <div className={styles.order}>Buy {planetName}</div>
+          {confirm ? (
+            orderType === "buy" ? (
+              <div className={styles.buySell}>Bought Successfully</div>
+            ) : (
+              <div className={styles.buySell}>Sold Successfully</div>
+            )
+          ) : null}
         </div>
         <form
           className={styles.transactionForm}

@@ -19,6 +19,9 @@ const SignUpForm = () => {
     e.preventDefault();
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password));
+      if (data.errors) {
+        setErrors(data.errors);
+      }
     } else {
       setErrors(["Passwords must match"]);
     }
@@ -68,7 +71,7 @@ const SignUpForm = () => {
             ))}
           </div>
         ) : null}
-        <form onSubmit={onSignUp}>
+        <form className={styles.formSign} onSubmit={onSignUp}>
           <div>
             <label>User Name</label>
             <input
@@ -76,6 +79,7 @@ const SignUpForm = () => {
               name="username"
               onChange={updateUsername}
               value={username}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -85,6 +89,7 @@ const SignUpForm = () => {
               name="email"
               onChange={updateEmail}
               value={email}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -94,6 +99,7 @@ const SignUpForm = () => {
               name="password"
               onChange={updatePassword}
               value={password}
+              className={styles.inputBox}
             ></input>
           </div>
           <div>
@@ -104,15 +110,19 @@ const SignUpForm = () => {
               onChange={updateRepeatPassword}
               value={repeatPassword}
               required={true}
+              className={styles.inputBox}
             ></input>
-            <div> {match ? "" : "Passwords do not match"}</div>
+            <div className={styles.passMatch}>
+              {" "}
+              {match ? "" : "Passwords do not match"}
+            </div>
           </div>
           <div className={styles.signupButtons}>
             <button type="submit">Sign Up</button>
           </div>
           <div className={styles.accountAlready}>
             <NavLink to="/login">
-              <p>Already have an account? Please click here!</p>
+              <p>Already have an account? Click here to login!</p>
             </NavLink>
           </div>
         </form>

@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, NavLink } from "react-router-dom";
 import { login } from "../../store/session";
-import galaxySky from "../../assets/galaxySkyLeft.png"
-import Typewriter from 'typewriter-effect';
-import styles from './LoginForm.module.css';
+import galaxySky from "../../assets/galaxySkyLeft.png";
+import Typewriter from "typewriter-effect";
+import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user)
+  const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -16,7 +16,13 @@ const LoginForm = () => {
   const onLogin = async (e) => {
     e.preventDefault();
     const data = await dispatch(login(email, password));
+    const invalid = "email : Invalid email address.";
+    const exists = "email : No such user exists.";
     if (data.errors) {
+      if (data.errors.includes(exists && invalid)) {
+        const num = data.errors.indexOf(exists);
+        data.errors.splice(num, 1);
+      }
       setErrors(data.errors);
     }
   };
@@ -34,10 +40,10 @@ const LoginForm = () => {
   }
 
   const demoLogin = () => {
-    setEmail('demo@aa.io');
-    setPassword('password');
+    setEmail("demo@aa.io");
+    setPassword("StrongPass1225$!");
     login(email, password);
-  }
+  };
 
   return (
     <div className={styles.loginPageContainer}>
@@ -46,23 +52,25 @@ const LoginForm = () => {
       </div>
       <div className={styles.loginFormContainer}>
         <h1 id={styles.loginText}>
-        <Typewriter className="workTitle"
+          <Typewriter
+            className="workTitle"
             onInit={(typewriter) => {
-                typewriter.typeString('Hello!')
-                    .pauseFor(1000)
-                    .deleteAll()
-                typewriter.typeString('welcome to spaceXchange')
-                    .pauseFor(2000)
-                    .start()
+              typewriter.typeString("hello!").pauseFor(1000).deleteAll();
+              typewriter
+                .typeString("welcome to spaceXchange")
+                .pauseFor(2000)
+                .start();
             }}
-        />
+          />
         </h1>
-        <form onSubmit={onLogin}>
-          <div>
+        {errors.length > 0 ? (
+          <div className={styles.errorDiv}>
             {errors.map((error) => (
               <div>{error}</div>
             ))}
           </div>
+        ) : null}
+        <form onSubmit={onLogin}>
           <div>
             <label htmlFor="email">Email</label>
             <input
@@ -71,6 +79,7 @@ const LoginForm = () => {
               placeholder="Email"
               value={email}
               onChange={updateEmail}
+              className={styles.inputBox}
             />
           </div>
           <div>
@@ -81,10 +90,16 @@ const LoginForm = () => {
               placeholder="Password"
               value={password}
               onChange={updatePassword}
+              className={styles.inputBox}
             />
             <div className={styles.loginButtons}>
               <button type="submit">Login</button>
               <button onClick={demoLogin}>Demo</button>
+            </div>
+            <div className={styles.accountAlready}>
+              <NavLink to="/sign-up">
+                <p>Don't have an account? Click here to sign up!</p>
+              </NavLink>
             </div>
           </div>
         </form>
