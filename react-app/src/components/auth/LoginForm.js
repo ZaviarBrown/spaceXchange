@@ -41,7 +41,7 @@ const LoginForm = () => {
 
   const demoLogin = () => {
     setEmail("demo@aa.io");
-    setPassword("password");
+    setPassword("StrongPass1225$!");
     login(email, password);
   };
 
