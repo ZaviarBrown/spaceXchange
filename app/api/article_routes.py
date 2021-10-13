@@ -9,7 +9,7 @@ article_routes = Blueprint("article", __name__)
 @article_routes.route("/")
 def article():
     url = "https://www.benzinga.com"
-    site = requests.get("https://www.benzinga.com/news")
+    site = requests.get("https://www.benzinga.com/news", headers={"User-Agent": "Mozilla/5.0"})
     soup = BeautifulSoup(site.content, "html5lib")
     news = soup.find_all("div", class_="listing-long-image")
     news2 = soup.find_all("div", class_="listing-long-content")
